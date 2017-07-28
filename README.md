@@ -9,6 +9,7 @@
 * 网络安全
 * 网络层和业务层如何对接
 * 对接用delegate还是block
+* 快速切换依赖第三方HTTP库
 
 ## Request
 * 每个请求都叫Request,一个Request可以包含多个功能
