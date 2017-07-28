@@ -11,11 +11,13 @@
 * 对接用delegate还是block
 * 快速切换依赖第三方HTTP库
 
-## Request
-* 每个请求都叫Request,一个Request可以包含多个功能
+## APIRequest
+* 每个请求都叫Request
 * URL
 * Parameter
+* HTTP METHOD
 
-## Service
+## APIService
 * 对应一个或者多个Request
-* 处理从Request来的数据
+* 返回Request来的数据
+* 获取接口参数
