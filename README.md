@@ -9,3 +9,12 @@
 * 网络安全
 * 网络层和业务层如何对接
 * 对接用delegate还是block
+
+## Request
+* 每个请求都叫Request,一个Request可以包含多个功能
+* URL
+* Parameter
+
+## Service
+* 对应一个或者多个Request
+* 处理从Request来的数据
