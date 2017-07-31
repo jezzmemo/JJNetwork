@@ -21,3 +21,7 @@
 * 对应一个或者多个Request
 * 返回Request来的数据
 * 获取接口参数
+
+## ThirdParty
+* 定义HTTP接口
+* 实现由你想用的网络库来执行
