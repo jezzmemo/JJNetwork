@@ -21,6 +21,19 @@
 
 * 快速切换依赖第三方HTTP库
 
+先定义一个HTTP的接口:
+```objc
+@protocol HTTPProtocol <NSObject>
+
+- (void)postMethod:(NSURL*)url parameter:(NSDictionary*)parameter target:(id)target selector:(SEL)selector;
+
+- (void)getMethod:(NSURL*)url parameter:(NSDictionary*)parameter target:(id)target selector:(SEL)selector;
+
+@end
+```
+
+接下来就是如果你用AFNetworking来实现就用AFNetworing来实现，如果用其他的第三方库就用其他的，这个根据你们你们的情况来选，如果需要切换，只需要实现这个接口，然后换下你的实现类就行了，如果需要切换回来再换回来就行.
+
 ## APIRequest
 * 每个请求都叫Request
 * URL
