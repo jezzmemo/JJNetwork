@@ -12,6 +12,8 @@
 
 ![architecture](https://raw.githubusercontent.com/jezzmemo/JJNetwork/master/architecture.png)
 
+所以在网络通信只是属于架构中，获取数据其中的方式之一，但是当网络层获取到数据的时候，我们不需要做任何加工，在架构中的有Business专门来做业务逻辑，所以网络获取到的数据不管是XML,JSON，还是Binary的，我都原封不动的转给Business层，这样各自的职责很明确，唯一的缺点就是数据加工完后给ViewController，需要另外的传递，胶水代码有点多，不过为了职责分明和方便维护，这点缺点还是可以接受的.
+
 * 对接用Delegate还是Block
 
 > 关于这个选择，我主要参考Casa的意见，他主要给出了三点:
