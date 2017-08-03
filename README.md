@@ -45,3 +45,44 @@ DemoAPIService.m
 }
 @end
 ```
+
+3.最后调用者调用Service,如:
+```objc
+@interface DemoViewController ()<APIServiceProtocol>
+
+@property(nonatomic,readwrite,strong)DemoAPIService* apiService;
+
+@end
+
+@implementation DemoViewController
+
+- (void)viewDidLoad {
+	[super viewDidLoad];
+	
+	[self.apiService startRequest];
+}
+
+
+- (DemoAPIService*)apiService{
+	if (_apiService != nil) {
+		return _apiService;
+	}
+	_apiService = [[DemoAPIService alloc] init];
+	_apiService.serviceProtocol = self;
+	return _apiService;
+}
+
+- (void)responseSuccess:(APIService *)service responseData:(id)data{
+	
+}
+
+- (void)responseFail:(APIService *)service errorMessage:(NSError *)error{
+	
+}
+
+- (NSDictionary*)requestParameters{
+	return nil;
+}
+@end
+```
+
