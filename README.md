@@ -6,6 +6,7 @@ iOS封装的网络通信层
 ## 如何使用
 
 1.新建一个Request文件，继承与APIRequest，实现RequestProtocol接口，如:
+
 DemoRequest.h
 ```objc
 @interface DemoRequest : APIRequest<RequestProtocol>
@@ -28,6 +29,7 @@ DemoRequest.m
 ```
 
 2.新建一个Service继承与APIService,如：
+
 DemoAPIService.h
 ```objc
 @interface DemoAPIService : APIService
