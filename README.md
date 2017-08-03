@@ -25,9 +25,26 @@
 ```objc
 @protocol HTTPProtocol <NSObject>
 
-- (void)postMethod:(NSURL*)url parameter:(NSDictionary*)parameter target:(id)target selector:(SEL)selector;
+/**
+ Http Post method
 
-- (void)getMethod:(NSURL*)url parameter:(NSDictionary*)parameter target:(id)target selector:(SEL)selector;
+ @param url http url
+ @param parameter http parameters
+ @param target callback target
+ @param selector callback method name
+ */
+- (void)httpPost:(NSURL*)url
+	   parameter:(NSDictionary*)parameter
+		  target:(id)target
+		selector:(SEL)selector;
+
+/**
+ Http Get method
+ */
+- (void)httpGet:(NSURL*)url
+	  parameter:(NSDictionary*)parameter
+		 target:(id)target
+	   selector:(SEL)selector;
 
 @end
 ```
