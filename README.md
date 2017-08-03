@@ -4,10 +4,14 @@
 * 开发人员根据规则即可访问网络
 * 没有特殊需求，不需要设置访问的参数
 * 简单，易用，扩展性强
-* 网络层只管获取数据，不给数据做业务逻辑
 * 网络优化（发送前，发送中，发送后）
 * 网络安全
 * 网络层和业务层如何对接
+
+在开始这个话题之前，首先我们的app定义的架构图:
+
+![architecture](https://raw.githubusercontent.com/jezzmemo/JJNetwork/master/architecture.png)
+
 * 对接用Delegate还是Block
 
 > 关于这个选择，我主要参考Casa的意见，他主要给出了三点:
