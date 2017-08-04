@@ -13,6 +13,10 @@ target 'TargetName' do
 pod 'JJNetwork'
 end
 ```
+run the following command:
+```
+$ pod install
+```
 ## Usage
 
 1.Create Request file，extends from APIRequest class，Implement RequestProtocol，For example:
