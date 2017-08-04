@@ -28,7 +28,7 @@ before_install:
   #- brew update
 script:
   - set -o pipefail
-  - xcodebuild -workspace JJNetwork.xcworkspace -scheme JJNetwork -sdk iphonesimulator build test
+  - xcodebuild -workspace JJNetwork.xcworkspace -scheme JJNetwork -sdk iphonesimulator
   #- xcodebuild -workspace JJNetwork.xcworkspace -scheme JJNetwork -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO -destination 'platform=iOS Simulator,name=iPad' | xcpretty -c
 after_success:
   #- if [ "$FASTLANE_LANE" == "code_coverage" ]; then
