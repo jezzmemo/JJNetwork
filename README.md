@@ -2,7 +2,9 @@
 [![Platform](https://img.shields.io/cocoapods/p/JJNetwork.svg?style=flat)](http://cocoadocs.org/docsets/JJNetwork)
 
 
-## CocoaPods
+## Installation
+
+__Podfile__
 ```
 source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '8.0'
@@ -11,9 +13,9 @@ target 'TargetName' do
 pod 'JJNetwork'
 end
 ```
-## 如何使用
+## Usage
 
-1.新建一个Request文件，继承与APIRequest，实现RequestProtocol接口，如:
+1.Create Request file，extends from APIRequest class，Implement RequestProtocol，For example:
 
 DemoRequest.h
 ```objc
@@ -36,7 +38,7 @@ DemoRequest.m
 @end
 ```
 
-2.新建一个Service继承与APIService,如：
+2.Create Service extends from APIService,for example：
 
 DemoAPIService.h
 ```objc
@@ -56,7 +58,7 @@ DemoAPIService.m
 @end
 ```
 
-3.最后调用者调用Service,如:
+3.Finaly,Invoke the DemoAPIService,for example:
 ```objc
 @interface DemoViewController ()<APIServiceProtocol>
 
@@ -96,3 +98,5 @@ DemoAPIService.m
 @end
 ```
 
+## License
+JJNetwork is released under the MIT license. See LICENSE for details.
