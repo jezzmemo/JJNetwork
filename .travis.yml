@@ -25,7 +25,7 @@ before_install:
   - rvm install ruby-2.2.2
   - gem install cocoapods
   - gem install xcpretty -N
-  - brew update
+  #- brew update
 script:
   - set -o pipefail
   - xcodebuild -workspace JJNetwork.xcworkspace -scheme JJNetwork -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO | xcpretty -c
