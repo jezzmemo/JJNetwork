@@ -1,5 +1,5 @@
 # JJNetwork
-iOS封装的网络通信层
+
 
 ## CocoaPods
 ```
