@@ -1,7 +1,9 @@
 # JJNetwork
 iOS封装的网络通信层
 
-## 如何安装
+## CocoaPods
+
+pod 'JJNetwork'
 
 ## 如何使用
 
