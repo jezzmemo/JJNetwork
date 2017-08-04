@@ -1,4 +1,4 @@
-# JJNetwork
+[![CocoaPods Compatible](https://img.shields.io/cocoapods/v/JJNetwork.svg)](https://img.shields.io/cocoapods/v/JJNetwork.svg)
 
 
 ## CocoaPods
