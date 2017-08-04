@@ -2,9 +2,14 @@
 iOS封装的网络通信层
 
 ## CocoaPods
+```
+source 'https://github.com/CocoaPods/Specs.git'
+platform :ios, '8.0'
 
+target 'TargetName' do
 pod 'JJNetwork'
-
+end
+```
 ## 如何使用
 
 1.新建一个Request文件，继承与APIRequest，实现RequestProtocol接口，如:
