@@ -4,6 +4,11 @@
 [![Pod License](http://img.shields.io/cocoapods/l/JJNetwork.svg?style=flat)](https://www.apache.org/licenses/LICENSE-2.0.html)
 
 
+## Requirements
+
+- iOS 8.0 or later
+- Xcode 7.3 or later
+
 ## Installation
 
 __Podfile__
