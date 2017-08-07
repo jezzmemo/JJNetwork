@@ -21,7 +21,7 @@ $ pod install
 ```
 ## Usage
 
-1.Create Request file，extends from APIRequest class，Implement RequestProtocol，For example:
+1.Create Request file，extends from `APIRequest` class，Implement `RequestProtocol`，For example:
 
 DemoRequest.h
 ```objc
@@ -44,7 +44,7 @@ DemoRequest.m
 @end
 ```
 
-2.Create Service extends from APIService,for example：
+2.Create Service extends from `APIService`,for example：
 
 DemoAPIService.h
 ```objc
