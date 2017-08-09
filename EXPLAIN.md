@@ -7,8 +7,8 @@
 * 网络安全
 
     1.敏感内容一定要加密
-    
-    2.HTTPS
+    这里就举个常见的例子，在登录的时候，密码在很多app都以明文的形式在发送，这样在黑客的WIFI或者在一些被控住的中间节点，会导致用户
+    2.HTTPS
     
     3.内容签名
     
@@ -65,15 +65,14 @@
 接下来就是如果你用AFNetworking来实现就用AFNetworing来实现，如果用其他的第三方库就用其他的，这个根据你们你们的情况来选，如果需要切换，只需要实现这个接口，然后换下你的实现类就行了，如果需要切换回来再换回来就行.
 
 ## APIRequest
-* 每个请求都叫Request
 * URL
-* Parameter
 * HTTP METHOD
 
 ## APIService
 * 对应一个Request
 * 返回Request来的数据
 * 获取接口参数
+* Parameter
 
 ## ThirdParty
 * 定义HTTP接口
