@@ -33,6 +33,8 @@
 	return _apiService;
 }
 
+#pragma mark - Network response
+
 - (void)responseSuccess:(APIService *)service responseData:(id)data{
 	
 }
@@ -41,8 +43,11 @@
 	
 }
 
+#pragma mark - Config request parameter
+
 - (NSDictionary*)requestParameters{
-	return nil;
+    NSDictionary* para = @{@"key":@"value"};
+	return para;
 }
 
 - (void)didReceiveMemoryWarning {

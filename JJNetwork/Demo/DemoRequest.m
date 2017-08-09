@@ -11,7 +11,7 @@
 @implementation DemoRequest
 
 - (NSString*)requestURL{
-	return @"http://ask.dev.mojoymusic.com/api/user/login_with_wx";
+	return @"https://www.google.com";
 }
 
 - (HTTPMethod)requestMethod{

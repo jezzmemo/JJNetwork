@@ -11,15 +11,18 @@
 
 @implementation AFNetworkImpl
 
+- (AFURLSessionManager*)sessionManager{
+    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    AFURLSessionManager* manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    return manager;
+}
+
 
 - (void)httpPost:(NSURL*)url parameter:(NSDictionary*)parameter target:(id)target selector:(SEL)selector{
-	NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
-	AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
-	
 	NSURLRequest *request = [[AFHTTPRequestSerializer serializer] requestWithMethod:@"POST" URLString:url.absoluteString parameters:parameter error:nil];
 	
-	
-	NSURLSessionDataTask *dataTask = [manager dataTaskWithRequest:request completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+	NSURLSessionDataTask *dataTask = [[self sessionManager] dataTaskWithRequest:request completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
 		if (error) {
 			NSLog(@"Post Error: %@", error);
 			[self performSelectorOnMainThread:selector withTarget:target withObject:error];
@@ -33,18 +36,15 @@
 
 - (void)httpGet:(NSURL*)url parameter:(NSDictionary*)parameter target:(id)target selector:(SEL)selector{
 	
-	NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
-	AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
-	
 	NSURLRequest *request = [[AFHTTPRequestSerializer serializer] requestWithMethod:@"GET" URLString:url.absoluteString parameters:parameter error:nil];
-
 	
-	NSURLSessionDataTask *dataTask = [manager dataTaskWithRequest:request completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+	NSURLSessionDataTask *dataTask = [[self sessionManager] dataTaskWithRequest:request completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
 		if (error) {
 			NSLog(@"Get Error: %@", error);
 			[self performSelectorOnMainThread:selector withTarget:target withObject:error];
 		} else {
-			NSLog(@"Get %@ %@", response, responseObject);
+			NSLog(@"Get head:%@", response);
+            NSLog(@"Get Content:%@", responseObject);
 			[self performSelectorOnMainThread:selector withTarget:target withObject:responseObject];
 		}
 	}];
