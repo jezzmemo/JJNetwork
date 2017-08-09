@@ -95,16 +95,20 @@ DemoAPIService.m
 	return _apiService;
 }
 
+#pragma mark - Network response
+
 - (void)responseSuccess:(APIService *)service responseData:(id)data{
 	
 }
-
 - (void)responseFail:(APIService *)service errorMessage:(NSError *)error{
 	
 }
 
+#pragma mark - Config request parameter
+
 - (NSDictionary*)requestParameters{
-	return nil;
+    NSDictionary* para = @{@"key":@"value"};
+	return para;
 }
 @end
 ```
