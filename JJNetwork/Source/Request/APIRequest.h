@@ -17,9 +17,17 @@ typedef NS_ENUM(NSUInteger,HTTPMethod){
 
 @protocol RequestProtocol <NSObject>
 
+@required
+
 - (NSString*)requestURL;
 
+@optional
+
 - (HTTPMethod)requestMethod;
+
+- (BOOL)isSignParameter;
+
+- (NSString*)signParameterKey;
 
 @end
 

@@ -25,11 +25,11 @@
 	
 	Class class = self.generateRequest;
 	if (!class) {
-		NSAssert(class, @"Request object must not be nil");
+		NSAssert(class == nil, @"Request object must not be nil");
 		return;
 	}
 	if (![class conformsToProtocol:@protocol(RequestProtocol)]) {
-		assert(@"Request must implement RequestProtocol");
+		NSAssert(![class conformsToProtocol:@protocol(RequestProtocol)],@"Request must implement RequestProtocol");
 		return;
 	}
 	APIRequest<RequestProtocol>* request = [[class alloc] init];
