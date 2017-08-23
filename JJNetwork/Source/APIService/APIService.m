@@ -9,6 +9,7 @@
 #import "APIService.h"
 #import "APIManager.h"
 #import "APIRequest.h"
+#import "NSString+MD5.h"
 
 @implementation APIService
 
@@ -33,10 +34,25 @@
 		return;
 	}
 	APIRequest<RequestProtocol>* request = [[class alloc] init];
+    
+    BOOL isSignParameter = NO;
+    
+    if ([request respondsToSelector:@selector(isSignParameter)]) {
+        isSignParameter = [request isSignParameter];
+    }
 	
 	NSDictionary* parameters = [self.serviceProtocol requestParameters];
 	NSString* url = [request requestURL];
-	HTTPMethod httpMethod = [request requestMethod];
+    
+    HTTPMethod httpMethod = GET;
+    if ([request respondsToSelector:@selector(requestMethod)]) {
+        httpMethod = [request requestMethod];
+    }
+    
+    //Sign the parameter to safety
+    if (isSignParameter) {
+        parameters = [self signParameterWithKey:parameters key:[request signParameterKey]];
+    }
 	
 	//Send http request
 	
@@ -59,6 +75,25 @@
 			[self.serviceProtocol responseSuccess:self responseData:response];
 		}
 	}
+}
+
+- (NSDictionary*)signParameterWithKey:(NSDictionary *)para key:(NSString*)key{
+    NSMutableDictionary* dic = [NSMutableDictionary dictionaryWithDictionary:para];
+    
+    NSMutableString* mString = [NSMutableString string];
+    for (NSString* key in para) {
+        NSString* value = para[key];
+        [mString appendString:value];
+    }
+    
+    //MD5 the all value and contact the timeStamp,
+    //The sign will change every seconds
+    
+    [mString appendFormat:@"%d",(int)[[NSDate date] timeIntervalSince1970]];
+    NSString* sign = [[NSString stringWithFormat:@"%@%@",mString,key] md5];
+    
+    dic[@"sign"] = sign;
+    return dic;
 }
 
 @end

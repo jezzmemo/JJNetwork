@@ -35,6 +35,11 @@
 }
 
 - (void)httpGet:(NSURL*)url parameter:(NSDictionary*)parameter target:(id)target selector:(SEL)selector{
+    
+    //Show log
+    NSLog(@"Send request parameter >>>>>>>>>>>>>>>>>> START");
+    NSLog(@"%@",parameter);
+    NSLog(@">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> END");
 	
 	NSURLRequest *request = [[AFHTTPRequestSerializer serializer] requestWithMethod:@"GET" URLString:url.absoluteString parameters:parameter error:nil];
 	
@@ -43,8 +48,12 @@
 			NSLog(@"Get Error: %@", error);
 			[self performSelectorOnMainThread:selector withTarget:target withObject:error];
 		} else {
-			NSLog(@"Get head:%@", response);
-            NSLog(@"Get Content:%@", responseObject);
+            NSString* string = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+            if (string) {
+                NSLog(@"Response <<<<<<<<<<<<<<<<<<<<<<<<<<<< START");
+                NSLog(@"%@",string);
+                NSLog(@"<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< END");
+            }
 			[self performSelectorOnMainThread:selector withTarget:target withObject:responseObject];
 		}
 	}];

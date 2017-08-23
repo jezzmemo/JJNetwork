@@ -23,8 +23,21 @@ typedef NS_ENUM(NSUInteger,HTTPMethod){
 
 @optional
 
+
+/**
+ * Default request method is GET
+ 
+ * @return HTTPMethod
+ */
 - (HTTPMethod)requestMethod;
 
+
+/**
+ * Sign the parameter with key
+ * Default value is NO
+
+ @return YES or NO
+ */
 - (BOOL)isSignParameter;
 
 - (NSString*)signParameterKey;

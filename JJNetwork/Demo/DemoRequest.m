@@ -18,4 +18,12 @@
 	return GET;
 }
 
+- (BOOL)isSignParameter{
+    return YES;
+}
+
+- (NSString*)signParameterKey{
+    return @"123456";
+}
+
 @end

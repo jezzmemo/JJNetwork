@@ -20,6 +20,7 @@
 		6199ADCA1F2E2618004573E3 /* AFNetworkImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 6199ADC91F2E2618004573E3 /* AFNetworkImpl.m */; };
 		6199ADD41F2E27E9004573E3 /* APIRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6199ADD31F2E27E9004573E3 /* APIRequest.m */; };
 		6199ADD71F2E2874004573E3 /* APIService.m in Sources */ = {isa = PBXBuildFile; fileRef = 6199ADD61F2E2874004573E3 /* APIService.m */; };
+		61E270F71F4DCEAB00834D0E /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = 61E270F61F4DCEAB00834D0E /* NSString+MD5.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,6 +48,8 @@
 		6199ADD31F2E27E9004573E3 /* APIRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APIRequest.m; sourceTree = "<group>"; };
 		6199ADD51F2E2874004573E3 /* APIService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIService.h; sourceTree = "<group>"; };
 		6199ADD61F2E2874004573E3 /* APIService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APIService.m; sourceTree = "<group>"; };
+		61E270F51F4DCEAB00834D0E /* NSString+MD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MD5.h"; sourceTree = "<group>"; };
+		61E270F61F4DCEAB00834D0E /* NSString+MD5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MD5.m"; sourceTree = "<group>"; };
 		6900DC2B70A949A892CE33C9 /* Pods-JJNetwork.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JJNetwork.release.xcconfig"; path = "Pods/Target Support Files/Pods-JJNetwork/Pods-JJNetwork.release.xcconfig"; sourceTree = "<group>"; };
 		7221CB53D12F96CAC74AFE14 /* Pods_JJNetwork.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_JJNetwork.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7DE2946F419FD83108BAE7BA /* Pods-JJNetwork.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JJNetwork.debug.xcconfig"; path = "Pods/Target Support Files/Pods-JJNetwork/Pods-JJNetwork.debug.xcconfig"; sourceTree = "<group>"; };
@@ -130,6 +133,7 @@
 		6199ADC21F2E188E004573E3 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				61E270F41F4DCE8A00834D0E /* Category */,
 				6199ADC61F2E24E0004573E3 /* ThirdParty */,
 				6199ADC31F2E193C004573E3 /* APIService */,
 				6199ADC41F2E193C004573E3 /* Request */,
@@ -166,6 +170,15 @@
 				6199ADC91F2E2618004573E3 /* AFNetworkImpl.m */,
 			);
 			path = ThirdParty;
+			sourceTree = "<group>";
+		};
+		61E270F41F4DCE8A00834D0E /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				61E270F51F4DCEAB00834D0E /* NSString+MD5.h */,
+				61E270F61F4DCEAB00834D0E /* NSString+MD5.m */,
+			);
+			path = Category;
 			sourceTree = "<group>";
 		};
 		8D156259B0E3915316E8179B /* Pods */ = {
@@ -308,6 +321,7 @@
 			files = (
 				6199ADD71F2E2874004573E3 /* APIService.m in Sources */,
 				616405801F2E159300CA819D /* DemoViewController.m in Sources */,
+				61E270F71F4DCEAB00834D0E /* NSString+MD5.m in Sources */,
 				61237DC01F30798400889CD1 /* APIManager.m in Sources */,
 				6199ADCA1F2E2618004573E3 /* AFNetworkImpl.m in Sources */,
 				61237DBA1F2F316E00889CD1 /* DemoAPIService.m in Sources */,
