@@ -21,6 +21,7 @@
 		6199ADD41F2E27E9004573E3 /* APIRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6199ADD31F2E27E9004573E3 /* APIRequest.m */; };
 		6199ADD71F2E2874004573E3 /* APIService.m in Sources */ = {isa = PBXBuildFile; fileRef = 6199ADD61F2E2874004573E3 /* APIService.m */; };
 		61E270F71F4DCEAB00834D0E /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = 61E270F61F4DCEAB00834D0E /* NSString+MD5.m */; };
+		61E271061F52A5BA00834D0E /* PresentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 61E271051F52A5BA00834D0E /* PresentViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +51,8 @@
 		6199ADD61F2E2874004573E3 /* APIService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APIService.m; sourceTree = "<group>"; };
 		61E270F51F4DCEAB00834D0E /* NSString+MD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MD5.h"; sourceTree = "<group>"; };
 		61E270F61F4DCEAB00834D0E /* NSString+MD5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MD5.m"; sourceTree = "<group>"; };
+		61E271041F52A5BA00834D0E /* PresentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PresentViewController.h; sourceTree = "<group>"; };
+		61E271051F52A5BA00834D0E /* PresentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PresentViewController.m; sourceTree = "<group>"; };
 		6900DC2B70A949A892CE33C9 /* Pods-JJNetwork.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JJNetwork.release.xcconfig"; path = "Pods/Target Support Files/Pods-JJNetwork/Pods-JJNetwork.release.xcconfig"; sourceTree = "<group>"; };
 		7221CB53D12F96CAC74AFE14 /* Pods_JJNetwork.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_JJNetwork.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7DE2946F419FD83108BAE7BA /* Pods-JJNetwork.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JJNetwork.debug.xcconfig"; path = "Pods/Target Support Files/Pods-JJNetwork/Pods-JJNetwork.debug.xcconfig"; sourceTree = "<group>"; };
@@ -113,6 +116,8 @@
 				6164057C1F2E159300CA819D /* AppDelegate.m */,
 				6164057E1F2E159300CA819D /* DemoViewController.h */,
 				6164057F1F2E159300CA819D /* DemoViewController.m */,
+				61E271041F52A5BA00834D0E /* PresentViewController.h */,
+				61E271051F52A5BA00834D0E /* PresentViewController.m */,
 				616405811F2E159300CA819D /* Main.storyboard */,
 				616405841F2E159300CA819D /* Assets.xcassets */,
 				616405861F2E159300CA819D /* LaunchScreen.storyboard */,
@@ -319,6 +324,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				61E271061F52A5BA00834D0E /* PresentViewController.m in Sources */,
 				6199ADD71F2E2874004573E3 /* APIService.m in Sources */,
 				616405801F2E159300CA819D /* DemoViewController.m in Sources */,
 				61E270F71F4DCEAB00834D0E /* NSString+MD5.m in Sources */,

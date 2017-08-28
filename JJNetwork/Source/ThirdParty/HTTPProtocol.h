@@ -21,7 +21,7 @@
  @param target callback target
  @param selector callback method name
  */
-- (void)httpPost:(NSURL*)url
+- (NSURLSessionTask*)httpPost:(NSURL*)url
 	   parameter:(NSDictionary*)parameter
 		  target:(id)target
 		selector:(SEL)selector;
@@ -29,7 +29,7 @@
 /**
  Http Get method
  */
-- (void)httpGet:(NSURL*)url
+- (NSURLSessionTask*)httpGet:(NSURL*)url
 	  parameter:(NSDictionary*)parameter
 		 target:(id)target
 	   selector:(SEL)selector;

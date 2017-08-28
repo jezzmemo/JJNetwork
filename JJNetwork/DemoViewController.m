@@ -8,6 +8,7 @@
 
 #import "DemoViewController.h"
 #import "DemoAPIService.h"
+#import "PresentViewController.h"
 
 @interface DemoViewController ()<APIServiceProtocol>
 
@@ -21,6 +22,18 @@
 	[super viewDidLoad];
 	
 	[self.apiService startRequest];
+    
+    UIButton* button = [UIButton buttonWithType:UIButtonTypeSystem];
+    [button setTitle:@"Present View Controller" forState:UIControlStateNormal];
+    button.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 30);
+    [button addTarget:self action:@selector(presentViewController) forControlEvents:UIControlEventTouchUpInside];
+    button.center = self.view.center;
+    [self.view addSubview:button];
+}
+
+- (void)presentViewController{
+    PresentViewController* present = [[PresentViewController alloc] init];
+    [self presentViewController:present animated:YES completion:nil];
 }
 
 

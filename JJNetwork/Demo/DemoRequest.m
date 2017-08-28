@@ -11,7 +11,7 @@
 @implementation DemoRequest
 
 - (NSString*)requestURL{
-	return @"https://www.google.com";
+	return @"https://www.baidu.com";
 }
 
 - (HTTPMethod)requestMethod{

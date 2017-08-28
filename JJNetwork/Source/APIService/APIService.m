@@ -11,10 +11,18 @@
 #import "APIRequest.h"
 #import "NSString+MD5.h"
 
+@interface APIService ()
+
+@property(nonatomic,readwrite,strong)NSURLSessionTask* taskRequest;
+
+@end
+
 @implementation APIService
 
 - (void)dealloc{
-	
+    if (self.taskRequest != nil) {
+        [self.taskRequest cancel];
+    }
 }
 
 - (Class)generateRequest{
@@ -41,7 +49,10 @@
         isSignParameter = [request isSignParameter];
     }
 	
-	NSDictionary* parameters = [self.serviceProtocol requestParameters];
+    NSDictionary* parameters = nil;
+    if ([self.serviceProtocol respondsToSelector:@selector(requestParameters)]) {
+        parameters = [self.serviceProtocol requestParameters];
+    }
 	NSString* url = [request requestURL];
     
     HTTPMethod httpMethod = GET;
@@ -50,16 +61,16 @@
     }
     
     //Sign the parameter to safety
-    if (isSignParameter) {
+    if (isSignParameter && parameters) {
         parameters = [self signParameterWithKey:parameters key:[request signParameterKey]];
     }
 	
 	//Send http request
 	
 	if (httpMethod == GET){
-		[[APIManager shareAPIManaer] httpGet:[NSURL URLWithString:url] parameter:parameters target:self selector:@selector(networkResponse:)];
+		self.taskRequest = [[APIManager shareAPIManaer] httpGet:[NSURL URLWithString:url] parameter:parameters target:self selector:@selector(networkResponse:)];
 	}else if(httpMethod == POST){
-		[[APIManager shareAPIManaer] httpPost:[NSURL URLWithString:url] parameter:parameters target:self selector:@selector(networkResponse:)];
+		self.taskRequest = [[APIManager shareAPIManaer] httpPost:[NSURL URLWithString:url] parameter:parameters target:self selector:@selector(networkResponse:)];
 	}
 }
 

@@ -19,46 +19,47 @@
 }
 
 
-- (void)httpPost:(NSURL*)url parameter:(NSDictionary*)parameter target:(id)target selector:(SEL)selector{
-	NSURLRequest *request = [[AFHTTPRequestSerializer serializer] requestWithMethod:@"POST" URLString:url.absoluteString parameters:parameter error:nil];
-	
-	NSURLSessionDataTask *dataTask = [[self sessionManager] dataTaskWithRequest:request completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
-		if (error) {
-			NSLog(@"Post Error: %@", error);
-			[self performSelectorOnMainThread:selector withTarget:target withObject:error];
-		} else {
-			NSLog(@"Post %@ %@", response, responseObject);
-			[self performSelectorOnMainThread:selector withTarget:target withObject:responseObject];
-		}
-	}];
-	[dataTask resume];
+- (NSURLSessionTask*)httpPost:(NSURL*)url parameter:(NSDictionary*)parameter target:(id)target selector:(SEL)selector{
+	return [self sendHttpRequestWithURL:url parameter:parameter httpMethod:@"POST" target:target selector:selector];
 }
 
-- (void)httpGet:(NSURL*)url parameter:(NSDictionary*)parameter target:(id)target selector:(SEL)selector{
-    
+- (NSURLSessionTask*)httpGet:(NSURL*)url parameter:(NSDictionary*)parameter target:(id)target selector:(SEL)selector{
+    return [self sendHttpRequestWithURL:url parameter:parameter httpMethod:@"GET" target:target selector:selector];
+}
+
+- (NSURLSessionTask*)sendHttpRequestWithURL:(NSURL*)url parameter:(NSDictionary*)parameter httpMethod:(NSString*)method target:(id)target selector:(SEL)selector{
     //Show log
-    NSLog(@"Send request parameter >>>>>>>>>>>>>>>>>> START");
-    NSLog(@"%@",parameter);
-    NSLog(@">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> END");
-	
-	NSURLRequest *request = [[AFHTTPRequestSerializer serializer] requestWithMethod:@"GET" URLString:url.absoluteString parameters:parameter error:nil];
-	
-	NSURLSessionDataTask *dataTask = [[self sessionManager] dataTaskWithRequest:request completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
-		if (error) {
-			NSLog(@"Get Error: %@", error);
-			[self performSelectorOnMainThread:selector withTarget:target withObject:error];
-		} else {
+    NSLog(@"Send request >>>>>>>>>>>>>>>>>> START");
+    NSLog(@"Request url:%@",[url absoluteString]);
+    NSLog(@"Request parameter:%@",parameter);
+    NSLog(@"Send request >>>>>>>>>>>>>>>>>> END");
+    
+    NSURLRequest *request = [[AFHTTPRequestSerializer serializer] requestWithMethod:method URLString:url.absoluteString parameters:parameter error:nil];
+    
+    __weak typeof(self) _self = self;
+    __weak typeof(target) _target = target;
+    NSURLSessionDataTask *dataTask = [[self sessionManager] dataTaskWithRequest:request completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+        
+        if (error) {
+            NSLog(@"Get Error: %@", error);
+            [_self performSelectorOnMainThread:selector withTarget:_target withObject:error];
+        } else {
             NSString* string = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
             if (string) {
                 NSLog(@"Response <<<<<<<<<<<<<<<<<<<<<<<<<<<< START");
-                NSLog(@"%@",string);
-                NSLog(@"<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< END");
+                NSLog(@"Response from url:%@",[[response URL] absoluteString]);
+                NSLog(@"Response content:%@",string);
+                NSLog(@"Response <<<<<<<<<<<<<<<<<<<<<<<<<<<< END");
+            }else{
+                NSLog(@"Response string nil");
             }
-			[self performSelectorOnMainThread:selector withTarget:target withObject:responseObject];
-		}
-	}];
-	[dataTask resume];
-
+            [_self performSelectorOnMainThread:selector withTarget:_target withObject:responseObject];
+        }
+    }];
+    [dataTask resume];
+    
+    return dataTask;
+    
 }
 
 - (void) performSelectorOnMainThread:(SEL)selector withTarget:(id)target withObject:(id)arg1{

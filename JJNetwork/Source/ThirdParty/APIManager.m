@@ -35,12 +35,16 @@
 	return self;
 }
 
-- (void)httpPost:(NSURL*)url parameter:(NSDictionary*)parameter target:(id)target selector:(SEL)selector{
-	[self.networkImpl httpPost:url parameter:parameter target:target selector:selector];
+- (NSURLSessionTask*)httpPost:(NSURL*)url parameter:(NSDictionary*)parameter target:(id)target selector:(SEL)selector{
+	return [self.networkImpl httpPost:url parameter:parameter target:target selector:selector];
 }
 
-- (void)httpGet:(NSURL*)url parameter:(NSDictionary*)parameter target:(id)target selector:(SEL)selector{
-	[self.networkImpl httpGet:url parameter:parameter target:target selector:selector];
+- (NSURLSessionTask*)httpGet:(NSURL*)url parameter:(NSDictionary*)parameter target:(id)target selector:(SEL)selector{
+	return [self.networkImpl httpGet:url parameter:parameter target:target selector:selector];
+}
+
+- (void)cancelRequestWithURL:(NSURL*)url{
+    
 }
 
 @end
