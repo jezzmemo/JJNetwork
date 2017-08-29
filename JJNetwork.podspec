@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "JJNetwork"
-  s.version      = "0.0.2"
+  s.version      = "0.0.3"
   s.summary      = "JJNetwork."
 
   # This description is used to generate tags and improve search results.
@@ -91,7 +91,7 @@ Pod::Spec.new do |s|
   #  Not including the public_header_files will make all headers public.
   #
 
-  s.source_files  = "JJNetwork/Source/**/*.*"
+  s.source_files  = "JJNetwork/Source/**/*.{h,m}"
   # s.exclude_files = "Classes/Exclude"
 
   # s.public_header_files = "Classes/**/*.h"
