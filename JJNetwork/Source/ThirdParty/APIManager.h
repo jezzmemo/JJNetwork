@@ -11,6 +11,14 @@
 
 @interface APIManager : NSObject<HTTPProtocol>
 
+
+
+/**
+ Send API Request Manager
+ Proxy pattern
+ 
+ @return APIManager
+ */
 + (APIManager*)shareAPIManaer;
 
 @end

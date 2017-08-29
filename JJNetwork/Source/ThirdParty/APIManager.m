@@ -30,21 +30,37 @@
 - (instancetype)init{
 	self = [super init];
 	if (self) {
+        //Real network implement
 		self.networkImpl = [[AFNetworkImpl alloc] init];
 	}
 	return self;
 }
 
+
+/**
+ Post interface
+ 
+ @param url Requset http url
+ @param parameter Request parameter key->value
+ @param target Which target
+ @param selector Target's method name
+ @return NSURLSessionTask track the request object
+ */
 - (NSURLSessionTask*)httpPost:(NSURL*)url parameter:(NSDictionary*)parameter target:(id)target selector:(SEL)selector{
 	return [self.networkImpl httpPost:url parameter:parameter target:target selector:selector];
 }
 
+/**
+ Get interface
+ 
+ @param url Requset http url
+ @param parameter Request parameter key->value
+ @param target Which target
+ @param selector Target's method name
+ @return NSURLSessionTask track the request object
+ */
 - (NSURLSessionTask*)httpGet:(NSURL*)url parameter:(NSDictionary*)parameter target:(id)target selector:(SEL)selector{
 	return [self.networkImpl httpGet:url parameter:parameter target:target selector:selector];
-}
-
-- (void)cancelRequestWithURL:(NSURL*)url{
-    
 }
 
 @end

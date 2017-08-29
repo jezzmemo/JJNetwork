@@ -9,6 +9,10 @@
 #import <Foundation/Foundation.h>
 #import "HTTPProtocol.h"
 
+
+/**
+ AFNetworking implement the http post and get request
+ */
 @interface AFNetworkImpl : NSObject<HTTPProtocol>
 
 @end

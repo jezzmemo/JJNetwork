@@ -14,21 +14,28 @@
 @protocol HTTPProtocol <NSObject>
 
 /**
- Http Post method
+ Http Post method interface
 
  @param url http url
  @param parameter http parameters
  @param target callback target
  @param selector callback method name
  */
+
 - (NSURLSessionTask*)httpPost:(NSURL*)url
 	   parameter:(NSDictionary*)parameter
 		  target:(id)target
 		selector:(SEL)selector;
 
 /**
- Http Get method
+ Http Get method interface
+ 
+ @param url http url
+ @param parameter http parameters
+ @param target callback target
+ @param selector callback method name
  */
+
 - (NSURLSessionTask*)httpGet:(NSURL*)url
 	  parameter:(NSDictionary*)parameter
 		 target:(id)target

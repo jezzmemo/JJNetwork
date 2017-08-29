@@ -40,6 +40,13 @@ typedef NS_ENUM(NSUInteger,HTTPMethod){
  */
 - (BOOL)isSignParameter;
 
+
+/**
+ If isSignParameter return YES
+ will sign the http parameter
+
+ @return Sign the parameter with parameterKey
+ */
 - (NSString*)signParameterKey;
 
 @end
