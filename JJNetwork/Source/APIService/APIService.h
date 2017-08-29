@@ -36,6 +36,13 @@
  */
 @protocol APIServiceConfigProtocol <NSObject>
 
+@required
+
+/**
+ Service send http request  by the APIRequest object
+
+ @return This class is must extends from the APIRequest,otherwise service can't send http request
+ */
 - (Class)generateRequest;
 
 @end

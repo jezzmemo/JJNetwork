@@ -15,7 +15,6 @@
 
 /**
  Send API Request Manager
- Proxy pattern
  
  @return APIManager
  */

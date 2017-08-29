@@ -53,6 +53,11 @@
     if ([self.serviceProtocol respondsToSelector:@selector(requestParameters)]) {
         parameters = [self.serviceProtocol requestParameters];
     }
+    if (![request respondsToSelector:@selector(requestURL)]) {
+        NSAssert([request respondsToSelector:@selector(requestURL)],@"Request must implement requestURL selector");
+        return;
+    }
+
 	NSString* url = [request requestURL];
     
     HTTPMethod httpMethod = GET;
