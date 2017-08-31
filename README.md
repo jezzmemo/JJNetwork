@@ -3,6 +3,9 @@
 [![Build Status](https://travis-ci.org/jezzmemo/JJNetwork.svg?branch=master)](https://travis-ci.org/jezzmemo/JJNetwork.svg?branch=master)
 [![Pod License](http://img.shields.io/cocoapods/l/JJNetwork.svg?style=flat)](https://www.apache.org/licenses/LICENSE-2.0.html)
 
+## Features
+
+- [x] Sign the http parameter by your customer key
 
 ## Requirements
 
@@ -39,11 +42,7 @@ DemoRequest.m
 @implementation DemoRequest
 
 - (NSString*)requestURL{
-	return @"http://ask.dev.mojoymusic.com/api/user/login_with_wx";
-}
-
-- (HTTPMethod)requestMethod{
-	return GET;
+	return @"https://www.google.com";
 }
 
 @end
@@ -55,6 +54,8 @@ DemoAPIService.h
 ```objc
 @interface DemoAPIService : APIService
 
+- (void)userDetailInfo:(NSInteger)uid;
+
 @end
 ```
 
@@ -63,9 +64,18 @@ DemoAPIService.m
 @implementation DemoAPIService
 
 
-- (Class)generateRequest{
-	return [DemoRequest class];
+- (void)userDetailInfo:(NSInteger)uid{
+    //wrapper the parameter
+    NSDictionary* parameter = @{@"userid":[NSString stringWithFormat:@"%d",uid]};
+    
+    //generate request,set the parameter
+    DemoRequest* request = [[DemoRequest alloc] init];
+    [request setParameter:parameter];
+    
+    //send request
+    [self startRequest:request];
 }
+
 @end
 ```
 
@@ -82,7 +92,7 @@ DemoAPIService.m
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	
-	[self.apiService startRequest];
+    [self.apiService userDetailInfo:100];
 }
 
 
@@ -104,12 +114,6 @@ DemoAPIService.m
 	
 }
 
-#pragma mark - Config request parameter
-
-- (NSDictionary*)requestParameters{
-    NSDictionary* para = @{@"key":@"value"};
-    return para;
-}
 @end
 ```
 

@@ -11,7 +11,7 @@
 @implementation DemoRequest
 
 - (NSString*)requestURL{
-	return @"https://www.baidu.com";
+	return @"http://i1.haidii.com/v/1415586041/i1/images/dict_search_logo.png";
 }
 
 - (HTTPMethod)requestMethod{

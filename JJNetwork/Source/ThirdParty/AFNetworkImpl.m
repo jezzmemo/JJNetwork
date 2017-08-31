@@ -87,7 +87,7 @@
                 NSLog(@"Response content:%@",string);
                 NSLog(@"Response <<<<<<<<<<<<<<<<<<<<<<<<<<<< END");
             }else{
-                NSLog(@"Response string nil");
+                NSLog(@"Response binary");
             }
             [_self performSelectorOnMainThread:selector withTarget:_target withObject:responseObject];
         }
