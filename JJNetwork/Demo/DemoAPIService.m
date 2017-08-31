@@ -12,8 +12,16 @@
 @implementation DemoAPIService
 
 
-- (Class)generateRequest{
-	return [DemoRequest class];
+- (void)userDetailInfo:(NSInteger)uid{
+    //wrapper the parameter
+    NSDictionary* parameter = @{@"userid":[NSString stringWithFormat:@"%d",uid]};
+    
+    //generate request,set the parameter
+    DemoRequest* request = [[DemoRequest alloc] init];
+    [request setParameter:parameter];
+    
+    //send request
+    [self startRequest:request];
 }
 
 @end

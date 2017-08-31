@@ -10,9 +10,8 @@
 #import "DemoAPIService.h"
 #import "PresentViewController.h"
 
-@interface DemoViewController ()<APIServiceProtocol>
+@interface DemoViewController ()
 
-@property(nonatomic,readwrite,strong)DemoAPIService* apiService;
 
 @end
 
@@ -20,8 +19,6 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	
-	[self.apiService startRequest];
     
     UIButton* button = [UIButton buttonWithType:UIButtonTypeSystem];
     [button setTitle:@"Present View Controller" forState:UIControlStateNormal];
@@ -35,38 +32,5 @@
     PresentViewController* present = [[PresentViewController alloc] init];
     [self presentViewController:present animated:YES completion:nil];
 }
-
-
-- (DemoAPIService*)apiService{
-	if (_apiService != nil) {
-		return _apiService;
-	}
-	_apiService = [[DemoAPIService alloc] init];
-	_apiService.serviceProtocol = self;
-	return _apiService;
-}
-
-#pragma mark - Network response
-
-- (void)responseSuccess:(APIService *)service responseData:(id)data{
-	
-}
-
-- (void)responseFail:(APIService *)service errorMessage:(NSError *)error{
-	
-}
-
-#pragma mark - Config request parameter
-
-- (NSDictionary*)requestParameters{
-    NSDictionary* para = @{@"key":@"value"};
-	return para;
-}
-
-- (void)didReceiveMemoryWarning {
-	[super didReceiveMemoryWarning];
-	// Dispose of any resources that can be recreated.
-}
-
 
 @end

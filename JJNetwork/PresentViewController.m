@@ -13,6 +13,7 @@
 
 @property(nonatomic,readwrite,strong)DemoAPIService* apiService;
 
+
 @end
 
 @implementation PresentViewController
@@ -29,7 +30,7 @@
     button.center = self.view.center;
     [self.view addSubview:button];
     
-    [self.apiService startRequest];
+    [self.apiService userDetailInfo:100];
     
 }
 
@@ -54,13 +55,6 @@
 
 - (void)responseFail:(APIService *)service errorMessage:(NSError *)error{
     
-}
-
-#pragma mark - Request parameter
-
-- (NSDictionary*)requestParameters{
-    NSDictionary* para = @{@"key":@"value"};
-    return para;
 }
 
 @end

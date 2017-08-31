@@ -25,40 +25,30 @@
     }
 }
 
-- (Class)generateRequest{
-	return nil;
-}
-
-- (void)startRequest{
-	
-	
-	Class class = self.generateRequest;
-	if (!class) {
-		NSAssert(class != nil, @"Request object must not be nil");
-		return;
-	}
-	if (![class conformsToProtocol:@protocol(RequestProtocol)]) {
-		NSAssert([class conformsToProtocol:@protocol(RequestProtocol)],@"Request must implement RequestProtocol");
-		return;
-	}
-	APIRequest<RequestProtocol>* request = [[class alloc] init];
+- (void)startRequest:(APIRequest<RequestProtocol>*)request{
+    if (!request) {
+        NSAssert(request != nil, @"Request object must not be nil");
+        return;
+    }
+    if (![request conformsToProtocol:@protocol(RequestProtocol)]) {
+        NSAssert([request conformsToProtocol:@protocol(RequestProtocol)],@"Request must implement RequestProtocol");
+        return;
+    }
     
     BOOL isSignParameter = NO;
     
     if ([request respondsToSelector:@selector(isSignParameter)]) {
         isSignParameter = [request isSignParameter];
     }
-	
-    NSDictionary* parameters = nil;
-    if ([self.serviceProtocol respondsToSelector:@selector(requestParameters)]) {
-        parameters = [self.serviceProtocol requestParameters];
-    }
+    
+    NSDictionary* parameters = request.parameter;
+    
     if (![request respondsToSelector:@selector(requestURL)]) {
         NSAssert([request respondsToSelector:@selector(requestURL)],@"Request must implement requestURL selector");
         return;
     }
-
-	NSString* url = [request requestURL];
+    
+    NSString* url = [request requestURL];
     
     HTTPMethod httpMethod = GET;
     if ([request respondsToSelector:@selector(requestMethod)]) {
@@ -69,14 +59,15 @@
     if (isSignParameter && parameters) {
         parameters = [self signParameterWithKey:parameters key:[request signParameterKey]];
     }
-	
-	//Send http request
-	
-	if (httpMethod == GET){
-		self.taskRequest = [[APIManager shareAPIManaer] httpGet:[NSURL URLWithString:url] parameter:parameters target:self selector:@selector(networkResponse:)];
-	}else if(httpMethod == POST){
-		self.taskRequest = [[APIManager shareAPIManaer] httpPost:[NSURL URLWithString:url] parameter:parameters target:self selector:@selector(networkResponse:)];
-	}
+    
+    //Send http request
+    
+    if (httpMethod == GET){
+        self.taskRequest = [[APIManager shareAPIManaer] httpGet:[NSURL URLWithString:url] parameter:parameters target:self selector:@selector(networkResponse:)];
+    }else if(httpMethod == POST){
+        self.taskRequest = [[APIManager shareAPIManaer] httpPost:[NSURL URLWithString:url] parameter:parameters target:self selector:@selector(networkResponse:)];
+    }
+
 }
 
 - (void)networkResponse:(id)response{

@@ -11,4 +11,7 @@
 @interface DemoAPIService : APIService
 
 
+- (void)userDetailInfo:(NSInteger)uid;
+
+
 @end

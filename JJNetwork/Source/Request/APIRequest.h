@@ -22,8 +22,8 @@ typedef NS_ENUM(NSUInteger,HTTPMethod){
 
 /**
  requestURL required,if not implement  will can't complete request
-
- @return NString
+ 
+ @return NSString
  */
 - (NSString*)requestURL;
 
@@ -58,5 +58,11 @@ typedef NS_ENUM(NSUInteger,HTTPMethod){
 @end
 
 @interface APIRequest : NSObject
+
+
+/**
+ Http request parameter,Option
+ */
+@property(nonatomic,readwrite,copy)NSDictionary* parameter;
 
 @end

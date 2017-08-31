@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "APIRequest.h"
 
 @class APIService;
 
@@ -21,29 +22,23 @@
 
 @optional
 
-- (NSDictionary*)requestParameters;
 
+/**
+ Response Success delegate
+
+ @param service Which APIService instance
+ @param data JSON/Html/XML/Binary response is origin data
+ */
 - (void)responseSuccess:(APIService*)service responseData:(id)data;
 
+
+/**
+ Response failed delegate
+
+ @param service Which APIService instance
+ @param error NSError object
+ */
 - (void)responseFail:(APIService*)service errorMessage:(NSError*)error;
-
-@end
-
-
-/**
- Service implement interface get the request object
- Default is nil
- */
-@protocol APIServiceConfigProtocol <NSObject>
-
-@required
-
-/**
- Service send http request  by the APIRequest object
-
- @return This class is must extends from the APIRequest,otherwise service can't send http request
- */
-- (Class)generateRequest;
 
 @end
 
@@ -51,14 +46,16 @@
 /**
  Every API must extends from APIService!!!
  */
-@interface APIService : NSObject<APIServiceConfigProtocol>
+@interface APIService : NSObject
 
 @property(nonatomic,readwrite,weak)id<APIServiceProtocol> serviceProtocol;
 
 
 /**
- Developer must invoke this method,will start the request
+ Send http request key method
+
+ @param request Must pass the APIRequest<RequestProtocol> point object
  */
-- (void)startRequest;
+- (void)startRequest:(APIRequest<RequestProtocol>*)request;
 
 @end
