@@ -10,4 +10,12 @@
 
 @implementation APIFileCache
 
+- (BOOL)saveCacheWithData:(NSData*)data withKey:(NSString*)key{
+    return NO;
+}
+
+- (id)cacheByKey:(NSString*)key{
+    return nil;
+}
+
 @end

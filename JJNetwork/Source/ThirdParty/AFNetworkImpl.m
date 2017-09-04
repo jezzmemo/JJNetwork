@@ -11,6 +11,14 @@
 
 @implementation AFNetworkImpl
 
+- (instancetype)init{
+    self = [super init];
+    if (self) {
+        
+    }
+    return self;
+}
+
 
 /**
  Get AFNetworking AFURLSessionManager object
@@ -21,6 +29,7 @@
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
     AFURLSessionManager* manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+
     return manager;
 }
 
@@ -69,12 +78,14 @@
     NSLog(@"Request url:%@",[url absoluteString]);
     NSLog(@"Request parameter:%@",parameter);
     NSLog(@"Send request >>>>>>>>>>>>>>>>>> END");
+//    NSMutableURLRequest
+    NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] requestWithMethod:method URLString:url.absoluteString parameters:parameter error:nil];
     
-    NSURLRequest *request = [[AFHTTPRequestSerializer serializer] requestWithMethod:method URLString:url.absoluteString parameters:parameter error:nil];
+    AFURLSessionManager* sessionManager = [self sessionManager];
     
     __weak typeof(self) _self = self;
     __weak typeof(target) _target = target;
-    NSURLSessionDataTask *dataTask = [[self sessionManager] dataTaskWithRequest:request completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+    NSURLSessionDataTask *dataTask = [sessionManager dataTaskWithRequest:request completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
         
         if (error) {
             NSLog(@"Get Error: %@", error);

@@ -7,7 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "APICache.h"
 
-@interface APIFileCache : NSObject
+@interface APIFileCache : NSObject<APICache>
 
 @end

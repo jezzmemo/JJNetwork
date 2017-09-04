@@ -10,4 +10,16 @@
 
 @protocol APICache <NSObject>
 
+@required
+
+- (BOOL)saveCacheWithData:(NSData*)data withKey:(NSString*)key;
+
+- (id)cacheByKey:(NSString*)key;
+
+@optional
+
+- (BOOL)removeCacheByKey:(NSString*)key;
+
+- (void)clearCache;
+
 @end

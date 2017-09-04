@@ -17,6 +17,7 @@
 		616405831F2E159300CA819D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 616405811F2E159300CA819D /* Main.storyboard */; };
 		616405851F2E159300CA819D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 616405841F2E159300CA819D /* Assets.xcassets */; };
 		616405881F2E159300CA819D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 616405861F2E159300CA819D /* LaunchScreen.storyboard */; };
+		6199911B1F5C570A003AAED6 /* APIFileCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 6199911A1F5C570A003AAED6 /* APIFileCache.m */; };
 		6199ADCA1F2E2618004573E3 /* AFNetworkImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 6199ADC91F2E2618004573E3 /* AFNetworkImpl.m */; };
 		6199ADD41F2E27E9004573E3 /* APIRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6199ADD31F2E27E9004573E3 /* APIRequest.m */; };
 		6199ADD71F2E2874004573E3 /* APIService.m in Sources */ = {isa = PBXBuildFile; fileRef = 6199ADD61F2E2874004573E3 /* APIService.m */; };
@@ -41,6 +42,9 @@
 		616405841F2E159300CA819D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		616405871F2E159300CA819D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		616405891F2E159400CA819D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		619991181F5C5555003AAED6 /* APICache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APICache.h; sourceTree = "<group>"; };
+		619991191F5C570A003AAED6 /* APIFileCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIFileCache.h; sourceTree = "<group>"; };
+		6199911A1F5C570A003AAED6 /* APIFileCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APIFileCache.m; sourceTree = "<group>"; };
 		6199ADC51F2E19AD004573E3 /* JJNetwork.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JJNetwork.h; sourceTree = "<group>"; };
 		6199ADC71F2E2519004573E3 /* HTTPProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HTTPProtocol.h; sourceTree = "<group>"; };
 		6199ADC81F2E2618004573E3 /* AFNetworkImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworkImpl.h; sourceTree = "<group>"; };
@@ -135,9 +139,20 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		619991171F5C54D6003AAED6 /* Cache */ = {
+			isa = PBXGroup;
+			children = (
+				619991181F5C5555003AAED6 /* APICache.h */,
+				619991191F5C570A003AAED6 /* APIFileCache.h */,
+				6199911A1F5C570A003AAED6 /* APIFileCache.m */,
+			);
+			path = Cache;
+			sourceTree = "<group>";
+		};
 		6199ADC21F2E188E004573E3 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				619991171F5C54D6003AAED6 /* Cache */,
 				61E270F41F4DCE8A00834D0E /* Category */,
 				6199ADC61F2E24E0004573E3 /* ThirdParty */,
 				6199ADC31F2E193C004573E3 /* APIService */,
@@ -331,6 +346,7 @@
 				61237DC01F30798400889CD1 /* APIManager.m in Sources */,
 				6199ADCA1F2E2618004573E3 /* AFNetworkImpl.m in Sources */,
 				61237DBA1F2F316E00889CD1 /* DemoAPIService.m in Sources */,
+				6199911B1F5C570A003AAED6 /* APIFileCache.m in Sources */,
 				61237DB71F2F315700889CD1 /* DemoRequest.m in Sources */,
 				6164057D1F2E159300CA819D /* AppDelegate.m in Sources */,
 				6199ADD41F2E27E9004573E3 /* APIRequest.m in Sources */,
