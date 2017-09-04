@@ -3,7 +3,18 @@
 
 ## 开发人员根据规则即可访问网络
 ## 简单，易用，扩展性强
-## 网络优化（发送前，发送中，发送后）
+## 网络性能优化
+先看一张Chrome的Timing的流程图，清楚的表述了HTTP的整个流程的关键节点:
+![Http timing](https://developers.google.com/web/tools/chrome-devtools/network-performance/imgs/resource-timing-api.png)
+
+在我们这个特定场景下，我们只讨论HTTP的网络优化，先看看HTTP整个发送和接受的过程:
+* iOS内部准备
+* 如果有Cache，走Cache策略
+* DNS
+* TCP握手
+* Request
+* Response
+
 ## 网络安全
 
  * 敏感内容一定要加密
@@ -77,12 +88,12 @@
 ## APIRequest
 * URL
 * HTTP METHOD
+* Parameter
 
 ## APIService
 * 对应一个Request
 * 返回Request来的数据
 * 获取接口参数
-* Parameter
 
 ## ThirdParty
 * 定义HTTP接口
