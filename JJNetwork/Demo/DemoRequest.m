@@ -11,7 +11,7 @@
 @implementation DemoRequest
 
 - (NSString*)requestURL{
-	return @"http://i1.haidii.com/v/1415586041/i1/images/dict_search_logo.png";
+	return @"http://api.imemo8.com/diary.php?mod=getHotDiary";
 }
 
 - (HTTPMethod)requestMethod{
@@ -19,11 +19,11 @@
 }
 
 - (BOOL)isSignParameter{
-    return YES;
+    return NO;
 }
 
 - (NSString*)signParameterKey{
-    return @"123456";
+    return @"key";
 }
 
 @end

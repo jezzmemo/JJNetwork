@@ -5,10 +5,17 @@
 ## 简单，易用，扩展性强
 ## 网络性能优化
 先看一张Chrome的Timing的流程图，清楚的表述了HTTP的整个流程的关键节点:
-![Http timing](https://developers.google.com/web/tools/chrome-devtools/network-performance/imgs/resource-timing-api.png)
+![Chrome Timing](https://developers.google.com/web/tools/chrome-devtools/network-performance/imgs/resource-timing-api.png)
 
-在我们这个特定场景下，我们只讨论HTTP的网络优化，先看看HTTP整个发送和接受的过程:
+在我们这个特定场景下，我们只讨论HTTP的网络优化，先看看HTTP整个过程:
 * iOS内部准备
+
+这个阶段就是对应图上的Redirect阶段，是指内部API调用，还没开始正式的Request,这部分的优化空间比较小，都是由NSURLSessionTask来启动的，根据自己的情况可以调节优先级，默认配置:
+```objc
+self.operationQueue = [[NSOperationQueue alloc] init];
+self.operationQueue.maxConcurrentOperationCount = 1;
+self.session = [NSURLSession sessionWithConfiguration:self.sessionConfiguration delegate:self delegateQueue:self.operationQueue];
+```
 * 如果有Cache，走Cache策略
 * DNS
 * TCP握手

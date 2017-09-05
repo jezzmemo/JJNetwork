@@ -12,13 +12,13 @@
 
 @required
 
-- (BOOL)saveCacheWithData:(NSData*)data withKey:(NSString*)key;
+- (BOOL)saveCacheWithData:(id)data withKey:(NSString*)key;
 
-- (id)cacheByKey:(NSString*)key;
+- (id)cacheWithKey:(NSString*)key;
 
 @optional
 
-- (BOOL)removeCacheByKey:(NSString*)key;
+- (BOOL)removeCacheWithKey:(NSString*)key;
 
 - (void)clearCache;
 

@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "APIRequest.h"
+#import "APIFileCache.h"
 
 @class APIService;
 
