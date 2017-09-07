@@ -53,6 +53,7 @@
 		6199ADD31F2E27E9004573E3 /* APIRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APIRequest.m; sourceTree = "<group>"; };
 		6199ADD51F2E2874004573E3 /* APIService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIService.h; sourceTree = "<group>"; };
 		6199ADD61F2E2874004573E3 /* APIService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APIService.m; sourceTree = "<group>"; };
+		619FB57D1F603D2800030792 /* APIServiceDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIServiceDelegate.h; sourceTree = "<group>"; };
 		61E270F51F4DCEAB00834D0E /* NSString+MD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MD5.h"; sourceTree = "<group>"; };
 		61E270F61F4DCEAB00834D0E /* NSString+MD5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MD5.m"; sourceTree = "<group>"; };
 		61E271041F52A5BA00834D0E /* PresentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PresentViewController.h; sourceTree = "<group>"; };
@@ -167,6 +168,7 @@
 			children = (
 				6199ADD51F2E2874004573E3 /* APIService.h */,
 				6199ADD61F2E2874004573E3 /* APIService.m */,
+				619FB57D1F603D2800030792 /* APIServiceDelegate.h */,
 			);
 			path = APIService;
 			sourceTree = "<group>";

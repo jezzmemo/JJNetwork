@@ -8,6 +8,16 @@
 
 #import <Foundation/Foundation.h>
 
+@class APIRequest;
+
 @protocol APIServiceDelegate <NSObject>
+
+/**
+ Send http request key method
+ 
+ @param request Must pass the APIRequest<RequestProtocol> point object
+ */
+
+- (void)startRequest:(APIRequest<RequestProtocol>*)request;
 
 @end

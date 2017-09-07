@@ -6,6 +6,7 @@
 ## Features
 
 - [x] Sign the http parameter by your customer key
+- [x] Customer cache for the GET and POST
 
 ## Requirements
 

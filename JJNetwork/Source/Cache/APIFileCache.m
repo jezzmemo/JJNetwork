@@ -25,9 +25,15 @@
     if (![[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
         return nil;
     }
-    NSData* data = [NSData dataWithContentsOfURL:[NSURL fileURLWithPath:filePath]];
-    if (data != nil) {
-        return data;
+    //String
+    NSString* stringData = [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
+    if (stringData) {
+        return stringData;
+    }
+    //Binary
+    NSData* binaryData = [NSData dataWithContentsOfFile:filePath];
+    if (binaryData) {
+        return binaryData;
     }
     return nil;
 }

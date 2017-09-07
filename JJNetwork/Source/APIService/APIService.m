@@ -17,11 +17,14 @@
 
 @property(nonatomic,readwrite,strong)id<APICache> apiCache;
 
-@property(nonatomic,readwrite,copy)NSString* joinURL;
+@property(nonatomic,readwrite,copy)NSString* joinURLKey;
 
 @end
 
 @implementation APIService
+
+
+#pragma mark - Init/Dealloc
 
 - (instancetype)init{
     self = [super init];
@@ -37,15 +40,19 @@
     }
 }
 
+#pragma mark - Request
+
 - (void)startRequest:(APIRequest<RequestProtocol>*)request{
-    if (!request) {
-        NSAssert(request != nil, @"Request object must not be nil");
+    
+    BOOL valid = [self checkRequestValidity:request];
+    
+    if (!valid) {
         return;
     }
-    if (![request conformsToProtocol:@protocol(RequestProtocol)]) {
-        NSAssert([request conformsToProtocol:@protocol(RequestProtocol)],@"Request must implement RequestProtocol");
-        return;
-    }
+   
+    //Get request info
+    
+    NSString* url = [request requestURL];
     
     BOOL isSignParameter = NO;
     
@@ -55,13 +62,6 @@
     
     NSDictionary* parameters = request.parameter;
     
-    if (![request respondsToSelector:@selector(requestURL)]) {
-        NSAssert([request respondsToSelector:@selector(requestURL)],@"Request must implement requestURL selector");
-        return;
-    }
-    
-    NSString* url = [request requestURL];
-    
     HTTPMethod httpMethod = GET;
     if ([request respondsToSelector:@selector(requestMethod)]) {
         httpMethod = [request requestMethod];
@@ -69,8 +69,9 @@
     
     //Handle cache
     
-    self.joinURL = [self joinURL:url withParameter:parameters];
-    id data = [self.apiCache cacheWithKey:self.joinURL];
+    self.joinURLKey = [self joinURL:url withParameter:parameters];
+    
+    id data = [self.apiCache cacheWithKey:self.joinURLKey];
     
     if (data != nil) {
         NSLog(@"Cache response delegate");
@@ -81,6 +82,7 @@
     }
     
     //Sign the parameter to safety
+    
     if (isSignParameter && parameters) {
         parameters = [self signParameterWithKey:parameters key:[request signParameterKey]];
     }
@@ -95,6 +97,27 @@
 
 }
 
+- (BOOL)checkRequestValidity:(APIRequest<RequestProtocol>*)request{
+    if (!request) {
+        NSAssert(request != nil, @"Request object must not be nil");
+        return NO;
+    }
+    if (![request conformsToProtocol:@protocol(RequestProtocol)]) {
+        NSAssert([request conformsToProtocol:@protocol(RequestProtocol)],@"Request must implement RequestProtocol");
+        return NO;
+    }
+    
+    if (![request respondsToSelector:@selector(requestURL)]) {
+        NSAssert([request respondsToSelector:@selector(requestURL)],@"Request must implement requestURL selector");
+        return NO;
+    }
+    
+    //TODO:invalid the url
+    return YES;
+}
+
+#pragma mark - Response
+
 - (void)networkResponse:(id)response{
 	if ([response isKindOfClass:[NSError class]]) {
 		//Handle Error
@@ -102,8 +125,8 @@
 			[self.serviceProtocol responseFail:self errorMessage:response];
 		}
 	}else{
-        //Refresh cache cotent
-        [self.apiCache saveCacheWithData:response withKey:self.joinURL];
+        //Save override the cache data
+        [self.apiCache saveCacheWithData:response withKey:self.joinURLKey];
         
 		//Handle Content
 		if([self.serviceProtocol respondsToSelector:@selector(responseSuccess:responseData:)]){

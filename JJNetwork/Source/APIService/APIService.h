@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "APIRequest.h"
 #import "APIFileCache.h"
+#import "APIServiceDelegate.h"
 
 @class APIService;
 
@@ -47,16 +48,13 @@
 /**
  Every API must extends from APIService!!!
  */
-@interface APIService : NSObject
-
-@property(nonatomic,readwrite,weak)id<APIServiceProtocol> serviceProtocol;
+@interface APIService : NSObject<APIServiceDelegate>
 
 
 /**
- Send http request key method
-
- @param request Must pass the APIRequest<RequestProtocol> point object
+ APIService's delegate
+ Http response success and fail
  */
-- (void)startRequest:(APIRequest<RequestProtocol>*)request;
+@property(nonatomic,readwrite,weak)id<APIServiceProtocol> serviceProtocol;
 
 @end
