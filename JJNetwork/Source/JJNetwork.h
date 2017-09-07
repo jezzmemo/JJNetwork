@@ -9,5 +9,6 @@
 #ifndef JJNetwork_h
 #define JJNetwork_h
 
+#import "APIService.h"
 
 #endif /* JJNetwork_h */

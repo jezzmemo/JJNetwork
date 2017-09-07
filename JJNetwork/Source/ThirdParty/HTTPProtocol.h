@@ -41,6 +41,15 @@
 		 target:(id)target
 	   selector:(SEL)selector;
 
+
+
+/**
+ Set the http head data
+
+ @param dic key-value
+ */
+- (void)setHttpHeadField:(NSDictionary*)dic;
+
 @end
 
 

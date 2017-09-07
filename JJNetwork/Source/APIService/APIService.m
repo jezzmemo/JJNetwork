@@ -13,11 +13,23 @@
 
 @interface APIService ()
 
+
+/**
+ Request object,hold the object,resume and cancel
+ */
 @property(nonatomic,readwrite,strong)NSURLSessionTask* taskRequest;
 
+/**
+ File cache for APIService
+ */
 @property(nonatomic,readwrite,strong)id<APICache> apiCache;
 
-@property(nonatomic,readwrite,copy)NSString* joinURLKey;
+
+/**
+ RequestKey generate by the url and parameter
+ And MD5 String,only for the same url and parameter
+ */
+@property(nonatomic,readwrite,copy)NSString* requestKey;
 
 @end
 
@@ -69,16 +81,19 @@
     
     //Handle cache
     
-    self.joinURLKey = [self joinURL:url withParameter:parameters];
+    self.requestKey = [self joinURL:url withParameter:parameters];
     
-    id data = [self.apiCache cacheWithKey:self.joinURLKey];
+    id data = [self.apiCache cacheWithKey:self.requestKey];
     
-    if (data != nil) {
-        NSLog(@"Cache response delegate");
-        if([self.serviceProtocol respondsToSelector:@selector(responseSuccess:responseData:)]){
-            [self.serviceProtocol responseSuccess:self responseData:data];
-        }
-        return;
+    if (data && [self.serviceCacheProtocol respondsToSelector:@selector(responseCacheData:cacheData:)]) {
+        NSLog(@"Cache response");
+        [self.serviceCacheProtocol responseCacheData:self cacheData:data];
+    }
+    
+    //Get HTTP Head
+    NSDictionary* headParameter = nil;
+    if ([self.serviceProtocol respondsToSelector:@selector(httpHeadField:)]) {
+        headParameter = [self.serviceProtocol httpHeadField:self];
     }
     
     //Sign the parameter to safety
@@ -126,7 +141,7 @@
 		}
 	}else{
         //Save override the cache data
-        [self.apiCache saveCacheWithData:response withKey:self.joinURLKey];
+        [self.apiCache saveCacheWithData:response withKey:self.requestKey];
         
 		//Handle Content
 		if([self.serviceProtocol respondsToSelector:@selector(responseSuccess:responseData:)]){

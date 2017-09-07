@@ -21,7 +21,7 @@ typedef NS_ENUM(NSUInteger,HTTPMethod){
 
 
 /**
- requestURL required,if not implement  will can't complete request
+ RequestURL required,if not implement  will can't complete request
  
  @return NSString
  */

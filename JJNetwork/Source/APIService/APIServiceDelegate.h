@@ -12,6 +12,8 @@
 
 @protocol APIServiceDelegate <NSObject>
 
+@required
+
 /**
  Send http request key method
  
@@ -19,5 +21,6 @@
  */
 
 - (void)startRequest:(APIRequest<RequestProtocol>*)request;
+
 
 @end

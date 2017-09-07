@@ -38,7 +38,7 @@
 
 
 /**
- Post interface
+ Post method
  
  @param url Requset http url
  @param parameter Request parameter key->value
@@ -51,7 +51,7 @@
 }
 
 /**
- Get interface
+ Get method
  
  @param url Requset http url
  @param parameter Request parameter key->value
@@ -61,6 +61,10 @@
  */
 - (NSURLSessionTask*)httpGet:(NSURL*)url parameter:(NSDictionary*)parameter target:(id)target selector:(SEL)selector{
 	return [self.networkImpl httpGet:url parameter:parameter target:target selector:selector];
+}
+
+- (void)setHttpHeadField:(NSDictionary *)dic{
+    [self.networkImpl setHttpHeadField:dic];
 }
 
 @end

@@ -42,6 +42,29 @@
  */
 - (void)responseFail:(APIService*)service errorMessage:(NSError*)error;
 
+
+/**
+ Make the http post or get the head field data
+
+ @param service Which APIService instance
+ @return user input the dic for example:userToken,DeviceID
+ */
+- (NSDictionary*)httpHeadField:(APIService*)service;
+
+@end
+
+@protocol ResponseCache <NSObject>
+
+
+/**
+ Default response will save the cache data with file or memory
+ If the implement this protocol,will return the cache data
+
+ @param service APIService instance
+ @param data Cache data,json/html/binary...
+ */
+- (void)responseCacheData:(APIService*)service cacheData:(id)data;
+
 @end
 
 
@@ -53,8 +76,13 @@
 
 /**
  APIService's delegate
- Http response success and fail
+ Http response, success or fail
  */
 @property(nonatomic,readwrite,weak)id<APIServiceProtocol> serviceProtocol;
+
+/**
+ ResponseCache's delegate
+ */
+@property(nonatomic,readwrite,weak)id<ResponseCache> serviceCacheProtocol;
 
 @end

@@ -9,7 +9,15 @@
 #import "AFNetworkImpl.h"
 #import <AFNetworking/AFNetworking.h>
 
+@interface AFNetworkImpl ()
+
+@property(nonatomic,readwrite,copy)NSDictionary* httpHead;
+
+@end
+
 @implementation AFNetworkImpl
+
+#pragma mark - Init
 
 - (instancetype)init{
     self = [super init];
@@ -18,6 +26,8 @@
     }
     return self;
 }
+
+#pragma mark - Config
 
 
 /**
@@ -33,7 +43,11 @@
     return manager;
 }
 
+#pragma mark - Implemetn protocol
 
+- (void)setHttpHeadField:(NSDictionary *)dic{
+    self.httpHead = dic;
+}
 
 /**
  Wrap POST request
@@ -78,8 +92,16 @@
     NSLog(@"Request url:%@",[url absoluteString]);
     NSLog(@"Request parameter:%@",parameter);
     NSLog(@"Send request >>>>>>>>>>>>>>>>>> END");
-//    NSMutableURLRequest
+    
+    //NSMutableURLRequest
     NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] requestWithMethod:method URLString:url.absoluteString parameters:parameter error:nil];
+    
+    //Set http head value
+    if (self.httpHead) {
+        for (NSString* key in self.httpHead) {
+            [request setValue:self.httpHead[key] forHTTPHeaderField:key];
+        }
+    }
     
     AFURLSessionManager* sessionManager = [self sessionManager];
     
