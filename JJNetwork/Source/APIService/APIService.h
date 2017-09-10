@@ -10,6 +10,7 @@
 #import "APIRequest.h"
 #import "APIFileCache.h"
 #import "APIServiceDelegate.h"
+#import "APIModule.h"
 
 @class APIService;
 
@@ -42,15 +43,6 @@
  */
 - (void)responseFail:(APIService*)service errorMessage:(NSError*)error;
 
-
-/**
- Make the http post or get the head field data
-
- @param service Which APIService instance
- @return user input the dic for example:userToken,DeviceID
- */
-- (NSDictionary*)httpHeadField:(APIService*)service;
-
 @end
 
 @protocol ResponseCache <NSObject>
@@ -70,8 +62,27 @@
 
 /**
  Every API must extends from APIService!!!
+ Don't override the startRequest: method
  */
 @interface APIService : NSObject<APIServiceDelegate>
+
+
+/**
+ Resovle the performance DNS problem
+ Input the IP address and domain name,key is IP,value is Domain name
+
+ @param module APIModuleDomainIp Delegate
+ */
++ (void)registerDomainIP:(id<APIModuleDomainIp>)module;
+
+
+/**
+ Global the Http request head field data
+ User implement the interface get the head value
+
+ @param module APIModuleHttpHead Delegate
+ */
++ (void)registerHttpHeadField:(id<APIModuleHttpHead>)module;
 
 
 /**
@@ -84,5 +95,12 @@
  ResponseCache's delegate
  */
 @property(nonatomic,readwrite,weak)id<ResponseCache> serviceCacheProtocol;
+
+
+/**
+ Get the request information
+ For example:url,parameter...
+ */
+@property(nonatomic,readonly,strong)APIRequest<RequestProtocol>* currentRequest;
 
 @end

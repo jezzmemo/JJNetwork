@@ -96,13 +96,6 @@
     //NSMutableURLRequest
     NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] requestWithMethod:method URLString:url.absoluteString parameters:parameter error:nil];
     
-    //Set http head value
-    if (self.httpHead) {
-        for (NSString* key in self.httpHead) {
-            [request setValue:self.httpHead[key] forHTTPHeaderField:key];
-        }
-    }
-    
     AFURLSessionManager* sessionManager = [self sessionManager];
     
     __weak typeof(self) _self = self;

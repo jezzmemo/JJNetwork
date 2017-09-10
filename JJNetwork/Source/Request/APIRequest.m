@@ -7,7 +7,14 @@
 //
 
 #import "APIRequest.h"
+#import <objc/runtime.h>
 
 @implementation APIRequest
+
+- (id)copyWithZone:(nullable NSZone *)zone{
+    APIRequest *request = [[[self class] allocWithZone:zone] init];
+    request.parameter = self.parameter;
+    return request;
+}
 
 @end

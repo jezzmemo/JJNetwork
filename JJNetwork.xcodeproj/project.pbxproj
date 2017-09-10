@@ -21,6 +21,7 @@
 		6199ADCA1F2E2618004573E3 /* AFNetworkImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 6199ADC91F2E2618004573E3 /* AFNetworkImpl.m */; };
 		6199ADD41F2E27E9004573E3 /* APIRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6199ADD31F2E27E9004573E3 /* APIRequest.m */; };
 		6199ADD71F2E2874004573E3 /* APIService.m in Sources */ = {isa = PBXBuildFile; fileRef = 6199ADD61F2E2874004573E3 /* APIService.m */; };
+		61B734B41F62A27D001549C1 /* APIServiceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 61B734B31F62A27D001549C1 /* APIServiceManager.m */; };
 		61E270F71F4DCEAB00834D0E /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = 61E270F61F4DCEAB00834D0E /* NSString+MD5.m */; };
 		61E271061F52A5BA00834D0E /* PresentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 61E271051F52A5BA00834D0E /* PresentViewController.m */; };
 /* End PBXBuildFile section */
@@ -54,6 +55,9 @@
 		6199ADD51F2E2874004573E3 /* APIService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIService.h; sourceTree = "<group>"; };
 		6199ADD61F2E2874004573E3 /* APIService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APIService.m; sourceTree = "<group>"; };
 		619FB57D1F603D2800030792 /* APIServiceDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIServiceDelegate.h; sourceTree = "<group>"; };
+		61B734B21F62A27D001549C1 /* APIServiceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIServiceManager.h; sourceTree = "<group>"; };
+		61B734B31F62A27D001549C1 /* APIServiceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APIServiceManager.m; sourceTree = "<group>"; };
+		61B734B51F65257B001549C1 /* APIModule.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APIModule.h; sourceTree = "<group>"; };
 		61E270F51F4DCEAB00834D0E /* NSString+MD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MD5.h"; sourceTree = "<group>"; };
 		61E270F61F4DCEAB00834D0E /* NSString+MD5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MD5.m"; sourceTree = "<group>"; };
 		61E271041F52A5BA00834D0E /* PresentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PresentViewController.h; sourceTree = "<group>"; };
@@ -169,6 +173,9 @@
 				6199ADD51F2E2874004573E3 /* APIService.h */,
 				6199ADD61F2E2874004573E3 /* APIService.m */,
 				619FB57D1F603D2800030792 /* APIServiceDelegate.h */,
+				61B734B21F62A27D001549C1 /* APIServiceManager.h */,
+				61B734B31F62A27D001549C1 /* APIServiceManager.m */,
+				61B734B51F65257B001549C1 /* APIModule.h */,
 			);
 			path = APIService;
 			sourceTree = "<group>";
@@ -344,6 +351,7 @@
 				61E271061F52A5BA00834D0E /* PresentViewController.m in Sources */,
 				6199ADD71F2E2874004573E3 /* APIService.m in Sources */,
 				616405801F2E159300CA819D /* DemoViewController.m in Sources */,
+				61B734B41F62A27D001549C1 /* APIServiceManager.m in Sources */,
 				61E270F71F4DCEAB00834D0E /* NSString+MD5.m in Sources */,
 				61237DC01F30798400889CD1 /* APIManager.m in Sources */,
 				6199ADCA1F2E2618004573E3 /* AFNetworkImpl.m in Sources */,

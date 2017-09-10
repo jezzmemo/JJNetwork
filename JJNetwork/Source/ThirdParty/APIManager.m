@@ -63,8 +63,4 @@
 	return [self.networkImpl httpGet:url parameter:parameter target:target selector:selector];
 }
 
-- (void)setHttpHeadField:(NSDictionary *)dic{
-    [self.networkImpl setHttpHeadField:dic];
-}
-
 @end

@@ -57,7 +57,7 @@ typedef NS_ENUM(NSUInteger,HTTPMethod){
 
 @end
 
-@interface APIRequest : NSObject
+@interface APIRequest : NSObject<NSCopying>
 
 
 /**

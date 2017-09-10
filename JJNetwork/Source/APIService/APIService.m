@@ -35,13 +35,22 @@
 
 @implementation APIService
 
+#pragma mark - Register APIModule
+
++ (void)registerDomainIP:(id<APIModuleDomainIp>)module{
+    
+}
+
++ (void)registerHttpHeadField:(id<APIModuleHttpHead>)module{
+    
+}
+
 
 #pragma mark - Init/Dealloc
 
 - (instancetype)init{
     self = [super init];
     if (self) {
-        self.apiCache = [[APIFileCache alloc] init];
     }
     return self;
 }
@@ -55,6 +64,10 @@
 #pragma mark - Request
 
 - (void)startRequest:(APIRequest<RequestProtocol>*)request{
+    
+    //Hold the request,callback may be use request object
+    
+    _currentRequest = request;
     
     BOOL valid = [self checkRequestValidity:request];
     
@@ -90,12 +103,6 @@
         [self.serviceCacheProtocol responseCacheData:self cacheData:data];
     }
     
-    //Get HTTP Head
-    NSDictionary* headParameter = nil;
-    if ([self.serviceProtocol respondsToSelector:@selector(httpHeadField:)]) {
-        headParameter = [self.serviceProtocol httpHeadField:self];
-    }
-    
     //Sign the parameter to safety
     
     if (isSignParameter && parameters) {
@@ -127,7 +134,12 @@
         return NO;
     }
     
-    //TODO:invalid the url
+    NSString* url = [request requestURL];
+    if (!url) {
+        NSAssert(url,@"Request must set URL value");
+        return NO;
+    }
+    
     return YES;
 }
 
@@ -174,6 +186,8 @@
 #pragma mark - Contact url and parameter
 
 - (NSString*)joinURL:(NSString*)url withParameter:(NSDictionary*)parameter{
+    NSParameterAssert(url);
+    
     if (!url) {
         return nil;
     }
@@ -186,5 +200,16 @@
     }
     return string;
 }
+
+#pragma mark - Lazying get method
+
+- (id<APICache>)apiCache{
+    if (_apiCache != nil) {
+        return _apiCache;
+    }
+    _apiCache = [[APIFileCache alloc] init];
+    return _apiCache;
+}
+
 
 @end
