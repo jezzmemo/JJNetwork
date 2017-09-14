@@ -89,12 +89,14 @@
     
     AFURLSessionManager* sessionManager = [self sessionManager];
     
-    __weak typeof(self) _self = self;
-    __weak typeof(target) _target = target;
+    __weak typeof(self) weakSelf = self;
+    __weak typeof(target) weakTarget = target;
     NSURLSessionDataTask *dataTask = [sessionManager dataTaskWithRequest:mutableRequest completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+        __strong typeof(weakSelf) strongSelf = weakSelf;
+        __strong typeof(weakTarget) strongTarget = weakTarget;
         if (error) {
             NSLog(@"Get Error: %@", error);
-            [_self performSelectorOnMainThread:selector withTarget:_target withObject:error];
+            [strongSelf performSelectorOnMainThread:selector withTarget:strongTarget withObject:error];
         } else {
             NSString* string = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
             if (string) {
@@ -105,7 +107,7 @@
             }else{
                 NSLog(@"Response binary");
             }
-            [_self performSelectorOnMainThread:selector withTarget:_target withObject:responseObject];
+            [strongSelf performSelectorOnMainThread:selector withTarget:strongTarget withObject:responseObject];
         }
     }];
     [dataTask resume];

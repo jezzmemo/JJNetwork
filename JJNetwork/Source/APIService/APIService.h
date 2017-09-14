@@ -70,7 +70,7 @@
 /**
  Resovle the performance DNS problem
  Input the IP address and domain name,key is IP,value is Domain name
- For example:12.12.12.128->api.xxxx.com
+ For example:api.xxxx.com->12.12.12.128
 
  @param module APIModuleDomainIp Delegate
  */

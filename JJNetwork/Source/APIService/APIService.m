@@ -10,7 +10,6 @@
 #import "APIManager.h"
 #import "APIRequest.h"
 #import "NSString+MD5.h"
-#import <Aspects/Aspects.h>
 #import "APIServiceManager.h"
 
 @interface APIService ()
@@ -166,7 +165,7 @@
     }
     NSString* newURL = url;
     for (NSString* key in ips) {
-        newURL = [newURL stringByReplacingOccurrencesOfString:key withString:ips[key]];
+        newURL = [newURL stringByReplacingOccurrencesOfString:ips[key] withString:key];
     }
     return newURL;
 }
@@ -180,7 +179,7 @@
 - (void)addHttpHeadFieldFromRequest:(NSMutableURLRequest**)request{
     NSDictionary* heads = [APIServiceManager share].httpHeadField;
     for (NSString* key in heads) {
-        [*request setValue:heads[key] forHTTPHeaderField:key];
+        [*request setValue:key forHTTPHeaderField:heads[key]];
     }
 }
 

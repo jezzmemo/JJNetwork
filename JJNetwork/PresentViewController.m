@@ -8,6 +8,7 @@
 
 #import "PresentViewController.h"
 #import "DemoAPIService.h"
+#import "DomainModule.h"
 
 @interface PresentViewController ()<APIServiceProtocol>
 
@@ -30,7 +31,7 @@
     button.center = self.view.center;
     [self.view addSubview:button];
     
-    [APIService registerDomainIP:nil];
+    [APIService registerDomainIP:[[DomainModule alloc] init]];
     
     [self.apiService userDetailInfo:100];
     

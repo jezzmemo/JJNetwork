@@ -11,7 +11,7 @@
 @implementation DomainModule
 
 - (NSDictionary*)keyMap{
-    return nil;
+    return @{@"api.imemo8.com":@"218.244.140.1"};
 }
 
 @end
