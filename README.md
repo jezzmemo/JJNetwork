@@ -7,6 +7,7 @@
 
 - [x] Sign the http parameter by your customer key
 - [x] Customer cache for the GET and POST
+- [x] Replace the domain to IP address improve performance
 
 ## Requirements
 
@@ -93,7 +94,7 @@ DemoAPIService.m
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	
-    [self.apiService userDetailInfo:100];
+	[self.apiService userDetailInfo:100];
 }
 
 

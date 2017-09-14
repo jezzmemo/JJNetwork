@@ -27,8 +27,6 @@
     return self;
 }
 
-#pragma mark - Config
-
 
 /**
  Get AFNetworking AFURLSessionManager object
@@ -43,65 +41,57 @@
     return manager;
 }
 
-#pragma mark - Implemetn protocol
-
-- (void)setHttpHeadField:(NSDictionary *)dic{
-    self.httpHead = dic;
-}
 
 /**
  Wrap POST request
 
- @param url Requset http url
- @param parameter Request parameter key->value
+ @param request NSURLRequest
  @param target Which target
  @param selector Target's method name
  @return NSURLSessionTask track the request object
  */
-- (NSURLSessionTask*)httpPost:(NSURL*)url parameter:(NSDictionary*)parameter target:(id)target selector:(SEL)selector{
-	return [self sendHttpRequestWithURL:url parameter:parameter httpMethod:@"POST" target:target selector:selector];
+- (NSURLSessionTask*)httpPostRequest:(NSURLRequest*)request parameters:(NSDictionary*)parameters target:(id)target selector:(SEL)selector{
+	return [self sendHttpRequest:request parameter:parameters httpMethod:@"POST" target:target selector:selector];
 }
 
 /**
  Wrap Get request
  
- @param url Requset http url
- @param parameter Request parameter key->value
+ @param request NSURLRequest
  @param target Which target
  @param selector Target's method name
  @return NSURLSessionTask track the request object
  */
-- (NSURLSessionTask*)httpGet:(NSURL*)url parameter:(NSDictionary*)parameter target:(id)target selector:(SEL)selector{
-    return [self sendHttpRequestWithURL:url parameter:parameter httpMethod:@"GET" target:target selector:selector];
+- (NSURLSessionTask*)httpGetRequest:(NSURLRequest*)request parameters:(NSDictionary*)parameters target:(id)target selector:(SEL)selector{
+    return [self sendHttpRequest:request parameter:parameters httpMethod:@"GET" target:target selector:selector];
 }
 
 
 /**
  Final AFNetworking send http request
 
- @param url Requset http url
+ @param request NSURLRequest
  @param parameter Request parameter key->value
  @param method Http Post or Get
  @param target Which target
  @param selector Target's method name
  @return NSURLSessionTask track the request object
  */
-- (NSURLSessionTask*)sendHttpRequestWithURL:(NSURL*)url parameter:(NSDictionary*)parameter httpMethod:(NSString*)method target:(id)target selector:(SEL)selector{
+- (NSURLSessionTask*)sendHttpRequest:(NSURLRequest*)request parameter:(NSDictionary*)parameter httpMethod:(NSString*)method target:(id)target selector:(SEL)selector{
     //Show log
     NSLog(@"Send request >>>>>>>>>>>>>>>>>> START");
-    NSLog(@"Request url:%@",[url absoluteString]);
+    NSLog(@"Request url:%@",[request.URL absoluteString]);
     NSLog(@"Request parameter:%@",parameter);
     NSLog(@"Send request >>>>>>>>>>>>>>>>>> END");
     
     //NSMutableURLRequest
-    NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] requestWithMethod:method URLString:url.absoluteString parameters:parameter error:nil];
+    NSMutableURLRequest *mutableRequest = [[AFHTTPRequestSerializer serializer] requestWithMethod:method URLString:request.URL.absoluteString parameters:parameter error:nil];
     
     AFURLSessionManager* sessionManager = [self sessionManager];
     
     __weak typeof(self) _self = self;
     __weak typeof(target) _target = target;
-    NSURLSessionDataTask *dataTask = [sessionManager dataTaskWithRequest:request completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
-        
+    NSURLSessionDataTask *dataTask = [sessionManager dataTaskWithRequest:mutableRequest completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
         if (error) {
             NSLog(@"Get Error: %@", error);
             [_self performSelectorOnMainThread:selector withTarget:_target withObject:error];

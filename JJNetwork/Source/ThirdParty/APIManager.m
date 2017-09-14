@@ -40,27 +40,27 @@
 /**
  Post method
  
- @param url Requset http url
+ @param request NSURLRequest
  @param parameter Request parameter key->value
  @param target Which target
  @param selector Target's method name
  @return NSURLSessionTask track the request object
  */
-- (NSURLSessionTask*)httpPost:(NSURL*)url parameter:(NSDictionary*)parameter target:(id)target selector:(SEL)selector{
-	return [self.networkImpl httpPost:url parameter:parameter target:target selector:selector];
+- (NSURLSessionTask*)httpPostRequest:(NSURLRequest*)request parameters:(NSDictionary*)parameter target:(id)target selector:(SEL)selector{
+    return [self.networkImpl httpPostRequest:request parameters:parameter target:target selector:selector];
 }
 
 /**
  Get method
  
- @param url Requset http url
+ @param request NSURLRequest
  @param parameter Request parameter key->value
  @param target Which target
  @param selector Target's method name
  @return NSURLSessionTask track the request object
  */
-- (NSURLSessionTask*)httpGet:(NSURL*)url parameter:(NSDictionary*)parameter target:(id)target selector:(SEL)selector{
-	return [self.networkImpl httpGet:url parameter:parameter target:target selector:selector];
+- (NSURLSessionTask*)httpGetRequest:(NSURLRequest*)request parameters:(NSDictionary*)parameter target:(id)target selector:(SEL)selector{
+	return [self.networkImpl httpGetRequest:request parameters:parameter target:target selector:selector];
 }
 
 @end

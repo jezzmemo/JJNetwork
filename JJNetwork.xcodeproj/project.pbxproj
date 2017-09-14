@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		071BB4FB0FAB832FFDBC3888 /* Pods_JJNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7221CB53D12F96CAC74AFE14 /* Pods_JJNetwork.framework */; };
+		611E5A981F66D42800FAF5BD /* DomainModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 611E5A971F66D42800FAF5BD /* DomainModule.m */; };
 		61237DB71F2F315700889CD1 /* DemoRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 61237DB61F2F315700889CD1 /* DemoRequest.m */; };
 		61237DBA1F2F316E00889CD1 /* DemoAPIService.m in Sources */ = {isa = PBXBuildFile; fileRef = 61237DB91F2F316E00889CD1 /* DemoAPIService.m */; };
 		61237DC01F30798400889CD1 /* APIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 61237DBF1F30798400889CD1 /* APIManager.m */; };
@@ -27,6 +28,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		611E5A961F66D42800FAF5BD /* DomainModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DomainModule.h; sourceTree = "<group>"; };
+		611E5A971F66D42800FAF5BD /* DomainModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DomainModule.m; sourceTree = "<group>"; };
 		61237DB51F2F315700889CD1 /* DemoRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoRequest.h; sourceTree = "<group>"; };
 		61237DB61F2F315700889CD1 /* DemoRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoRequest.m; sourceTree = "<group>"; };
 		61237DB81F2F316E00889CD1 /* DemoAPIService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoAPIService.h; sourceTree = "<group>"; };
@@ -94,6 +97,8 @@
 				61237DB61F2F315700889CD1 /* DemoRequest.m */,
 				61237DB81F2F316E00889CD1 /* DemoAPIService.h */,
 				61237DB91F2F316E00889CD1 /* DemoAPIService.m */,
+				611E5A961F66D42800FAF5BD /* DomainModule.h */,
+				611E5A971F66D42800FAF5BD /* DomainModule.m */,
 			);
 			path = Demo;
 			sourceTree = "<group>";
@@ -298,10 +303,12 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-JJNetwork/Pods-JJNetwork-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
+				"${BUILT_PRODUCTS_DIR}/Aspects/Aspects.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Aspects.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -357,6 +364,7 @@
 				6199ADCA1F2E2618004573E3 /* AFNetworkImpl.m in Sources */,
 				61237DBA1F2F316E00889CD1 /* DemoAPIService.m in Sources */,
 				6199911B1F5C570A003AAED6 /* APIFileCache.m in Sources */,
+				611E5A981F66D42800FAF5BD /* DomainModule.m in Sources */,
 				61237DB71F2F315700889CD1 /* DemoRequest.m in Sources */,
 				6164057D1F2E159300CA819D /* AppDelegate.m in Sources */,
 				6199ADD41F2E27E9004573E3 /* APIRequest.m in Sources */,

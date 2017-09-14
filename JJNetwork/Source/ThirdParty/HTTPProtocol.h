@@ -16,30 +16,30 @@
 /**
  Http Post method interface
 
- @param url http url
- @param parameter http parameters
+ @param request http NSURLRequest
+ @param parameters HTTP POST parameter
  @param target callback target
  @param selector callback method name
  */
 
-- (NSURLSessionTask*)httpPost:(NSURL*)url
-	   parameter:(NSDictionary*)parameter
-		  target:(id)target
-		selector:(SEL)selector;
+- (NSURLSessionTask*)httpPostRequest:(NSURLRequest*)request
+                          parameters:(NSDictionary*)parameters
+                              target:(id)target
+                            selector:(SEL)selector;
 
 /**
  Http Get method interface
  
- @param url http url
- @param parameter http parameters
+ @param request NSURLRequest
+ @param parameters Http get parameter
  @param target callback target
  @param selector callback method name
  */
 
-- (NSURLSessionTask*)httpGet:(NSURL*)url
-	  parameter:(NSDictionary*)parameter
-		 target:(id)target
-	   selector:(SEL)selector;
+- (NSURLSessionTask*)httpGetRequest:(NSURLRequest*)request
+                         parameters:(NSDictionary*)parameters
+                             target:(id)target
+                           selector:(SEL)selector;
 
 @end
 

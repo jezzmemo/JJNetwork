@@ -70,10 +70,11 @@
 /**
  Resovle the performance DNS problem
  Input the IP address and domain name,key is IP,value is Domain name
+ For example:12.12.12.128->api.xxxx.com
 
  @param module APIModuleDomainIp Delegate
  */
-+ (void)registerDomainIP:(id<APIModuleDomainIp>)module;
++ (void)registerDomainIP:(id<APIModule>)module;
 
 
 /**
@@ -82,7 +83,7 @@
 
  @param module APIModuleHttpHead Delegate
  */
-+ (void)registerHttpHeadField:(id<APIModuleHttpHead>)module;
++ (void)registerHttpHeadField:(id<APIModule>)module;
 
 
 /**

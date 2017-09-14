@@ -30,6 +30,8 @@
     button.center = self.view.center;
     [self.view addSubview:button];
     
+    [APIService registerDomainIP:nil];
+    
     [self.apiService userDetailInfo:100];
     
 }

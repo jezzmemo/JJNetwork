@@ -10,6 +10,8 @@
 #import "APIManager.h"
 #import "APIRequest.h"
 #import "NSString+MD5.h"
+#import <Aspects/Aspects.h>
+#import "APIServiceManager.h"
 
 @interface APIService ()
 
@@ -37,12 +39,14 @@
 
 #pragma mark - Register APIModule
 
-+ (void)registerDomainIP:(id<APIModuleDomainIp>)module{
-    
++ (void)registerDomainIP:(id<APIModule>)module{
+    NSDictionary* dic = [module keyMap];
+    [APIServiceManager share].domainIPs = dic;
 }
 
-+ (void)registerHttpHeadField:(id<APIModuleHttpHead>)module{
-    
++ (void)registerHttpHeadField:(id<APIModule>)module{
+    NSDictionary* dic = [module keyMap];
+    [APIServiceManager share].httpHeadField = dic;
 }
 
 
@@ -77,7 +81,7 @@
    
     //Get request info
     
-    NSString* url = [request requestURL];
+    NSString* url = [self replaceDomainIPFromURL:[request requestURL]];
     
     BOOL isSignParameter = NO;
     
@@ -111,10 +115,14 @@
     
     //Send http request
     
+    NSMutableURLRequest* sendRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
+    
+    [self addHttpHeadFieldFromRequest:&sendRequest];
+    
     if (httpMethod == GET){
-        self.taskRequest = [[APIManager shareAPIManaer] httpGet:[NSURL URLWithString:url] parameter:parameters target:self selector:@selector(networkResponse:)];
+        self.taskRequest = [[APIManager shareAPIManaer] httpGetRequest:sendRequest parameters:parameters target:self selector:@selector(networkResponse:)];
     }else if(httpMethod == POST){
-        self.taskRequest = [[APIManager shareAPIManaer] httpPost:[NSURL URLWithString:url] parameter:parameters target:self selector:@selector(networkResponse:)];
+        self.taskRequest = [[APIManager shareAPIManaer] httpPostRequest:sendRequest parameters:parameters target:self selector:@selector(networkResponse:)];
     }
 
 }
@@ -141,6 +149,39 @@
     }
     
     return YES;
+}
+
+
+/**
+ Re-generate new URL,if the ip and domain map size > 0
+ We replace the url domain to ip,will improve the performance
+
+ @param url request URL
+ @return New URL
+ */
+- (NSString*)replaceDomainIPFromURL:(NSString*)url{
+    NSDictionary* ips = [APIServiceManager share].domainIPs;
+    if (ips.count == 0) {
+        return url;
+    }
+    NSString* newURL = url;
+    for (NSString* key in ips) {
+        newURL = [newURL stringByReplacingOccurrencesOfString:key withString:ips[key]];
+    }
+    return newURL;
+}
+
+
+/**
+ Add head field to the request
+
+ @param request NSMutableURLRequest
+ */
+- (void)addHttpHeadFieldFromRequest:(NSMutableURLRequest**)request{
+    NSDictionary* heads = [APIServiceManager share].httpHeadField;
+    for (NSString* key in heads) {
+        [*request setValue:heads[key] forHTTPHeaderField:key];
+    }
 }
 
 #pragma mark - Response

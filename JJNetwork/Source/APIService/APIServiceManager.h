@@ -12,4 +12,8 @@
 
 + (instancetype)share;
 
+@property(nonatomic,readwrite,strong)NSDictionary* domainIPs;
+
+@property(nonatomic,readwrite,strong)NSDictionary* httpHeadField;
+
 @end

@@ -65,4 +65,6 @@ typedef NS_ENUM(NSUInteger,HTTPMethod){
  */
 @property(nonatomic,readwrite,copy)NSDictionary* parameter;
 
+@property(nonatomic,readwrite,copy)NSDictionary* httpHeadField;
+
 @end
