@@ -9,6 +9,7 @@
 #import "PresentViewController.h"
 #import "DemoAPIService.h"
 #import "DomainModule.h"
+#import "HttpHeadModule.h"
 
 @interface PresentViewController ()<APIServiceProtocol>
 
@@ -32,6 +33,7 @@
     [self.view addSubview:button];
     
     [APIService registerDomainIP:[[DomainModule alloc] init]];
+    [APIService registerHttpHeadField:[[HttpHeadModule alloc] init]];
     
     [self.apiService userDetailInfo:100];
     

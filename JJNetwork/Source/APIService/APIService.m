@@ -179,7 +179,7 @@
 - (void)addHttpHeadFieldFromRequest:(NSMutableURLRequest**)request{
     NSDictionary* heads = [APIServiceManager share].httpHeadField;
     for (NSString* key in heads) {
-        [*request setValue:key forHTTPHeaderField:heads[key]];
+        [*request setValue:heads[key] forHTTPHeaderField:key];
     }
 }
 

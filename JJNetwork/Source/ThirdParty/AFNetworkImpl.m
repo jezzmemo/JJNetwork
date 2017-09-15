@@ -87,13 +87,15 @@
     //NSMutableURLRequest
     NSMutableURLRequest *mutableRequest = [[AFHTTPRequestSerializer serializer] requestWithMethod:method URLString:request.URL.absoluteString parameters:parameter error:nil];
     
+    mutableRequest.allHTTPHeaderFields = request.allHTTPHeaderFields;
+    
     AFURLSessionManager* sessionManager = [self sessionManager];
     
     __weak typeof(self) weakSelf = self;
     __weak typeof(target) weakTarget = target;
     NSURLSessionDataTask *dataTask = [sessionManager dataTaskWithRequest:mutableRequest completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
-        __strong typeof(weakSelf) strongSelf = weakSelf;
-        __strong typeof(weakTarget) strongTarget = weakTarget;
+        __strong typeof(self) strongSelf = weakSelf;
+        __strong typeof(target) strongTarget = weakTarget;
         if (error) {
             NSLog(@"Get Error: %@", error);
             [strongSelf performSelectorOnMainThread:selector withTarget:strongTarget withObject:error];
