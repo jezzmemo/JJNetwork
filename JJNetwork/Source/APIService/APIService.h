@@ -74,7 +74,7 @@
 
  @param module APIModuleDomainIp Delegate
  */
-+ (void)registerDomainIP:(id<APIModule>)module;
++ (void)registerDomainIP:(id<APIDominIPModule>)module;
 
 
 /**
@@ -83,7 +83,7 @@
 
  @param module APIModuleHttpHead Delegate
  */
-+ (void)registerHttpHeadField:(id<APIModule>)module;
++ (void)registerHttpHeadField:(id<APIHttpHeadModule>)module;
 
 
 /**

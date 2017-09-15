@@ -10,7 +10,7 @@
 
 @implementation HttpHeadModule
 
-- (NSDictionary*)keyMap{
+- (NSDictionary*)customerHttpHead{
     return @{@"user-token":@"xxxxx",@"device-id":@"xxxxx"};
 }
 

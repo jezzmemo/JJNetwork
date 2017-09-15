@@ -10,7 +10,7 @@
 
 @implementation DomainModule
 
-- (NSDictionary*)keyMap{
+- (NSDictionary*)domainIPData{
     return @{@"api.imemo8.com":@"218.244.140.1"};
 }
 

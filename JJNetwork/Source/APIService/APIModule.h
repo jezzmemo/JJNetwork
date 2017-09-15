@@ -11,7 +11,18 @@
 
 @protocol APIModule <NSObject>
 
-- (NSDictionary*)keyMap;
+@end
+
+
+@protocol APIDominIPModule <APIModule>
+
+- (NSDictionary*)domainIPData;
+
+@end
+
+@protocol APIHttpHeadModule <APIModule>
+
+- (NSDictionary*)customerHttpHead;
 
 @end
 

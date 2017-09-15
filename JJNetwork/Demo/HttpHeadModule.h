@@ -9,6 +9,6 @@
 #import <Foundation/Foundation.h>
 #import "APIModule.h"
 
-@interface HttpHeadModule : NSObject<APIModule>
+@interface HttpHeadModule : NSObject<APIHttpHeadModule>
 
 @end

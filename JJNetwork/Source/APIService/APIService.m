@@ -38,13 +38,13 @@
 
 #pragma mark - Register APIModule
 
-+ (void)registerDomainIP:(id<APIModule>)module{
-    NSDictionary* dic = [module keyMap];
++ (void)registerDomainIP:(id<APIDominIPModule>)module{
+    NSDictionary* dic = [module domainIPData];
     [APIServiceManager share].domainIPs = dic;
 }
 
-+ (void)registerHttpHeadField:(id<APIModule>)module{
-    NSDictionary* dic = [module keyMap];
++ (void)registerHttpHeadField:(id<APIHttpHeadModule>)module{
+    NSDictionary* dic = [module customerHttpHead];
     [APIServiceManager share].httpHeadField = dic;
 }
 
@@ -165,7 +165,7 @@
     }
     NSString* newURL = url;
     for (NSString* key in ips) {
-        newURL = [newURL stringByReplacingOccurrencesOfString:ips[key] withString:key];
+        newURL = [newURL stringByReplacingOccurrencesOfString:key withString:ips[key]];
     }
     return newURL;
 }

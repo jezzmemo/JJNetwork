@@ -9,6 +9,6 @@
 #import <Foundation/Foundation.h>
 #import "APIModule.h"
 
-@interface DomainModule : NSObject<APIModule>
+@interface DomainModule : NSObject<APIDominIPModule>
 
 @end

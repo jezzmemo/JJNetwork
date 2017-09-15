@@ -7,7 +7,7 @@
 
 - [x] Sign the http parameter by your customer key
 - [x] Customer cache for the GET and POST
-- [x] Replace the domain to IP address improve performance
+- [x] Replace the domain to IP address improve performance and change customer http head field
 
 ## Requirements
 
