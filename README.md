@@ -92,19 +92,19 @@ DemoAPIService.m
 @implementation DemoViewController
 
 - (void)viewDidLoad {
-	[super viewDidLoad];
+    [super viewDidLoad];
 	
-	[self.apiService userDetailInfo:100];
+    [self.apiService userDetailInfo:100];
 }
 
 
 - (DemoAPIService*)apiService{
-	if (_apiService != nil) {
-		return _apiService;
-	}
-	_apiService = [[DemoAPIService alloc] init];
-	_apiService.serviceProtocol = self;
+    if (_apiService != nil) {
 	return _apiService;
+    }
+    _apiService = [[DemoAPIService alloc] init];
+    _apiService.serviceProtocol = self;
+    return _apiService;
 }
 
 #pragma mark - Network response
