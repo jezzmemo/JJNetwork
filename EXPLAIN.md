@@ -16,9 +16,21 @@ self.operationQueue = [[NSOperationQueue alloc] init];
 self.operationQueue.maxConcurrentOperationCount = 1;
 self.session = [NSURLSession sessionWithConfiguration:self.sessionConfiguration delegate:self delegateQueue:self.operationQueue];
 ```
-* 如果有Cache，走Cache策略
+* Cache
+
+在发送Request之前，先检查本地是否有Cache，这个Cache的策略可以根据自己的情况来定，有些场景更新不频繁，可以再一定的场景里都用Cache，不用去请求网络。
+
+我们这里选择比较通用的策略，先检查有没Cache，没有就去请求网络，并保存Cache，如果下次请求先返回Cache，再去请求网络，更新Cache,这里缓存的数据我用了单独的Delegate，为了区分网络数据和缓存，因为这次选择让开发者来决定.
+
 * DNS
+
+DNS是一个查找的过程，我们优化的部分就是直接将域名替换成IP，这样就不需要将域名查找的过程省略了。
+
 * TCP握手
+
+HTTP一般都是TCP协议的，有三次的握手，HTTPS更多，这个地方的优化可以参考[SPDY](https://developers.google.com/speed/spdy/):
+设计SPDY的目的在于降低网页的加载时间。通过优先级和多路复用，SPDY使得只需要创建一个TCP连接即可传送网页内容及图片等资源。SPDY中广泛应用了TLS加密，传输内容也均以gzip或DEFLATE格式压缩（与HTTP不同，HTTP的头部并不会被压缩）。另外，除了像HTTP的网页服务器被动的等待浏览器发起请求外，SPDY的网页服务器还可以主动推送内容
+
 * Request
 * Response
 
