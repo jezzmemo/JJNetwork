@@ -24,15 +24,23 @@ self.session = [NSURLSession sessionWithConfiguration:self.sessionConfiguration 
 
 * DNS
 
-DNS是一个查找的过程，我们优化的部分就是直接将域名替换成IP，这样就不需要将域名查找的过程省略了。
+DNS是一个查找的过程，我们优化的部分就是直接将域名替换成IP，这样就不需要将域名查找的过程省略了，其实DNS在没有变化的情况下是有缓存的，所以在Chrome统计的时候一般只需要几十毫秒，不过从性能的角度来说，也是一个优化的点.
 
 * TCP握手
 
 HTTP一般都是TCP协议的，有三次的握手，HTTPS更多，这个地方的优化可以参考[SPDY](https://developers.google.com/speed/spdy/):
-设计SPDY的目的在于降低网页的加载时间。通过优先级和多路复用，SPDY使得只需要创建一个TCP连接即可传送网页内容及图片等资源。SPDY中广泛应用了TLS加密，传输内容也均以gzip或DEFLATE格式压缩（与HTTP不同，HTTP的头部并不会被压缩）。另外，除了像HTTP的网页服务器被动的等待浏览器发起请求外，SPDY的网页服务器还可以主动推送内容
+
+设计SPDY的目的在于降低网页的加载时间。通过优先级和多路复用，SPDY使得只需要创建一个TCP连接即可传送网页内容及图片等资源。SPDY中广泛应用了TLS加密，传输内容也均以gzip或DEFLATE格式压缩（与HTTP不同，HTTP的头部并不会被压缩）。另外，除了像HTTP的网页服务器被动的等待浏览器发起请求外，SPDY的网页服务器还可以主动推送内容.
 
 * Request
+
+这部分主要是指，本地在打包需要发送的数据，在基于TCP握手完成后，主要是数据传输中的优化，在当前的一般的手段是通过GZip压缩，或者通过[Protocol Buffer](https://developers.google.com/protocol-buffers/)的方式将数据压缩，来减少在传输的过程中的数据量。
+
 * Response
+
+Response和Request是对应关系，上面那部分说需要压缩，在这部分就是对应着解压，在Request的编码，对应着这边的解码,所以这部分和Request的优化是一起的.
+
+__最后总结下网络请求的原则是，能用Cache就用Cache，能批量发送请求就批量发送，最后实在没办法就走实时请求这条路(比如支付)__
 
 ## 网络安全
 
