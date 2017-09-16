@@ -34,13 +34,13 @@ HTTP一般都是TCP协议的，有三次的握手，HTTPS更多，这个地方�
 
 * Request
 
-这部分主要是指，本地在打包需要发送的数据，在基于TCP握手完成后，主要是数据传输中的优化，在当前的一般的手段是通过GZip压缩，或者通过[Protocol Buffer](https://developers.google.com/protocol-buffers/)的方式将数据压缩，来减少在传输的过程中的数据量。
+这部分主要是指，本地在打包需要发送的数据，在基于TCP握手完成后，主要是数据传输中的优化，在当前的一般的手段是通过GZip压缩，或者通过[Protocol buffers](https://developers.google.com/protocol-buffers/)的方式将数据压缩，来减少在传输的过程中的数据量。
 
 * Response
 
 Response和Request是对应关系，上面那部分说需要压缩，在这部分就是对应着解压，在Request的编码，对应着这边的解码,所以这部分和Request的优化是一起的.
 
-__最后总结下网络请求的原则是，能用Cache就用Cache，能批量发送请求就批量发送，最后实在没办法就走实时请求这条路(比如支付)__
+__最后总结下网络请求的原则是，能用Cache就用Cache(比如分类)，能批量发送请求就批量发送(比如统计)，最后实在没办法就走实时请求这条路(比如支付)__
 
 ## 网络安全
 
