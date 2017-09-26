@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/jezzmemo/JJNetwork.svg?branch=master)](https://travis-ci.org/jezzmemo/JJNetwork.svg?branch=master)
 [![Pod License](http://img.shields.io/cocoapods/l/JJNetwork.svg?style=flat)](https://www.apache.org/licenses/LICENSE-2.0.html)
 
-AFNetworking-based network library, with delegate to process network response, integrate more business functions and optimize network performance,[Chinese document](https://github.com/jezzmemo/JJNetwork/blob/master/EXPLAIN.md)
+AFNetworking-based network library, with delegate to process network response, integrate more business and optimize network performance,[Chinese document](https://github.com/jezzmemo/JJNetwork/blob/master/EXPLAIN.md)
 
 ## Features
 

@@ -39,13 +39,11 @@
 #pragma mark - Register APIModule
 
 + (void)registerDomainIP:(id<APIDominIPModule>)module{
-    NSDictionary* dic = [module domainIPData];
-    [APIServiceManager share].domainIPs = dic;
+    [APIServiceManager share].domainIPs = module;
 }
 
 + (void)registerHttpHeadField:(id<APIHttpHeadModule>)module{
-    NSDictionary* dic = [module customerHttpHead];
-    [APIServiceManager share].httpHeadField = dic;
+    [APIServiceManager share].httpHeadField = module;
 }
 
 
@@ -159,7 +157,12 @@
  @return New URL
  */
 - (NSString*)replaceDomainIPFromURL:(NSString*)url{
-    NSDictionary* ips = [APIServiceManager share].domainIPs;
+    
+    if (![[APIServiceManager share].domainIPs respondsToSelector:@selector(domainIPData)]) {
+        return url;
+    }
+    
+    NSDictionary* ips = [[APIServiceManager share].domainIPs domainIPData];
     if (ips.count == 0) {
         return url;
     }
@@ -177,7 +180,10 @@
  @param request NSMutableURLRequest
  */
 - (void)addHttpHeadFieldFromRequest:(NSMutableURLRequest**)request{
-    NSDictionary* heads = [APIServiceManager share].httpHeadField;
+    if (![[APIServiceManager share].httpHeadField respondsToSelector:@selector(customerHttpHead)]) {
+        return;
+    }
+    NSDictionary* heads = [[APIServiceManager share].httpHeadField customerHttpHead];
     for (NSString* key in heads) {
         [*request setValue:heads[key] forHTTPHeaderField:key];
     }
@@ -215,11 +221,12 @@
     
     //MD5 the all value and contact the timeStamp,
     //The sign will change every seconds
-    
-    [mString appendFormat:@"%d",(int)[[NSDate date] timeIntervalSince1970]];
+    NSInteger timestamp = (int)[[NSDate date] timeIntervalSince1970];
+    [mString appendFormat:@"%d",timestamp];
     NSString* sign = [[NSString stringWithFormat:@"%@%@",mString,key] md5];
     
     dic[@"sign"] = sign;
+    dic[@"timestamp"] = @(timestamp);
     return dic;
 }
 

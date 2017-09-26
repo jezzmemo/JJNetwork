@@ -7,13 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "APIModule.h"
 
 @interface APIServiceManager : NSObject
 
 + (instancetype)share;
 
-@property(nonatomic,readwrite,strong)NSDictionary* domainIPs;
+@property(nonatomic,readwrite,weak)id<APIDominIPModule> domainIPs;
 
-@property(nonatomic,readwrite,strong)NSDictionary* httpHeadField;
+@property(nonatomic,readwrite,weak)id<APIHttpHeadModule> httpHeadField;
 
 @end
