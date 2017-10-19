@@ -14,6 +14,18 @@
 
 @class APIService;
 
+@protocol APIServiceInterseptor <NSObject>
+
+- (void)apiService:(APIService*)service willStartRequest:(APIRequest*)request;
+
+- (void)apiService:(APIService*)service didStartRequest:(APIRequest*)request;
+
+- (void)apiService:(APIService*)service responseSuccess:(id)data;
+
+- (void)apiService:(APIService*)service responseFailed:(NSError*)error;
+
+@end
+
 
 
 /**
@@ -42,20 +54,6 @@
  @param error NSError object
  */
 - (void)responseFail:(APIService*)service errorMessage:(NSError*)error;
-
-@end
-
-@protocol ResponseCache <NSObject>
-
-
-/**
- Default response will save the cache data with file or memory
- If the implement this protocol,will return the cache data
-
- @param service APIService instance
- @param data Cache data,json/html/binary...
- */
-- (void)responseCacheData:(APIService*)service cacheData:(id)data;
 
 @end
 
@@ -91,11 +89,6 @@
  Http response, success or fail
  */
 @property(nonatomic,readwrite,weak)id<APIServiceProtocol> serviceProtocol;
-
-/**
- ResponseCache's delegate
- */
-@property(nonatomic,readwrite,weak)id<ResponseCache> serviceCacheProtocol;
 
 
 /**

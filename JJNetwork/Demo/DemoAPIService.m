@@ -14,7 +14,7 @@
 
 - (void)userDetailInfo:(NSInteger)uid{
     //wrapper the parameter
-    NSDictionary* parameter = @{@"userid":[NSString stringWithFormat:@"%d",uid]};
+    NSDictionary* parameter = @{@"userid":[NSString stringWithFormat:@"%ld",uid]};
     
     //generate request,set the parameter
     DemoRequest* request = [[DemoRequest alloc] init];

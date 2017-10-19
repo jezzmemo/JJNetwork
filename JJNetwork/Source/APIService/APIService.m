@@ -93,16 +93,17 @@
         httpMethod = [request requestMethod];
     }
     
-    //Handle cache
+    //If find the cache exist,will return the cache data,
+    //And then download the new data to override the old data
     
     self.requestKey = [self joinURL:url withParameter:parameters];
     
     id data = [self.apiCache cacheWithKey:self.requestKey];
     
-    if (data && [self.serviceCacheProtocol respondsToSelector:@selector(responseCacheData:cacheData:)]) {
-        NSLog(@"Cache response");
-        [self.serviceCacheProtocol responseCacheData:self cacheData:data];
+    if([self.serviceProtocol respondsToSelector:@selector(responseSuccess:responseData:)] && data){
+        [self.serviceProtocol responseSuccess:self responseData:data];
     }
+    
     
     //Sign the parameter to safety
     
@@ -222,7 +223,7 @@
     //MD5 the all value and contact the timeStamp,
     //The sign will change every seconds
     NSInteger timestamp = (int)[[NSDate date] timeIntervalSince1970];
-    [mString appendFormat:@"%d",timestamp];
+    [mString appendFormat:@"%ld",timestamp];
     NSString* sign = [[NSString stringWithFormat:@"%@%@",mString,key] md5];
     
     dic[@"sign"] = sign;
