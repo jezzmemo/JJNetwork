@@ -11,7 +11,7 @@
 #import "DomainModule.h"
 #import "HttpHeadModule.h"
 
-@interface PresentViewController ()<APIServiceProtocol>
+@interface PresentViewController ()<APIServiceProtocol,APIServiceInterseptor>
 
 @property(nonatomic,readwrite,strong)DemoAPIService* apiService;
 
@@ -35,6 +35,9 @@
     [APIService registerDomainIP:[[DomainModule alloc] init]];
     [APIService registerHttpHeadField:[[HttpHeadModule alloc] init]];
     
+    [APIService addServiceInterseptor:self forServiceClass:[DemoAPIService class]];
+    //[APIService removeServiceInterseptor:self forServiceClass:[DemoAPIService class]];
+    
     [self.apiService userDetailInfo:100];
     
 }
@@ -49,6 +52,7 @@
     }
     _apiService = [[DemoAPIService alloc] init];
     _apiService.serviceProtocol = self;
+    _apiService.serviceInterseptor = self;
     return _apiService;
 }
 
@@ -60,6 +64,24 @@
 
 - (void)responseFail:(APIService *)service errorMessage:(NSError *)error{
     
+}
+
+#pragma mark - APIService Interseptor
+
+- (void)apiService:(APIService*)service beforeStartRequest:(APIRequest*)request{
+    NSLog(@"beforeStartRequest");
+}
+
+- (void)apiService:(APIService*)service afterStartRequest:(APIRequest*)request{
+    NSLog(@"afterStartRequest");
+}
+
+- (void)apiService:(APIService*)service beforeResponse:(id)data{
+    NSLog(@"beforeResponse");
+}
+
+- (void)apiService:(APIService*)service afterResponse:(id)data{
+    NSLog(@"afterResponse");
 }
 
 @end

@@ -46,6 +46,21 @@
     [APIServiceManager share].httpHeadField = module;
 }
 
+#pragma mark - Service Interseptor
+
++ (void)addServiceInterseptor:(id<APIServiceInterseptor>)interseptor forServiceClass:(Class)className{
+    NSAssert([interseptor conformsToProtocol:@protocol(APIServiceInterseptor)], @"interseptor must implement APIServiceInterseptor");
+    NSAssert([className isSubclassOfClass:[APIService class]], @"className must extend from APIService");
+    
+    [[APIServiceManager share] addServiceInterseptor:interseptor forServiceClass:className];
+}
+
++ (void)removeServiceInterseptor:(id<APIServiceInterseptor>)interseptor forServiceClass:(Class)className{
+    NSAssert([interseptor conformsToProtocol:@protocol(APIServiceInterseptor)], @"interseptor must implement APIServiceInterseptor");
+    NSAssert([className isSubclassOfClass:[APIService class]], @"className must extend from APIService");
+    [[APIServiceManager share] removeServiceInterseptor:interseptor forServiceClass:className];
+}
+
 
 #pragma mark - Init/Dealloc
 
@@ -75,6 +90,12 @@
     if (!valid) {
         return;
     }
+    
+    //Interseptor
+    if ([self.serviceInterseptor respondsToSelector:@selector(apiService:beforeStartRequest:)]) {
+        [self.serviceInterseptor apiService:self beforeStartRequest:request];
+    }
+    [[APIServiceManager share] apiService:self beforeStartRequest:request];
    
     //Get request info
     
@@ -122,6 +143,12 @@
     }else if(httpMethod == POST){
         self.taskRequest = [[APIManager shareAPIManaer] httpPostRequest:sendRequest parameters:parameters target:self selector:@selector(networkResponse:)];
     }
+    
+    //Interseptor
+    if ([self.serviceInterseptor respondsToSelector:@selector(apiService:afterStartRequest:)]) {
+        [self.serviceInterseptor apiService:self afterStartRequest:request];
+    }
+    [[APIServiceManager share] apiService:self afterStartRequest:request];
 
 }
 
@@ -193,6 +220,12 @@
 #pragma mark - Response
 
 - (void)networkResponse:(id)response{
+    
+    if ([self.serviceInterseptor respondsToSelector:@selector(apiService:beforeResponse:)]) {
+        [self.serviceInterseptor apiService:self beforeResponse:response];
+    }
+    [[APIServiceManager share] apiService:self beforeResponse:response];
+    
 	if ([response isKindOfClass:[NSError class]]) {
 		//Handle Error
 		if([self.serviceProtocol respondsToSelector:@selector(responseFail:errorMessage:)]){
@@ -207,6 +240,11 @@
 			[self.serviceProtocol responseSuccess:self responseData:response];
 		}
 	}
+    
+    if ([self.serviceInterseptor respondsToSelector:@selector(apiService:afterResponse:)]) {
+        [self.serviceInterseptor apiService:self afterResponse:response];
+    }
+    [[APIServiceManager share] apiService:self afterResponse:response];
 }
 
 #pragma mark - Sign parameter with key

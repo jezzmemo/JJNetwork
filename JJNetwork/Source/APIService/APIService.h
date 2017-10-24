@@ -14,15 +14,47 @@
 
 @class APIService;
 
+
+/**
+ Interseptor for the APIService
+ Monitor the request before or after,reponse before or after
+ */
 @protocol APIServiceInterseptor <NSObject>
 
-- (void)apiService:(APIService*)service willStartRequest:(APIRequest*)request;
+@optional
 
-- (void)apiService:(APIService*)service didStartRequest:(APIRequest*)request;
+/**
+ Invoke beforeStartRequest before sendRequest
 
-- (void)apiService:(APIService*)service responseSuccess:(id)data;
+ @param service APIService
+ @param request APIRequest request object
+ */
+- (void)apiService:(APIService*)service beforeStartRequest:(APIRequest*)request;
 
-- (void)apiService:(APIService*)service responseFailed:(NSError*)error;
+
+/**
+ Invoke afterStartRequest after sendRequest
+
+ @param service APIService
+ @param request APIRequest request object
+ */
+- (void)apiService:(APIService*)service afterStartRequest:(APIRequest*)request;
+
+/**
+ Invoke beforeResponse before Response
+
+ @param service APIService
+ @param data Response data object
+ */
+- (void)apiService:(APIService*)service beforeResponse:(id)data;
+
+/**
+ Invoke afterResponse before Response
+ 
+ @param service APIService
+ @param data Response data object
+ */
+- (void)apiService:(APIService*)service afterResponse:(id)data;
 
 @end
 
@@ -83,6 +115,17 @@
  */
 + (void)registerHttpHeadField:(id<APIHttpHeadModule>)module;
 
+
++ (void)addServiceInterseptor:(id<APIServiceInterseptor>)interseptor forServiceClass:(Class)className;
+
++ (void)removeServiceInterseptor:(id<APIServiceInterseptor>)interseptor forServiceClass:(Class)className;
+
+
+/**
+ APIService's send network request interseptor
+ Monitor the send request before or after,response before or after
+ */
+@property(nonatomic,readwrite,weak)id<APIServiceInterseptor> serviceInterseptor;
 
 /**
  APIService's delegate

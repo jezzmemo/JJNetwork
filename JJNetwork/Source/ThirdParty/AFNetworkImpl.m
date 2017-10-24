@@ -96,21 +96,21 @@
     NSURLSessionDataTask *dataTask = [sessionManager dataTaskWithRequest:mutableRequest completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
         __strong typeof(self) strongSelf = weakSelf;
         __strong typeof(target) strongTarget = weakTarget;
+        NSLog(@"Response <<<<<<<<<<<<<<<<<<<<<<<<<<<< START");
+        NSLog(@"Response from url:%@",[[response URL] absoluteString]);
         if (error) {
             NSLog(@"Get Error: %@", error);
             [strongSelf performSelectorOnMainThread:selector withTarget:strongTarget withObject:error];
         } else {
+            [strongSelf performSelectorOnMainThread:selector withTarget:strongTarget withObject:responseObject];
             NSString* string = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
             if (string) {
-                NSLog(@"Response <<<<<<<<<<<<<<<<<<<<<<<<<<<< START");
-                NSLog(@"Response from url:%@",[[response URL] absoluteString]);
                 NSLog(@"Response content:%@",string);
-                NSLog(@"Response <<<<<<<<<<<<<<<<<<<<<<<<<<<< END");
             }else{
-                NSLog(@"Response binary");
+                NSLog(@"Response binary:%@",responseObject);
             }
-            [strongSelf performSelectorOnMainThread:selector withTarget:strongTarget withObject:responseObject];
         }
+        NSLog(@"Response <<<<<<<<<<<<<<<<<<<<<<<<<<<< END");
     }];
     [dataTask resume];
     
@@ -137,7 +137,7 @@
 	[invo setArgument:&arg1 atIndex:2];//0:target 1:_cmd
 	[invo retainArguments];
 	
-	[invo performSelectorOnMainThread:@selector(invoke) withObject:nil waitUntilDone:NO];
+	[invo performSelectorOnMainThread:@selector(invoke) withObject:nil waitUntilDone:YES];
 }
 
 @end
