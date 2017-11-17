@@ -33,6 +33,8 @@
 
 @optional
 
+- (id)cacheWithKey:(NSString *)key withTimeLimit:(NSUInteger)seconds;
+
 - (BOOL)removeCacheWithKey:(NSString*)key;
 
 - (void)clearAllCache;

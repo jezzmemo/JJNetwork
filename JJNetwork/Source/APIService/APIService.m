@@ -36,31 +36,6 @@
 
 @implementation APIService
 
-#pragma mark - Register APIModule
-
-+ (void)registerDomainIP:(id<APIDominIPModule>)module{
-    [APIServiceManager share].domainIPs = module;
-}
-
-+ (void)registerHttpHeadField:(id<APIHttpHeadModule>)module{
-    [APIServiceManager share].httpHeadField = module;
-}
-
-#pragma mark - Service Interseptor
-
-+ (void)addServiceInterseptor:(id<APIServiceInterseptor>)interseptor forServiceClass:(Class)className{
-    NSAssert([interseptor conformsToProtocol:@protocol(APIServiceInterseptor)], @"interseptor must implement APIServiceInterseptor");
-    NSAssert([className isSubclassOfClass:[APIService class]], @"className must extend from APIService");
-    
-    [[APIServiceManager share] addServiceInterseptor:interseptor forServiceClass:className];
-}
-
-+ (void)removeServiceInterseptor:(id<APIServiceInterseptor>)interseptor forServiceClass:(Class)className{
-    NSAssert([interseptor conformsToProtocol:@protocol(APIServiceInterseptor)], @"interseptor must implement APIServiceInterseptor");
-    NSAssert([className isSubclassOfClass:[APIService class]], @"className must extend from APIService");
-    [[APIServiceManager share] removeServiceInterseptor:interseptor forServiceClass:className];
-}
-
 
 #pragma mark - Init/Dealloc
 
@@ -91,7 +66,7 @@
         return;
     }
     
-    //Interseptor
+    //Handle Interseptor
     if ([self.serviceInterseptor respondsToSelector:@selector(apiService:beforeStartRequest:)]) {
         [self.serviceInterseptor apiService:self beforeStartRequest:request];
     }
@@ -114,17 +89,16 @@
         httpMethod = [request requestMethod];
     }
     
-    //If find the cache exist,will return the cache data,
-    //And then download the new data to override the old data
+    
+    //Generate the key by the url and parameters
     
     self.requestKey = [self joinURL:url withParameter:parameters];
     
-    id data = [self.apiCache cacheWithKey:self.requestKey];
+    //Handle local cache
     
-    if([self.serviceProtocol respondsToSelector:@selector(responseSuccess:responseData:)] && data){
-        [self.serviceProtocol responseSuccess:self responseData:data];
+    if (![self handleLocalCache]) {
+        return;
     }
-    
     
     //Sign the parameter to safety
     
@@ -150,6 +124,43 @@
     }
     [[APIServiceManager share] apiService:self afterStartRequest:request];
 
+}
+
+
+/**
+ Request return the HttpCachePolicy,process the cache logic
+ ReloadFromNetwork:return YES;
+ ReloadFromCacheElseLoadNetwork:if cache exist return NO,otherwise return YES;
+ ReloadFromCacheTimeLimit:return NO;
+
+ @return If YES will continue request network, NO will return cache,but do not request network
+ */
+- (BOOL)handleLocalCache{
+    HTTPCachePolicy cachePolicy =  ReloadFromNetwork;
+    if ([self.currentRequest respondsToSelector:@selector(requestCachePolicy)]) {
+        cachePolicy = [self.currentRequest requestCachePolicy];
+    }
+    
+    if(cachePolicy == ReloadFromNetwork){
+        return YES;
+    }
+    
+    id cacheData = nil;
+    if (cachePolicy == ReloadFromCacheElseLoadNetwork) {
+        cacheData = [self.apiCache cacheWithKey:self.requestKey];
+    }else if(cachePolicy == ReloadFromCacheTimeLimit){
+        cacheData = [self.apiCache cacheWithKey:self.requestKey withTimeLimit:[self.currentRequest cacheLimitTime]];
+    }
+    
+    if(!cacheData){
+        return YES;
+    }
+    
+    if([self.serviceProtocol respondsToSelector:@selector(responseSuccess:responseData:)]){
+        [self.serviceProtocol responseSuccess:self responseData:cacheData];
+    }
+    
+    return NO;
 }
 
 - (BOOL)checkRequestValidity:(APIRequest<RequestProtocol>*)request{

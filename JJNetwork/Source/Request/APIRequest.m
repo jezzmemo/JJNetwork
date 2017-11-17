@@ -14,6 +14,7 @@
 - (id)copyWithZone:(nullable NSZone *)zone{
     APIRequest *request = [[[self class] allocWithZone:zone] init];
     request.parameter = self.parameter;
+    request.httpHeadField = self.httpHeadField;
     return request;
 }
 

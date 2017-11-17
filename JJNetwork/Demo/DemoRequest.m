@@ -26,4 +26,12 @@
     return @"key";
 }
 
+- (HTTPCachePolicy)requestCachePolicy{
+    return ReloadFromCacheTimeLimit;
+}
+
+- (NSUInteger)cacheLimitTime{
+    return 120;
+}
+
 @end

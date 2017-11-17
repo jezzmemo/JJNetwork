@@ -18,6 +18,7 @@
 		616405831F2E159300CA819D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 616405811F2E159300CA819D /* Main.storyboard */; };
 		616405851F2E159300CA819D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 616405841F2E159300CA819D /* Assets.xcassets */; };
 		616405881F2E159300CA819D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 616405861F2E159300CA819D /* LaunchScreen.storyboard */; };
+		618C6ED21FA22DAE001A9EA7 /* APIService+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 618C6ED11FA22DAE001A9EA7 /* APIService+Extension.m */; };
 		6199911B1F5C570A003AAED6 /* APIFileCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 6199911A1F5C570A003AAED6 /* APIFileCache.m */; };
 		6199ADCA1F2E2618004573E3 /* AFNetworkImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 6199ADC91F2E2618004573E3 /* AFNetworkImpl.m */; };
 		6199ADD41F2E27E9004573E3 /* APIRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6199ADD31F2E27E9004573E3 /* APIRequest.m */; };
@@ -47,6 +48,8 @@
 		616405841F2E159300CA819D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		616405871F2E159300CA819D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		616405891F2E159400CA819D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		618C6ED01FA22DAE001A9EA7 /* APIService+Extension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "APIService+Extension.h"; sourceTree = "<group>"; };
+		618C6ED11FA22DAE001A9EA7 /* APIService+Extension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "APIService+Extension.m"; sourceTree = "<group>"; };
 		619991181F5C5555003AAED6 /* APICache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APICache.h; sourceTree = "<group>"; };
 		619991191F5C570A003AAED6 /* APIFileCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIFileCache.h; sourceTree = "<group>"; };
 		6199911A1F5C570A003AAED6 /* APIFileCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APIFileCache.m; sourceTree = "<group>"; };
@@ -186,6 +189,8 @@
 				61B734B21F62A27D001549C1 /* APIServiceManager.h */,
 				61B734B31F62A27D001549C1 /* APIServiceManager.m */,
 				61B734B51F65257B001549C1 /* APIModule.h */,
+				618C6ED01FA22DAE001A9EA7 /* APIService+Extension.h */,
+				618C6ED11FA22DAE001A9EA7 /* APIService+Extension.m */,
 			);
 			path = APIService;
 			sourceTree = "<group>";
@@ -362,6 +367,7 @@
 				6199ADD71F2E2874004573E3 /* APIService.m in Sources */,
 				616405801F2E159300CA819D /* DemoViewController.m in Sources */,
 				61B734B41F62A27D001549C1 /* APIServiceManager.m in Sources */,
+				618C6ED21FA22DAE001A9EA7 /* APIService+Extension.m in Sources */,
 				61E270F71F4DCEAB00834D0E /* NSString+MD5.m in Sources */,
 				61237DC01F30798400889CD1 /* APIManager.m in Sources */,
 				6199ADCA1F2E2618004573E3 /* AFNetworkImpl.m in Sources */,

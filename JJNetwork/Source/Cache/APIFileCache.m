@@ -38,6 +38,32 @@
     return nil;
 }
 
+- (id)cacheWithKey:(NSString *)key withTimeLimit:(NSUInteger)seconds{
+    NSString* filePath = [self tempFilePath:[key md5]];
+    if (![[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
+        return nil;
+    }
+    NSDictionary* attributes = [[NSFileManager defaultManager] attributesOfItemAtPath:filePath error:nil];
+    NSDate* createDate = attributes[NSFileCreationDate];
+    NSDate* nowDate = [NSDate date];
+    NSInteger diff = [nowDate timeIntervalSince1970] - [createDate timeIntervalSince1970];
+    if (diff > seconds) {
+        [self removeCacheWithKey:key];
+        NSLog(@"Cache expired");
+        return nil;
+    }
+    return [self cacheWithKey:key];
+}
+
+- (BOOL)removeCacheWithKey:(NSString*)key{
+    NSString* filePath = [self tempFilePath:[key md5]];
+    if (![[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
+        return NO;
+    }
+    [[NSFileManager defaultManager] removeItemAtPath:filePath error:nil];
+    return YES;
+}
+
 - (NSString*)tempFilePath:(NSString*)fileName{
     if (!fileName) {
         return nil;
@@ -49,5 +75,7 @@
     }
     return nil;
 }
+
+
 
 @end

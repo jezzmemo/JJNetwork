@@ -98,30 +98,6 @@
 
 
 /**
- Resovle the performance DNS problem
- Input the IP address and domain name,key is IP,value is Domain name
- For example:api.xxxx.com->12.12.12.128
-
- @param module APIModuleDomainIp Delegate
- */
-+ (void)registerDomainIP:(id<APIDominIPModule>)module;
-
-
-/**
- Global the Http request head field data
- User implement the interface get the head value
-
- @param module APIModuleHttpHead Delegate
- */
-+ (void)registerHttpHeadField:(id<APIHttpHeadModule>)module;
-
-
-+ (void)addServiceInterseptor:(id<APIServiceInterseptor>)interseptor forServiceClass:(Class)className;
-
-+ (void)removeServiceInterseptor:(id<APIServiceInterseptor>)interseptor forServiceClass:(Class)className;
-
-
-/**
  APIService's send network request interseptor
  Monitor the send request before or after,response before or after
  */

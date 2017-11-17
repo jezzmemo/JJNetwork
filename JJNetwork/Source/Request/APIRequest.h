@@ -20,13 +20,13 @@ typedef NS_ENUM(NSUInteger,HTTPMethod){
  do not need cache.
 
  - ReloadFromNetwork: Default mode,request from network
- - ReloadFromCacheIfNotLoadFromNetwork: If have cache,will return the cache,if not exist cache,will load origin source
- - ReloadFromCacheForValid: First time load request origin source,save the cache for the limit time,if expire，will load origin source and replace the old cache
+ - ReloadFromCacheElseLoadNetwork: If have cache,will return the cache,do not request network,if not exist cache,will load origin source
+ - ReloadFromCacheTimeLimit: First time load request origin source,save the cache for the limit time,if expire，will load origin source and replace the old cache
  */
-typedef NS_ENUM(NSUInteger,HTTPCache){
+typedef NS_ENUM(NSUInteger,HTTPCachePolicy){
     ReloadFromNetwork,
-    ReloadFromCacheIfNotLoadFromNetwork,
-    ReloadFromCacheForValid,
+    ReloadFromCacheElseLoadNetwork,
+    ReloadFromCacheTimeLimit,
 };
 
 @protocol RequestProtocol <NSObject>
@@ -76,12 +76,13 @@ typedef NS_ENUM(NSUInteger,HTTPCache){
 
  @return HTTPCache
  */
-- (HTTPCache)requestCachePolicy;
+- (HTTPCachePolicy)requestCachePolicy;
 
 
 /**
- If you choose the ReloadFromCacheForValid policy,you must implement this method,
- The UNIT is seconds,For example:60 seconds is 1 minute.
+ If you choose the ReloadFromCacheTimeLimit policy,you must implement this method,
+ If cache expired,will request from network,replace the old cache.
+ The UNIT is second,For example:60 seconds is 1 minute.
 
  @return Seconds
  */

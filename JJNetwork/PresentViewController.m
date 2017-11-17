@@ -10,6 +10,7 @@
 #import "DemoAPIService.h"
 #import "DomainModule.h"
 #import "HttpHeadModule.h"
+#import "APIService+Extension.h"
 
 @interface PresentViewController ()<APIServiceProtocol,APIServiceInterseptor>
 
@@ -59,11 +60,11 @@
 #pragma mark - Network response
 
 - (void)responseSuccess:(APIService *)service responseData:(id)data{
-    
+    NSLog(@"responseSuccess");
 }
 
 - (void)responseFail:(APIService *)service errorMessage:(NSError *)error{
-    
+    NSLog(@"responseFail");
 }
 
 #pragma mark - APIService Interseptor
