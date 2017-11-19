@@ -67,10 +67,7 @@
     }
     
     //Handle Interseptor
-    if ([self.serviceInterseptor respondsToSelector:@selector(apiService:beforeStartRequest:)]) {
-        [self.serviceInterseptor apiService:self beforeStartRequest:request];
-    }
-    [[APIServiceManager share] apiService:self beforeStartRequest:request];
+    [self beforeStartRequest:request];
    
     //Get request info
     
@@ -119,11 +116,7 @@
     }
     
     //Interseptor
-    if ([self.serviceInterseptor respondsToSelector:@selector(apiService:afterStartRequest:)]) {
-        [self.serviceInterseptor apiService:self afterStartRequest:request];
-    }
-    [[APIServiceManager share] apiService:self afterStartRequest:request];
-
+    [self afterStartRequest:request];
 }
 
 
@@ -156,9 +149,15 @@
         return YES;
     }
     
+    [self afterStartRequest:self.currentRequest];
+    
+    [self beforeResponse:cacheData];
+    
     if([self.serviceProtocol respondsToSelector:@selector(responseSuccess:responseData:)]){
         [self.serviceProtocol responseSuccess:self responseData:cacheData];
     }
+    
+    [self afterResponse:cacheData];
     
     return NO;
 }
@@ -187,6 +186,7 @@
     return YES;
 }
 
+#pragma mark - API Moudle
 
 /**
  Re-generate new URL,if the ip and domain map size > 0
@@ -228,14 +228,40 @@
     }
 }
 
-#pragma mark - Response
+#pragma mark  - Interseptor
 
-- (void)networkResponse:(id)response{
-    
+- (void)beforeStartRequest:(APIRequest*)request{
+    if ([self.serviceInterseptor respondsToSelector:@selector(apiService:beforeStartRequest:)]) {
+        [self.serviceInterseptor apiService:self beforeStartRequest:request];
+    }
+    [[APIServiceManager share] apiService:self beforeStartRequest:request];
+}
+
+- (void)afterStartRequest:(APIRequest*)request{
+    if ([self.serviceInterseptor respondsToSelector:@selector(apiService:afterStartRequest:)]) {
+        [self.serviceInterseptor apiService:self afterStartRequest:request];
+    }
+    [[APIServiceManager share] apiService:self afterStartRequest:request];
+}
+
+- (void)beforeResponse:(id)response{
     if ([self.serviceInterseptor respondsToSelector:@selector(apiService:beforeResponse:)]) {
         [self.serviceInterseptor apiService:self beforeResponse:response];
     }
     [[APIServiceManager share] apiService:self beforeResponse:response];
+}
+
+- (void)afterResponse:(id)response{
+    if ([self.serviceInterseptor respondsToSelector:@selector(apiService:afterResponse:)]) {
+        [self.serviceInterseptor apiService:self afterResponse:response];
+    }
+    [[APIServiceManager share] apiService:self afterResponse:response];
+}
+
+#pragma mark - Response
+
+- (void)networkResponse:(id)response{
+    [self beforeResponse:response];
     
 	if ([response isKindOfClass:[NSError class]]) {
 		//Handle Error
@@ -252,10 +278,7 @@
 		}
 	}
     
-    if ([self.serviceInterseptor respondsToSelector:@selector(apiService:afterResponse:)]) {
-        [self.serviceInterseptor apiService:self afterResponse:response];
-    }
-    [[APIServiceManager share] apiService:self afterResponse:response];
+    [self afterResponse:response];
 }
 
 #pragma mark - Sign parameter with key
