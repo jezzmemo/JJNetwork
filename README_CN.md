@@ -3,12 +3,12 @@
 [![Build Status](https://travis-ci.org/jezzmemo/JJNetwork.svg?branch=master)](https://travis-ci.org/jezzmemo/JJNetwork.svg?branch=master)
 [![Pod License](http://img.shields.io/cocoapods/l/JJNetwork.svg?style=flat)](https://www.apache.org/licenses/LICENSE-2.0.html)
 
-基于AFNetworking的网络库，使用delegate为交互方式,加入了一些业务和性能优化，[详细文档](https://github.com/jezzmemo/JJNetwork/blob/master/EXPLAIN.md)
+基于AFNetworking的网络库，使用delegate为交互方式,加入了一些业务增强和性能优化，[详细文档](https://github.com/jezzmemo/JJNetwork/blob/master/EXPLAIN.md)
 
 ## 特色功能
 
 - [x] 根据自定义的Key签名参数，安全校验
-- [x] 根据缓存规则缓存POST或者Get请求
+- [x] 根据缓存规则缓存POST或者Get
 - [x] 支持用IP替换域名，达到提高网络性能，支持HTTP HEAD设置
 - [x] 可以设置任意一个APIService的拦截器
 
@@ -28,13 +28,13 @@ target 'TargetName' do
 pod 'JJNetwork'
 end
 ```
-run the following command:
+执行命令:
 ```
 $ pod install
 ```
 ## 如何使用
 
-1.Create Request file，extends from `APIRequest` class，Implement `RequestProtocol`，For example:
+#### 新建一个Request继承于 `APIRequest`，并实现 `RequestProtocol`协议，如:
 
 DemoRequest.h
 ```objc
@@ -53,7 +53,7 @@ DemoRequest.m
 @end
 ```
 
-2.Create Service extends from `APIService`,for example：
+#### 新建一个Service继承于 `APIService`,如：
 
 DemoAPIService.h
 ```objc
@@ -84,7 +84,7 @@ DemoAPIService.m
 @end
 ```
 
-3.Finaly,Invoke the DemoAPIService,for example:
+#### 最后一步，在ViewController调用DemoAPIService,如:
 ```objc
 @interface DemoViewController ()<APIServiceProtocol>
 
