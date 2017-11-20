@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0830"
+   LastUpgradeVersion = "0900"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "616405741F2E159300CA819D"
-               BuildableName = "JJNetwork.app"
-               BlueprintName = "JJNetwork"
+               BlueprintIdentifier = "61B6CAED1FC2CAAB00910DEA"
+               BuildableName = "JJNetwork.framework"
+               BlueprintName = "JJNetworkFramework"
                ReferencedContainer = "container:JJNetwork.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -30,15 +30,6 @@
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "616405741F2E159300CA819D"
-            BuildableName = "JJNetwork.app"
-            BlueprintName = "JJNetwork"
-            ReferencedContainer = "container:JJNetwork.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -53,16 +44,15 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "616405741F2E159300CA819D"
-            BuildableName = "JJNetwork.app"
-            BlueprintName = "JJNetwork"
+            BlueprintIdentifier = "61B6CAED1FC2CAAB00910DEA"
+            BuildableName = "JJNetwork.framework"
+            BlueprintName = "JJNetworkFramework"
             ReferencedContainer = "container:JJNetwork.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -72,16 +62,15 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "616405741F2E159300CA819D"
-            BuildableName = "JJNetwork.app"
-            BlueprintName = "JJNetwork"
+            BlueprintIdentifier = "61B6CAED1FC2CAAB00910DEA"
+            BuildableName = "JJNetwork.framework"
+            BlueprintName = "JJNetworkFramework"
             ReferencedContainer = "container:JJNetwork.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

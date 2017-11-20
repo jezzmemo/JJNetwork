@@ -23,6 +23,16 @@
 		6199ADCA1F2E2618004573E3 /* AFNetworkImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 6199ADC91F2E2618004573E3 /* AFNetworkImpl.m */; };
 		6199ADD41F2E27E9004573E3 /* APIRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6199ADD31F2E27E9004573E3 /* APIRequest.m */; };
 		6199ADD71F2E2874004573E3 /* APIService.m in Sources */ = {isa = PBXBuildFile; fileRef = 6199ADD61F2E2874004573E3 /* APIService.m */; };
+		61A0EE231FC32037003E9F13 /* AFNetworking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61A0EE221FC32037003E9F13 /* AFNetworking.framework */; };
+		61B6CAFC1FC2CB1900910DEA /* JJNetwork.h in Headers */ = {isa = PBXBuildFile; fileRef = 6199ADC51F2E19AD004573E3 /* JJNetwork.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		61B6CAFD1FC2CB5600910DEA /* APIFileCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 6199911A1F5C570A003AAED6 /* APIFileCache.m */; };
+		61B6CAFE1FC2CB5600910DEA /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = 61E270F61F4DCEAB00834D0E /* NSString+MD5.m */; };
+		61B6CAFF1FC2CB5600910DEA /* APIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 61237DBF1F30798400889CD1 /* APIManager.m */; };
+		61B6CB001FC2CB5600910DEA /* AFNetworkImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 6199ADC91F2E2618004573E3 /* AFNetworkImpl.m */; };
+		61B6CB011FC2CB5600910DEA /* APIService.m in Sources */ = {isa = PBXBuildFile; fileRef = 6199ADD61F2E2874004573E3 /* APIService.m */; };
+		61B6CB021FC2CB5600910DEA /* APIServiceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 61B734B31F62A27D001549C1 /* APIServiceManager.m */; };
+		61B6CB031FC2CB5600910DEA /* APIService+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 618C6ED11FA22DAE001A9EA7 /* APIService+Extension.m */; };
+		61B6CB041FC2CB5600910DEA /* APIRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6199ADD31F2E27E9004573E3 /* APIRequest.m */; };
 		61B734B41F62A27D001549C1 /* APIServiceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 61B734B31F62A27D001549C1 /* APIServiceManager.m */; };
 		61CEE54F1F6B68EB00726441 /* HttpHeadModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 61CEE54E1F6B68EB00726441 /* HttpHeadModule.m */; };
 		61E270F71F4DCEAB00834D0E /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = 61E270F61F4DCEAB00834D0E /* NSString+MD5.m */; };
@@ -62,6 +72,15 @@
 		6199ADD51F2E2874004573E3 /* APIService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIService.h; sourceTree = "<group>"; };
 		6199ADD61F2E2874004573E3 /* APIService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APIService.m; sourceTree = "<group>"; };
 		619FB57D1F603D2800030792 /* APIServiceDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIServiceDelegate.h; sourceTree = "<group>"; };
+		61A0EE221FC32037003E9F13 /* AFNetworking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AFNetworking.framework; path = Carthage/Build/iOS/AFNetworking.framework; sourceTree = "<group>"; };
+		61B6CAEE1FC2CAAB00910DEA /* JJNetwork.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = JJNetwork.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		61B6CAF11FC2CAAB00910DEA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		61B6CB061FC2CF0600910DEA /* AFNetworking.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = AFNetworking.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		61B6CB081FC2D0ED00910DEA /* AFNetworking.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = AFNetworking.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		61B6CB0A1FC2D3AB00910DEA /* AFNetworking.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = AFNetworking.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		61B6CB0C1FC2D72A00910DEA /* AFNetworking.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = AFNetworking.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		61B6CB0F1FC2DAC200910DEA /* AFNetworking.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = AFNetworking.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		61B6CB111FC2DC7100910DEA /* AFNetworking.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = AFNetworking.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		61B734B21F62A27D001549C1 /* APIServiceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIServiceManager.h; sourceTree = "<group>"; };
 		61B734B31F62A27D001549C1 /* APIServiceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APIServiceManager.m; sourceTree = "<group>"; };
 		61B734B51F65257B001549C1 /* APIModule.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APIModule.h; sourceTree = "<group>"; };
@@ -85,12 +104,27 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		61B6CAEA1FC2CAAB00910DEA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				61A0EE231FC32037003E9F13 /* AFNetworking.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		5A26EB14427F226214B5C030 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				61B6CB111FC2DC7100910DEA /* AFNetworking.framework */,
+				61B6CB0F1FC2DAC200910DEA /* AFNetworking.framework */,
+				61B6CB0C1FC2D72A00910DEA /* AFNetworking.framework */,
+				61B6CB0A1FC2D3AB00910DEA /* AFNetworking.framework */,
+				61B6CB081FC2D0ED00910DEA /* AFNetworking.framework */,
+				61B6CB061FC2CF0600910DEA /* AFNetworking.framework */,
+				61A0EE221FC32037003E9F13 /* AFNetworking.framework */,
 				7221CB53D12F96CAC74AFE14 /* Pods_JJNetwork.framework */,
 			);
 			name = Frameworks;
@@ -115,6 +149,7 @@
 			isa = PBXGroup;
 			children = (
 				616405771F2E159300CA819D /* JJNetwork */,
+				61B6CAEF1FC2CAAB00910DEA /* JJNetworkFramework */,
 				616405761F2E159300CA819D /* Products */,
 				8D156259B0E3915316E8179B /* Pods */,
 				5A26EB14427F226214B5C030 /* Frameworks */,
@@ -125,6 +160,7 @@
 			isa = PBXGroup;
 			children = (
 				616405751F2E159300CA819D /* JJNetwork.app */,
+				61B6CAEE1FC2CAAB00910DEA /* JJNetwork.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -216,6 +252,14 @@
 			path = ThirdParty;
 			sourceTree = "<group>";
 		};
+		61B6CAEF1FC2CAAB00910DEA /* JJNetworkFramework */ = {
+			isa = PBXGroup;
+			children = (
+				61B6CAF11FC2CAAB00910DEA /* Info.plist */,
+			);
+			path = JJNetworkFramework;
+			sourceTree = "<group>";
+		};
 		61E270F41F4DCE8A00834D0E /* Category */ = {
 			isa = PBXGroup;
 			children = (
@@ -235,6 +279,17 @@
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		61B6CAEB1FC2CAAB00910DEA /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				61B6CAFC1FC2CB1900910DEA /* JJNetwork.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
 		616405741F2E159300CA819D /* JJNetwork */ = {
@@ -257,6 +312,24 @@
 			productReference = 616405751F2E159300CA819D /* JJNetwork.app */;
 			productType = "com.apple.product-type.application";
 		};
+		61B6CAED1FC2CAAB00910DEA /* JJNetworkFramework */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 61B6CAF91FC2CAAB00910DEA /* Build configuration list for PBXNativeTarget "JJNetworkFramework" */;
+			buildPhases = (
+				61B6CAE91FC2CAAB00910DEA /* Sources */,
+				61B6CAEA1FC2CAAB00910DEA /* Frameworks */,
+				61B6CAEB1FC2CAAB00910DEA /* Headers */,
+				61B6CAEC1FC2CAAB00910DEA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = JJNetworkFramework;
+			productName = JJNetworkFramework;
+			productReference = 61B6CAEE1FC2CAAB00910DEA /* JJNetwork.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -268,6 +341,11 @@
 				TargetAttributes = {
 					616405741F2E159300CA819D = {
 						CreatedOnToolsVersion = 8.3.2;
+						DevelopmentTeam = 3URXH2B4JL;
+						ProvisioningStyle = Automatic;
+					};
+					61B6CAED1FC2CAAB00910DEA = {
+						CreatedOnToolsVersion = 9.0;
 						DevelopmentTeam = 3URXH2B4JL;
 						ProvisioningStyle = Automatic;
 					};
@@ -287,6 +365,7 @@
 			projectRoot = "";
 			targets = (
 				616405741F2E159300CA819D /* JJNetwork */,
+				61B6CAED1FC2CAAB00910DEA /* JJNetworkFramework */,
 			);
 		};
 /* End PBXProject section */
@@ -299,6 +378,13 @@
 				616405881F2E159300CA819D /* LaunchScreen.storyboard in Resources */,
 				616405851F2E159300CA819D /* Assets.xcassets in Resources */,
 				616405831F2E159300CA819D /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		61B6CAEC1FC2CAAB00910DEA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -379,6 +465,21 @@
 				6164057D1F2E159300CA819D /* AppDelegate.m in Sources */,
 				6199ADD41F2E27E9004573E3 /* APIRequest.m in Sources */,
 				6164057A1F2E159300CA819D /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		61B6CAE91FC2CAAB00910DEA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				61B6CAFD1FC2CB5600910DEA /* APIFileCache.m in Sources */,
+				61B6CAFE1FC2CB5600910DEA /* NSString+MD5.m in Sources */,
+				61B6CAFF1FC2CB5600910DEA /* APIManager.m in Sources */,
+				61B6CB001FC2CB5600910DEA /* AFNetworkImpl.m in Sources */,
+				61B6CB011FC2CB5600910DEA /* APIService.m in Sources */,
+				61B6CB021FC2CB5600910DEA /* APIServiceManager.m in Sources */,
+				61B6CB031FC2CB5600910DEA /* APIService+Extension.m in Sources */,
+				61B6CB041FC2CB5600910DEA /* APIRequest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -501,6 +602,7 @@
 			baseConfigurationReference = 7DE2946F419FD83108BAE7BA /* Pods-JJNetwork.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = 3URXH2B4JL;
 				INFOPLIST_FILE = JJNetwork/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -514,11 +616,94 @@
 			baseConfigurationReference = 6900DC2B70A949A892CE33C9 /* Pods-JJNetwork.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = 3URXH2B4JL;
 				INFOPLIST_FILE = JJNetwork/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.test.JJNetwork;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		61B6CAF71FC2CAAB00910DEA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BITCODE_GENERATION_MODE = bitcode;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 3URXH2B4JL;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/JJNetworkFramework",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = JJNetworkFramework/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				OTHER_LDFLAGS = "-all_load";
+				PRODUCT_BUNDLE_IDENTIFIER = StockView.JJNetworkFramework;
+				PRODUCT_MODULE_NAME = JJNetwork;
+				PRODUCT_NAME = JJNetwork;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		61B6CAF81FC2CAAB00910DEA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BITCODE_GENERATION_MODE = bitcode;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 3URXH2B4JL;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/JJNetworkFramework",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = JJNetworkFramework/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				OTHER_LDFLAGS = "-all_load";
+				PRODUCT_BUNDLE_IDENTIFIER = StockView.JJNetworkFramework;
+				PRODUCT_MODULE_NAME = JJNetwork;
+				PRODUCT_NAME = JJNetwork;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
 			};
 			name = Release;
 		};
@@ -539,6 +724,15 @@
 			buildConfigurations = (
 				6164058D1F2E159400CA819D /* Debug */,
 				6164058E1F2E159400CA819D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		61B6CAF91FC2CAAB00910DEA /* Build configuration list for PBXNativeTarget "JJNetworkFramework" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				61B6CAF71FC2CAAB00910DEA /* Debug */,
+				61B6CAF81FC2CAAB00910DEA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
