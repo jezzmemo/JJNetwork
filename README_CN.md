@@ -34,7 +34,7 @@ $ pod install
 ```
 ## 如何使用
 
-#### 新建一个Request继承于 `APIRequest`，并实现 `RequestProtocol`协议，如:
+#### 1.新建一个Request继承于 `APIRequest`，并实现 `RequestProtocol`协议，如:
 
 DemoRequest.h
 ```objc
@@ -47,13 +47,13 @@ DemoRequest.m
 @implementation DemoRequest
 
 - (NSString*)requestURL{
-	return @"https://www.google.com";
+    return @"https://www.google.com";
 }
 
 @end
 ```
 
-#### 新建一个Service继承于 `APIService`,如：
+#### 2.新建一个Service继承于 `APIService`,如：
 
 DemoAPIService.h
 ```objc
@@ -84,7 +84,7 @@ DemoAPIService.m
 @end
 ```
 
-#### 最后一步，在ViewController调用DemoAPIService,如:
+#### 3.最后一步，在ViewController调用DemoAPIService,如:
 ```objc
 @interface DemoViewController ()<APIServiceProtocol>
 
