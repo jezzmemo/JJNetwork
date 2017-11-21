@@ -35,6 +35,7 @@
 		61A0EE551FC3B93E003E9F13 /* APIServiceManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 61B734B21F62A27D001549C1 /* APIServiceManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		61A0EE561FC3B93E003E9F13 /* APIModule.h in Headers */ = {isa = PBXBuildFile; fileRef = 61B734B51F65257B001549C1 /* APIModule.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		61A0EE571FC3B93E003E9F13 /* APIService+Extension.h in Headers */ = {isa = PBXBuildFile; fileRef = 618C6ED01FA22DAE001A9EA7 /* APIService+Extension.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		61A0EE581FC3B9D1003E9F13 /* APIFileCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 619991191F5C570A003AAED6 /* APIFileCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		61B6CAFC1FC2CB1900910DEA /* JJNetwork.h in Headers */ = {isa = PBXBuildFile; fileRef = 6199ADC51F2E19AD004573E3 /* JJNetwork.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		61B6CAFD1FC2CB5600910DEA /* APIFileCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 6199911A1F5C570A003AAED6 /* APIFileCache.m */; };
 		61B6CAFE1FC2CB5600910DEA /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = 61E270F61F4DCEAB00834D0E /* NSString+MD5.m */; };
@@ -296,6 +297,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				61A0EE581FC3B9D1003E9F13 /* APIFileCache.h in Headers */,
 				61A0EE4F1FC3B93E003E9F13 /* APICache.h in Headers */,
 				61A0EE501FC3B93E003E9F13 /* NSString+MD5.h in Headers */,
 				61A0EE511FC3B93E003E9F13 /* APIManager.h in Headers */,
