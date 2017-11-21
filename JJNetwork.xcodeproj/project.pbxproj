@@ -24,6 +24,17 @@
 		6199ADD41F2E27E9004573E3 /* APIRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6199ADD31F2E27E9004573E3 /* APIRequest.m */; };
 		6199ADD71F2E2874004573E3 /* APIService.m in Sources */ = {isa = PBXBuildFile; fileRef = 6199ADD61F2E2874004573E3 /* APIService.m */; };
 		61A0EE231FC32037003E9F13 /* AFNetworking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61A0EE221FC32037003E9F13 /* AFNetworking.framework */; };
+		61A0EE4D1FC3B890003E9F13 /* APIService.h in Headers */ = {isa = PBXBuildFile; fileRef = 6199ADD51F2E2874004573E3 /* APIService.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		61A0EE4E1FC3B890003E9F13 /* APIRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 6199ADD21F2E27E9004573E3 /* APIRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		61A0EE4F1FC3B93E003E9F13 /* APICache.h in Headers */ = {isa = PBXBuildFile; fileRef = 619991181F5C5555003AAED6 /* APICache.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		61A0EE501FC3B93E003E9F13 /* NSString+MD5.h in Headers */ = {isa = PBXBuildFile; fileRef = 61E270F51F4DCEAB00834D0E /* NSString+MD5.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		61A0EE511FC3B93E003E9F13 /* APIManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 61237DBE1F30798400889CD1 /* APIManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		61A0EE521FC3B93E003E9F13 /* HTTPProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 6199ADC71F2E2519004573E3 /* HTTPProtocol.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		61A0EE531FC3B93E003E9F13 /* AFNetworkImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = 6199ADC81F2E2618004573E3 /* AFNetworkImpl.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		61A0EE541FC3B93E003E9F13 /* APIServiceDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 619FB57D1F603D2800030792 /* APIServiceDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		61A0EE551FC3B93E003E9F13 /* APIServiceManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 61B734B21F62A27D001549C1 /* APIServiceManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		61A0EE561FC3B93E003E9F13 /* APIModule.h in Headers */ = {isa = PBXBuildFile; fileRef = 61B734B51F65257B001549C1 /* APIModule.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		61A0EE571FC3B93E003E9F13 /* APIService+Extension.h in Headers */ = {isa = PBXBuildFile; fileRef = 618C6ED01FA22DAE001A9EA7 /* APIService+Extension.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		61B6CAFC1FC2CB1900910DEA /* JJNetwork.h in Headers */ = {isa = PBXBuildFile; fileRef = 6199ADC51F2E19AD004573E3 /* JJNetwork.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		61B6CAFD1FC2CB5600910DEA /* APIFileCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 6199911A1F5C570A003AAED6 /* APIFileCache.m */; };
 		61B6CAFE1FC2CB5600910DEA /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = 61E270F61F4DCEAB00834D0E /* NSString+MD5.m */; };
@@ -285,6 +296,17 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				61A0EE4F1FC3B93E003E9F13 /* APICache.h in Headers */,
+				61A0EE501FC3B93E003E9F13 /* NSString+MD5.h in Headers */,
+				61A0EE511FC3B93E003E9F13 /* APIManager.h in Headers */,
+				61A0EE521FC3B93E003E9F13 /* HTTPProtocol.h in Headers */,
+				61A0EE531FC3B93E003E9F13 /* AFNetworkImpl.h in Headers */,
+				61A0EE541FC3B93E003E9F13 /* APIServiceDelegate.h in Headers */,
+				61A0EE551FC3B93E003E9F13 /* APIServiceManager.h in Headers */,
+				61A0EE561FC3B93E003E9F13 /* APIModule.h in Headers */,
+				61A0EE571FC3B93E003E9F13 /* APIService+Extension.h in Headers */,
+				61A0EE4E1FC3B890003E9F13 /* APIRequest.h in Headers */,
+				61A0EE4D1FC3B890003E9F13 /* APIService.h in Headers */,
 				61B6CAFC1FC2CB1900910DEA /* JJNetwork.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
