@@ -8,9 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
-@class APIRequest;
+@class JJAPIRequest;
 
-@protocol APIServiceDelegate <NSObject>
+@protocol JJAPIServiceDelegate <NSObject>
 
 @required
 
@@ -20,7 +20,7 @@
  @param request Must pass the APIRequest<RequestProtocol> point object
  */
 
-- (void)startRequest:(APIRequest<RequestProtocol>*)request;
+- (void)startRequest:(JJAPIRequest<JJRequestProtocol>*)request;
 
 
 @end

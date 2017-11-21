@@ -6,23 +6,23 @@
 //  Copyright © 2017 jezz. All rights reserved.
 //
 
-#import "APIManager.h"
-#import "AFNetworkImpl.h"
+#import "JJAPIManager.h"
+#import "JJAFNetworkImpl.h"
 
 
-@interface APIManager ()
+@interface JJAPIManager ()
 
-@property(nonatomic,readwrite,strong)id<HTTPProtocol> networkImpl;
+@property(nonatomic,readwrite,strong)id<JJHTTPProtocol> networkImpl;
 
 @end
 
-@implementation APIManager
+@implementation JJAPIManager
 
-+ (APIManager*)shareAPIManaer{
-	static APIManager* apiManager = nil;
++ (JJAPIManager*)shareAPIManaer{
+	static JJAPIManager* apiManager = nil;
 	static dispatch_once_t once;
 	dispatch_once(&once, ^{
-		apiManager = [[APIManager alloc] init];
+		apiManager = [[JJAPIManager alloc] init];
 	});
 	return apiManager;
 }
@@ -31,7 +31,7 @@
 	self = [super init];
 	if (self) {
         //Real network implement
-		self.networkImpl = [[AFNetworkImpl alloc] init];
+		self.networkImpl = [[JJAFNetworkImpl alloc] init];
 	}
 	return self;
 }

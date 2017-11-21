@@ -10,9 +10,9 @@
 #import "DemoAPIService.h"
 #import "DomainModule.h"
 #import "HttpHeadModule.h"
-#import "APIService+Extension.h"
+#import "JJAPIService+Extension.h"
 
-@interface PresentViewController ()<APIServiceProtocol,APIServiceInterseptor>
+@interface PresentViewController ()<JJAPIServiceProtocol,JJAPIServiceInterseptor>
 
 @property(nonatomic,readwrite,strong)DemoAPIService* apiService;
 
@@ -33,10 +33,10 @@
     button.center = self.view.center;
     [self.view addSubview:button];
     
-    [APIService registerDomainIP:[[DomainModule alloc] init]];
-    [APIService registerHttpHeadField:[[HttpHeadModule alloc] init]];
+    [JJAPIService registerDomainIP:[[DomainModule alloc] init]];
+    [JJAPIService registerHttpHeadField:[[HttpHeadModule alloc] init]];
     
-    [APIService addServiceInterseptor:self forServiceClass:[DemoAPIService class]];
+    [JJAPIService addServiceInterseptor:self forServiceClass:[DemoAPIService class]];
     //[APIService removeServiceInterseptor:self forServiceClass:[DemoAPIService class]];
     
     [self.apiService userDetailInfo:100];
@@ -59,29 +59,29 @@
 
 #pragma mark - Network response
 
-- (void)responseSuccess:(APIService *)service responseData:(id)data{
+- (void)responseSuccess:(JJAPIService *)service responseData:(id)data{
     NSLog(@"responseSuccess");
 }
 
-- (void)responseFail:(APIService *)service errorMessage:(NSError *)error{
+- (void)responseFail:(JJAPIService *)service errorMessage:(NSError *)error{
     NSLog(@"responseFail");
 }
 
 #pragma mark - APIService Interseptor
 
-- (void)apiService:(APIService*)service beforeStartRequest:(APIRequest*)request{
+- (void)apiService:(JJAPIService*)service beforeStartRequest:(JJAPIRequest*)request{
     NSLog(@"beforeStartRequest");
 }
 
-- (void)apiService:(APIService*)service afterStartRequest:(APIRequest*)request{
+- (void)apiService:(JJAPIService*)service afterStartRequest:(JJAPIRequest*)request{
     NSLog(@"afterStartRequest");
 }
 
-- (void)apiService:(APIService*)service beforeResponse:(id)data{
+- (void)apiService:(JJAPIService*)service beforeResponse:(id)data{
     NSLog(@"beforeResponse");
 }
 
-- (void)apiService:(APIService*)service afterResponse:(id)data{
+- (void)apiService:(JJAPIService*)service afterResponse:(id)data{
     NSLog(@"afterResponse");
 }
 

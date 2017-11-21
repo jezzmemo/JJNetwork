@@ -6,16 +6,16 @@
 //  Copyright © 2017 jezz. All rights reserved.
 //
 
-#import "AFNetworkImpl.h"
+#import "JJAFNetworkImpl.h"
 #import <AFNetworking/AFNetworking.h>
 
-@interface AFNetworkImpl ()
+@interface JJAFNetworkImpl ()
 
 @property(nonatomic,readwrite,copy)NSDictionary* httpHead;
 
 @end
 
-@implementation AFNetworkImpl
+@implementation JJAFNetworkImpl
 
 #pragma mark - Init
 

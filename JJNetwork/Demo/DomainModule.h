@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "APIModule.h"
+#import "JJNetwork.h"
 
-@interface DomainModule : NSObject<APIDominIPModule>
+@interface DomainModule : NSObject<JJAPIDominIPModule>
 
 @end

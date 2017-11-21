@@ -6,21 +6,21 @@
 //  Copyright © 2017年 jezz. All rights reserved.
 //
 
-#ifndef APIModule_h
-#define APIModule_h
+#ifndef JJAPIModule_h
+#define JJAPIModule_h
 
-@protocol APIModule <NSObject>
+@protocol JJAPIModule <NSObject>
 
 @end
 
 
-@protocol APIDominIPModule <APIModule>
+@protocol JJAPIDominIPModule <JJAPIModule>
 
 - (NSDictionary*)domainIPData;
 
 @end
 
-@protocol APIHttpHeadModule <APIModule>
+@protocol JJAPIHttpHeadModule <JJAPIModule>
 
 - (NSDictionary*)customerHttpHead;
 

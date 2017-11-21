@@ -6,19 +6,19 @@
 //  Copyright © 2017年 jezz. All rights reserved.
 //
 
-#import "APIServiceManager.h"
+#import "JJAPIServiceManager.h"
 
-@interface APIServiceManager()
+@interface JJAPIServiceManager()
 
 
 @property(nonatomic,readwrite,strong)NSMutableDictionary* classNameToInterseptorDic;
 
 @end
 
-@implementation APIServiceManager
+@implementation JJAPIServiceManager
 
 + (instancetype)share{
-    static APIServiceManager* serviceManager = nil;
+    static JJAPIServiceManager* serviceManager = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         serviceManager = [[self alloc] init];
@@ -26,7 +26,7 @@
     return serviceManager;
 }
 
-- (void)addServiceInterseptor:(id<APIServiceInterseptor>)interseptor forServiceClass:(Class)className{
+- (void)addServiceInterseptor:(id<JJAPIServiceInterseptor>)interseptor forServiceClass:(Class)className{
     NSMutableArray* array = self.classNameToInterseptorDic[NSStringFromClass(className)];
     if (array) {
         if ([array indexOfObject:interseptor] != NSNotFound) {
@@ -41,7 +41,7 @@
     }
 }
 
-- (void)removeServiceInterseptor:(id<APIServiceInterseptor>)interseptor forServiceClass:(Class)className{
+- (void)removeServiceInterseptor:(id<JJAPIServiceInterseptor>)interseptor forServiceClass:(Class)className{
     NSMutableArray* array = self.classNameToInterseptorDic[NSStringFromClass(className)];
     for (int i = 0; i < array.count; i++) {
         if (array[i] == interseptor) {
@@ -60,34 +60,34 @@
     return _classNameToInterseptorDic;
 }
 
-- (void)apiService:(APIService*)service beforeStartRequest:(APIRequest*)request{
+- (void)apiService:(JJAPIService*)service beforeStartRequest:(JJAPIRequest*)request{
     NSString* className = NSStringFromClass([service class]);
     NSArray* interseptorArray = self.classNameToInterseptorDic[className];
-    for (id<APIServiceInterseptor> interseptor in interseptorArray) {
+    for (id<JJAPIServiceInterseptor> interseptor in interseptorArray) {
         [interseptor apiService:service beforeStartRequest:request];
     }
 }
 
-- (void)apiService:(APIService*)service afterStartRequest:(APIRequest*)request{
+- (void)apiService:(JJAPIService*)service afterStartRequest:(JJAPIRequest*)request{
     NSString* className = NSStringFromClass([service class]);
     NSArray* interseptorArray = self.classNameToInterseptorDic[className];
-    for (id<APIServiceInterseptor> interseptor in interseptorArray) {
+    for (id<JJAPIServiceInterseptor> interseptor in interseptorArray) {
         [interseptor apiService:service afterStartRequest:request];
     }
 }
 
-- (void)apiService:(APIService*)service beforeResponse:(id)data{
+- (void)apiService:(JJAPIService*)service beforeResponse:(id)data{
     NSString* className = NSStringFromClass([service class]);
     NSArray* interseptorArray = self.classNameToInterseptorDic[className];
-    for (id<APIServiceInterseptor> interseptor in interseptorArray) {
+    for (id<JJAPIServiceInterseptor> interseptor in interseptorArray) {
         [interseptor apiService:service beforeResponse:data];
     }
 }
 
-- (void)apiService:(APIService*)service afterResponse:(id)data{
+- (void)apiService:(JJAPIService*)service afterResponse:(id)data{
     NSString* className = NSStringFromClass([service class]);
     NSArray* interseptorArray = self.classNameToInterseptorDic[className];
-    for (id<APIServiceInterseptor> interseptor in interseptorArray) {
+    for (id<JJAPIServiceInterseptor> interseptor in interseptorArray) {
         [interseptor apiService:service afterResponse:data];
     }
 }

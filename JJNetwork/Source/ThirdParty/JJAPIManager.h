@@ -7,9 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "HTTPProtocol.h"
+#import "JJHTTPProtocol.h"
 
-@interface APIManager : NSObject<HTTPProtocol>
+@interface JJAPIManager : NSObject<JJHTTPProtocol>
 
 
 
@@ -18,6 +18,6 @@
  
  @return APIManager
  */
-+ (APIManager*)shareAPIManaer;
++ (JJAPIManager*)shareAPIManaer;
 
 @end

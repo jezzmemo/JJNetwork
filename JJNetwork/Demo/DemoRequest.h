@@ -6,8 +6,8 @@
 //  Copyright © 2017 jezz. All rights reserved.
 //
 
-#import "APIRequest.h"
+#import "JJNetwork.h"
 
-@interface DemoRequest : APIRequest<RequestProtocol>
+@interface DemoRequest : JJAPIRequest<JJRequestProtocol>
 
 @end

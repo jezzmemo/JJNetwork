@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "APICache.h"
+#import "JJAPICache.h"
 
-@interface APIFileCache : NSObject<APICache>
+@interface JJAPIFileCache : NSObject<JJAPICache>
 
 @end

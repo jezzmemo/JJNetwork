@@ -6,12 +6,12 @@
 //  Copyright © 2017 jezz. All rights reserved.
 //
 
-#ifndef HTTPProtocol_h
-#define HTTPProtocol_h
+#ifndef JJHTTPProtocol_h
+#define JJHTTPProtocol_h
 
 #import <Foundation/Foundation.h>
 
-@protocol HTTPProtocol <NSObject>
+@protocol JJHTTPProtocol <NSObject>
 
 /**
  Http Post method interface
@@ -44,4 +44,4 @@
 @end
 
 
-#endif /* HTTPProtocol_h */
+#endif /* JJHTTPProtocol_h */

@@ -7,19 +7,18 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "APIRequest.h"
-#import "APIFileCache.h"
-#import "APIServiceDelegate.h"
-#import "APIModule.h"
+#import "JJAPIRequest.h"
+#import "JJAPIServiceDelegate.h"
+#import "JJAPIModule.h"
 
-@class APIService;
+@class JJAPIService;
 
 
 /**
  Interseptor for the APIService
  Monitor the request before or after,reponse before or after
  */
-@protocol APIServiceInterseptor <NSObject>
+@protocol JJAPIServiceInterseptor <NSObject>
 
 @optional
 
@@ -29,7 +28,7 @@
  @param service APIService
  @param request APIRequest request object
  */
-- (void)apiService:(APIService*)service beforeStartRequest:(APIRequest*)request;
+- (void)apiService:(JJAPIService*)service beforeStartRequest:(JJAPIRequest*)request;
 
 
 /**
@@ -38,7 +37,7 @@
  @param service APIService
  @param request APIRequest request object
  */
-- (void)apiService:(APIService*)service afterStartRequest:(APIRequest*)request;
+- (void)apiService:(JJAPIService*)service afterStartRequest:(JJAPIRequest*)request;
 
 /**
  Invoke beforeResponse before Response
@@ -46,7 +45,7 @@
  @param service APIService
  @param data Response data object
  */
-- (void)apiService:(APIService*)service beforeResponse:(id)data;
+- (void)apiService:(JJAPIService*)service beforeResponse:(id)data;
 
 /**
  Invoke afterResponse before Response
@@ -54,7 +53,7 @@
  @param service APIService
  @param data Response data object
  */
-- (void)apiService:(APIService*)service afterResponse:(id)data;
+- (void)apiService:(JJAPIService*)service afterResponse:(id)data;
 
 @end
 
@@ -65,7 +64,7 @@
  Get the request parameter
  Response delegate
  */
-@protocol APIServiceProtocol <NSObject>
+@protocol JJAPIServiceProtocol <NSObject>
 
 @optional
 
@@ -76,7 +75,7 @@
  @param service Which APIService instance
  @param data JSON/Html/XML/Binary response is origin data
  */
-- (void)responseSuccess:(APIService*)service responseData:(id)data;
+- (void)responseSuccess:(JJAPIService*)service responseData:(id)data;
 
 
 /**
@@ -85,7 +84,7 @@
  @param service Which APIService instance
  @param error NSError object
  */
-- (void)responseFail:(APIService*)service errorMessage:(NSError*)error;
+- (void)responseFail:(JJAPIService*)service errorMessage:(NSError*)error;
 
 @end
 
@@ -94,26 +93,26 @@
  Every API must extends from APIService!!!
  Don't override the startRequest: method
  */
-@interface APIService : NSObject<APIServiceDelegate>
+@interface JJAPIService : NSObject<JJAPIServiceDelegate>
 
 
 /**
  APIService's send network request interseptor
  Monitor the send request before or after,response before or after
  */
-@property(nonatomic,readwrite,weak)id<APIServiceInterseptor> serviceInterseptor;
+@property(nonatomic,readwrite,weak)id<JJAPIServiceInterseptor> serviceInterseptor;
 
 /**
  APIService's delegate
  Http response, success or fail
  */
-@property(nonatomic,readwrite,weak)id<APIServiceProtocol> serviceProtocol;
+@property(nonatomic,readwrite,weak)id<JJAPIServiceProtocol> serviceProtocol;
 
 
 /**
  Get the request information
  For example:url,parameter...
  */
-@property(nonatomic,readonly,strong)APIRequest<RequestProtocol>* currentRequest;
+@property(nonatomic,readonly,strong)JJAPIRequest<JJRequestProtocol>* currentRequest;
 
 @end

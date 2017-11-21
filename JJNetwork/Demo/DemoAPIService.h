@@ -6,9 +6,9 @@
 //  Copyright © 2017 jezz. All rights reserved.
 //
 
-#import "APIService.h"
+#import "JJNetwork.h"
 
-@interface DemoAPIService : APIService
+@interface DemoAPIService : JJAPIService
 
 
 - (void)userDetailInfo:(NSInteger)uid;

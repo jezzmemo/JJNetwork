@@ -29,7 +29,7 @@ typedef NS_ENUM(NSUInteger,HTTPCachePolicy){
     ReloadFromCacheTimeLimit,
 };
 
-@protocol RequestProtocol <NSObject>
+@protocol JJRequestProtocol <NSObject>
 
 @required
 
@@ -91,7 +91,7 @@ typedef NS_ENUM(NSUInteger,HTTPCachePolicy){
 
 @end
 
-@interface APIRequest : NSObject<NSCopying>
+@interface JJAPIRequest : NSObject<NSCopying>
 
 
 /**

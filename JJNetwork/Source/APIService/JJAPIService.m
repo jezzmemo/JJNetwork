@@ -6,13 +6,14 @@
 //  Copyright © 2017 jezz. All rights reserved.
 //
 
-#import "APIService.h"
-#import "APIManager.h"
-#import "APIRequest.h"
+#import "JJAPIService.h"
+#import "JJAPIManager.h"
+#import "JJAPIRequest.h"
 #import "NSString+MD5.h"
-#import "APIServiceManager.h"
+#import "JJAPIServiceManager.h"
+#import "JJAPIFileCache.h"
 
-@interface APIService ()
+@interface JJAPIService ()
 
 
 /**
@@ -23,7 +24,7 @@
 /**
  File cache for APIService
  */
-@property(nonatomic,readwrite,strong)id<APICache> apiCache;
+@property(nonatomic,readwrite,strong)id<JJAPICache> apiCache;
 
 
 /**
@@ -34,7 +35,7 @@
 
 @end
 
-@implementation APIService
+@implementation JJAPIService
 
 
 #pragma mark - Init/Dealloc
@@ -54,7 +55,7 @@
 
 #pragma mark - Request
 
-- (void)startRequest:(APIRequest<RequestProtocol>*)request{
+- (void)startRequest:(JJAPIRequest<JJRequestProtocol>*)request{
     
     //Hold the request,callback may be use request object
     
@@ -110,9 +111,9 @@
     [self addHttpHeadFieldFromRequest:&sendRequest];
     
     if (httpMethod == GET){
-        self.taskRequest = [[APIManager shareAPIManaer] httpGetRequest:sendRequest parameters:parameters target:self selector:@selector(networkResponse:)];
+        self.taskRequest = [[JJAPIManager shareAPIManaer] httpGetRequest:sendRequest parameters:parameters target:self selector:@selector(networkResponse:)];
     }else if(httpMethod == POST){
-        self.taskRequest = [[APIManager shareAPIManaer] httpPostRequest:sendRequest parameters:parameters target:self selector:@selector(networkResponse:)];
+        self.taskRequest = [[JJAPIManager shareAPIManaer] httpPostRequest:sendRequest parameters:parameters target:self selector:@selector(networkResponse:)];
     }
     
     //Interseptor
@@ -162,13 +163,13 @@
     return NO;
 }
 
-- (BOOL)checkRequestValidity:(APIRequest<RequestProtocol>*)request{
+- (BOOL)checkRequestValidity:(JJAPIRequest<JJRequestProtocol>*)request{
     if (!request) {
         NSAssert(request != nil, @"Request object must not be nil");
         return NO;
     }
-    if (![request conformsToProtocol:@protocol(RequestProtocol)]) {
-        NSAssert([request conformsToProtocol:@protocol(RequestProtocol)],@"Request must implement RequestProtocol");
+    if (![request conformsToProtocol:@protocol(JJRequestProtocol)]) {
+        NSAssert([request conformsToProtocol:@protocol(JJRequestProtocol)],@"Request must implement RequestProtocol");
         return NO;
     }
     
@@ -197,11 +198,11 @@
  */
 - (NSString*)replaceDomainIPFromURL:(NSString*)url{
     
-    if (![[APIServiceManager share].domainIPs respondsToSelector:@selector(domainIPData)]) {
+    if (![[JJAPIServiceManager share].domainIPs respondsToSelector:@selector(domainIPData)]) {
         return url;
     }
     
-    NSDictionary* ips = [[APIServiceManager share].domainIPs domainIPData];
+    NSDictionary* ips = [[JJAPIServiceManager share].domainIPs domainIPData];
     if (ips.count == 0) {
         return url;
     }
@@ -219,10 +220,10 @@
  @param request NSMutableURLRequest
  */
 - (void)addHttpHeadFieldFromRequest:(NSMutableURLRequest**)request{
-    if (![[APIServiceManager share].httpHeadField respondsToSelector:@selector(customerHttpHead)]) {
+    if (![[JJAPIServiceManager share].httpHeadField respondsToSelector:@selector(customerHttpHead)]) {
         return;
     }
-    NSDictionary* heads = [[APIServiceManager share].httpHeadField customerHttpHead];
+    NSDictionary* heads = [[JJAPIServiceManager share].httpHeadField customerHttpHead];
     for (NSString* key in heads) {
         [*request setValue:heads[key] forHTTPHeaderField:key];
     }
@@ -230,32 +231,32 @@
 
 #pragma mark  - Interseptor
 
-- (void)beforeStartRequest:(APIRequest*)request{
+- (void)beforeStartRequest:(JJAPIRequest*)request{
     if ([self.serviceInterseptor respondsToSelector:@selector(apiService:beforeStartRequest:)]) {
         [self.serviceInterseptor apiService:self beforeStartRequest:request];
     }
-    [[APIServiceManager share] apiService:self beforeStartRequest:request];
+    [[JJAPIServiceManager share] apiService:self beforeStartRequest:request];
 }
 
-- (void)afterStartRequest:(APIRequest*)request{
+- (void)afterStartRequest:(JJAPIRequest*)request{
     if ([self.serviceInterseptor respondsToSelector:@selector(apiService:afterStartRequest:)]) {
         [self.serviceInterseptor apiService:self afterStartRequest:request];
     }
-    [[APIServiceManager share] apiService:self afterStartRequest:request];
+    [[JJAPIServiceManager share] apiService:self afterStartRequest:request];
 }
 
 - (void)beforeResponse:(id)response{
     if ([self.serviceInterseptor respondsToSelector:@selector(apiService:beforeResponse:)]) {
         [self.serviceInterseptor apiService:self beforeResponse:response];
     }
-    [[APIServiceManager share] apiService:self beforeResponse:response];
+    [[JJAPIServiceManager share] apiService:self beforeResponse:response];
 }
 
 - (void)afterResponse:(id)response{
     if ([self.serviceInterseptor respondsToSelector:@selector(apiService:afterResponse:)]) {
         [self.serviceInterseptor apiService:self afterResponse:response];
     }
-    [[APIServiceManager share] apiService:self afterResponse:response];
+    [[JJAPIServiceManager share] apiService:self afterResponse:response];
 }
 
 #pragma mark - Response
@@ -294,7 +295,7 @@
     
     //MD5 the all value and contact the timeStamp,
     //The sign will change every seconds
-    NSInteger timestamp = (int)[[NSDate date] timeIntervalSince1970];
+    NSInteger timestamp = (NSInteger)[[NSDate date] timeIntervalSince1970];
     [mString appendFormat:@"%ld",timestamp];
     NSString* sign = [[NSString stringWithFormat:@"%@%@",mString,key] md5];
     
@@ -323,11 +324,11 @@
 
 #pragma mark - Lazying get method
 
-- (id<APICache>)apiCache{
+- (id<JJAPICache>)apiCache{
     if (_apiCache != nil) {
         return _apiCache;
     }
-    _apiCache = [[APIFileCache alloc] init];
+    _apiCache = [[JJAPIFileCache alloc] init];
     return _apiCache;
 }
 

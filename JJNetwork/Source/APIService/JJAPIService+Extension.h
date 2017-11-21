@@ -6,9 +6,9 @@
 //  Copyright © 2017年 jezz. All rights reserved.
 //
 
-#import "APIService.h"
+#import "JJAPIService.h"
 
-@interface APIService (Extension)
+@interface JJAPIService (Extension)
 
 /**
  Resovle the performance DNS problem
@@ -17,7 +17,7 @@
  
  @param module APIModuleDomainIp Delegate
  */
-+ (void)registerDomainIP:(id<APIDominIPModule>)module;
++ (void)registerDomainIP:(id<JJAPIDominIPModule>)module;
 
 
 /**
@@ -26,7 +26,7 @@
  
  @param module APIModuleHttpHead Delegate
  */
-+ (void)registerHttpHeadField:(id<APIHttpHeadModule>)module;
++ (void)registerHttpHeadField:(id<JJAPIHttpHeadModule>)module;
 
 
 /**
@@ -35,7 +35,7 @@
  @param interseptor APIServiceInterseptor
  @param className APIService's SubClass
  */
-+ (void)addServiceInterseptor:(id<APIServiceInterseptor>)interseptor forServiceClass:(Class)className;
++ (void)addServiceInterseptor:(id<JJAPIServiceInterseptor>)interseptor forServiceClass:(Class)className;
 
 
 /**
@@ -44,6 +44,6 @@
  @param interseptor APIServiceInterseptor
  @param className APIService's SubClass
  */
-+ (void)removeServiceInterseptor:(id<APIServiceInterseptor>)interseptor forServiceClass:(Class)className;
++ (void)removeServiceInterseptor:(id<JJAPIServiceInterseptor>)interseptor forServiceClass:(Class)className;
 
 @end

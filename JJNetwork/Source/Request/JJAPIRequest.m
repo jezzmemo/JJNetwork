@@ -6,13 +6,13 @@
 //  Copyright © 2017 jezz. All rights reserved.
 //
 
-#import "APIRequest.h"
+#import "JJAPIRequest.h"
 #import <objc/runtime.h>
 
-@implementation APIRequest
+@implementation JJAPIRequest
 
 - (id)copyWithZone:(nullable NSZone *)zone{
-    APIRequest *request = [[[self class] allocWithZone:zone] init];
+    JJAPIRequest *request = [[[self class] allocWithZone:zone] init];
     request.parameter = self.parameter;
     request.httpHeadField = self.httpHeadField;
     return request;

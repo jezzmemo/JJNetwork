@@ -6,10 +6,10 @@
 //  Copyright © 2017年 jezz. All rights reserved.
 //
 
-#import "APIFileCache.h"
+#import "JJAPIFileCache.h"
 #import "NSString+MD5.h"
 
-@implementation APIFileCache
+@implementation JJAPIFileCache
 
 - (BOOL)saveCacheWithData:(id)data withKey:(NSString*)key{
     NSString* fileName = [key md5];

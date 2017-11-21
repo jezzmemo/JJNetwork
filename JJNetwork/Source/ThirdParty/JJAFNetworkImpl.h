@@ -7,12 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "HTTPProtocol.h"
+#import "JJHTTPProtocol.h"
 
 
 /**
  AFNetworking implement the http post and get request
  */
-@interface AFNetworkImpl : NSObject<HTTPProtocol>
+@interface JJAFNetworkImpl : NSObject<JJHTTPProtocol>
 
 @end

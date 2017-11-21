@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@protocol APICache <NSObject>
+@protocol JJAPICache <NSObject>
 
 @required
 

@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "JJNetwork"
-  s.version      = "0.0.9"
+  s.version      = "0.1.0"
   s.summary      = "JJNetwork."
 
   # This description is used to generate tags and improve search results.
