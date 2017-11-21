@@ -33,13 +33,25 @@ run the following command:
 ```
 $ pod install
 ```
+
+#### Installation with Carthage
+
+To integrate JJNetwork into your Xcode project using Carthage, specify it in your `Cartfile`:
+
+```
+github "AFNetworking/AFNetworking" ~> 3.0
+github "jezzmemo/JJNetwork"
+```
+
+Run carthage to build the framework and drag the built `AFNetworking.framework`,`JJNetwork.framework` into your Xcode project.
+
 ## Usage
 
-1.Create Request file，extends from `APIRequest` class，Implement `RequestProtocol`，For example:
+#### 1.Create Request file，extends from `JJAPIRequest` class，Implement `JJRequestProtocol`，For example:
 
 DemoRequest.h
 ```objc
-@interface DemoRequest : APIRequest<RequestProtocol>
+@interface DemoRequest : JJAPIRequest<JJRequestProtocol>
 
 @end
 ```
@@ -54,11 +66,11 @@ DemoRequest.m
 @end
 ```
 
-2.Create Service extends from `APIService`,for example：
+#### 2.Create Service extends from `JJAPIService`,for example：
 
 DemoAPIService.h
 ```objc
-@interface DemoAPIService : APIService
+@interface DemoAPIService : JJAPIService
 
 - (void)userDetailInfo:(NSInteger)uid;
 
@@ -85,9 +97,9 @@ DemoAPIService.m
 @end
 ```
 
-3.Finaly,Invoke the DemoAPIService,for example:
+#### 3.Finaly,Invoke the DemoAPIService,for example:
 ```objc
-@interface DemoViewController ()<APIServiceProtocol>
+@interface DemoViewController ()<JJAPIServiceProtocol>
 
 @property(nonatomic,readwrite,strong)DemoAPIService* apiService;
 
@@ -113,10 +125,10 @@ DemoAPIService.m
 
 #pragma mark - Network response
 
-- (void)responseSuccess:(APIService *)service responseData:(id)data{
+- (void)responseSuccess:(JJAPIService *)service responseData:(id)data{
 	
 }
-- (void)responseFail:(APIService *)service errorMessage:(NSError *)error{
+- (void)responseFail:(JJAPIService *)service errorMessage:(NSError *)error{
 	
 }
 
