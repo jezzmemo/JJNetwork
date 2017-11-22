@@ -4,7 +4,7 @@
 # 架构
 
 ## JJAPIRequest
-每个请求的基本单位，每个网络请求必须是继承这个对象，并实现`JJRequestProtocol`，才能正常工作,[代码示例]()
+每个请求的基本单位，每个网络请求必须是继承这个对象，并实现`JJRequestProtocol`，才能正常工作,[代码示例](https://github.com/jezzmemo/JJNetwork/blob/master/JJNetwork/Demo/DemoRequest.m)
 
 * 网络请求的必要信息
 这里是指网络请求的一些必要信息，最少是需要URL的，默认的HTTP Method是GET,其他都是可选的
@@ -29,7 +29,7 @@ typedef NS_ENUM(NSUInteger,HTTPCachePolicy){
 目前为止，只给Request基础的功能，后续在Request添加各项属性和方法来满足多变业务的需求
 
 ## JJAPIService
-JJAPIService是整个JJNetwork的核心和入口，网络的请求都是由这个地方发送出去的，从层次的角度来说，这里就是App的网络数据提供层,[代码示例]()
+JJAPIService是整个JJNetwork的核心和入口，网络的请求都是由这个地方发送出去的，从层次的角度来说，这里就是App的网络数据提供层,[代码示例](https://github.com/jezzmemo/JJNetwork/blob/master/JJNetwork/Demo/DemoAPIService.m)
 
 * 使用方式的选择:Category or Extend
 
@@ -70,6 +70,24 @@ JJAPIService是整个JJNetwork的核心和入口，网络的请求都是由这�
 
 
 ## Cache
+关于缓存这个问题，我也考虑过用HTTP本身的缓存，但是看过iOS的文档后，发现有两个枚举没有实现，如:
+```
+typedef NS_ENUM(NSUInteger, NSURLRequestCachePolicy)
+{
+    NSURLRequestUseProtocolCachePolicy = 0,
+
+    NSURLRequestReloadIgnoringLocalCacheData = 1,
+    NSURLRequestReloadIgnoringLocalAndRemoteCacheData = 4, // Unimplemented
+    NSURLRequestReloadIgnoringCacheData = NSURLRequestReloadIgnoringLocalCacheData,
+
+    NSURLRequestReturnCacheDataElseLoad = 2,
+    NSURLRequestReturnCacheDataDontLoad = 3,
+
+    NSURLRequestReloadRevalidatingCacheData = 5, // Unimplemented
+};
+```
+所以长期来看，我放弃使用系统的Cache方案，自己来写
+
 * 抽象Cache的获取，存储，删除等基本需求
 
 * 主要使用File和Memory介质来存储，具体由这两种介质来具体实现
