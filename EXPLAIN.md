@@ -149,11 +149,11 @@ __最后总结下网络请求的原则是，能用Cache就用Cache(比如分类)
 
  * 保护Key
 
- 简单的混淆敏感的Key,[UAObfuscatedString](https://github.com/UrbanApps/UAObfuscatedString)
- iOS Data Protection
- 混淆
- 使用底层的方式C/C++
- 
+ 1. 简单的混淆敏感的Key,[UAObfuscatedString](https://github.com/UrbanApps/UAObfuscatedString)
+ 2. iOS Data Protection
+ 3. 混淆
+ 4. 使用底层的方式C/C++
+
  以上几种方法是加强对Key的保护，并不能一定解决这个问题，后续有简单安全的办法再补充
  
   
