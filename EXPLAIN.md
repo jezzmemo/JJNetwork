@@ -1,9 +1,9 @@
 # JJNetwork
 封装网络通信的必要性，对于一般应用封装下第三方的网络库，提供常用的POST和GET方法，然后Callback给调用者，可以满足一般的情况，但是随着业务发展，用户量的增长，给网络通信提出更多的要求，比如:改进网络通信的性能，网络通信的安全，以及网络封装的灵活性...基于这些要求所有我们有必要封装一个网络通信的模块，它的目的要解决我们常见问题，也要满足某些请求特殊性，所以我列出以下问题需要解决:
 
-# 架构
+## 架构
 
-## JJAPIRequest
+### JJAPIRequest
 每个请求的基本单位，每个网络请求必须是继承这个对象，并实现`JJRequestProtocol`，才能正常工作,[代码示例](https://github.com/jezzmemo/JJNetwork/blob/master/JJNetwork/Demo/DemoRequest.m)
 
 * 网络请求的必要信息
@@ -28,7 +28,7 @@ typedef NS_ENUM(NSUInteger,HTTPCachePolicy){
 * 以及后期的扩展
 目前为止，只给Request基础的功能，后续在Request添加各项属性和方法来满足多变业务的需求
 
-## JJAPIService
+### JJAPIService
 JJAPIService是整个JJNetwork的核心和入口，网络的请求都是由这个地方发送出去的，从层次的角度来说，这里就是App的网络数据提供层,[代码示例](https://github.com/jezzmemo/JJNetwork/blob/master/JJNetwork/Demo/DemoAPIService.m)
 
 * 使用方式的选择:Category or Extend
@@ -46,7 +46,7 @@ JJAPIService是整个JJNetwork的核心和入口，网络的请求都是由这�
 
 这是JJNetwork的高级功能，有两种方式使用这个功能，使用JJAPIService实例化对象实现`JJAPIServiceInterseptor`或者`[JJAPIService addServiceInterseptor]`来指定任意JJAPIService，拦截器主要功能是监听任意JJAPIService，以及网络执行前后需要做一些工作
 
-## ThirdParty
+### ThirdParty
 * 抽象HTTP接口
 先定义一个HTTP的接口:
 ```objc
@@ -69,7 +69,7 @@ JJAPIService是整个JJNetwork的核心和入口，网络的请求都是由这�
 如果你用AFNetworking来实现就用AFNetworing来实现，如果用其他的第三方库就用其他的，这个根据你们你们的情况来选，如果需要切换，只需要实现这个接口，然后换下你的实现类就行了，如果需要切换回来再换回来就行.
 
 
-## Cache
+### Cache
 关于缓存这个问题，我也考虑过用HTTP本身的缓存，但是看过iOS的文档后，发现有两个枚举没有实现，如:
 ```
 typedef NS_ENUM(NSUInteger, NSURLRequestCachePolicy)
