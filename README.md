@@ -118,7 +118,7 @@ Run carthage to build the framework and drag the built `AFNetworking.framework`,
 + (void)removeServiceInterseptor:(id<JJAPIServiceInterseptor>)interseptor forServiceClass:(Class)className;
 ```
 
-## Simple Tourist
+## Tourist
 
 #### 1.Create Request file，extends from `JJAPIRequest` class，Implement `JJRequestProtocol`，For example:
 
