@@ -296,7 +296,7 @@
     //MD5 the all value and contact the timeStamp,
     //The sign will change every seconds
     NSInteger timestamp = (NSInteger)[[NSDate date] timeIntervalSince1970];
-    [mString appendFormat:@"%ld",timestamp];
+    [mString appendFormat:@"%zd",timestamp];
     NSString* sign = [[NSString stringWithFormat:@"%@%@",mString,key] md5];
     
     dic[@"sign"] = sign;

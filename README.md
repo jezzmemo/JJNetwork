@@ -47,6 +47,79 @@ Run carthage to build the framework and drag the built `AFNetworking.framework`,
 
 ## Usage
 
+#### Sign parameter by the customer key,implement `JJRequestProtocol` method
+```objc
+- (BOOL)isSignParameter{
+    return YES;
+}
+
+- (NSString*)signParameterKey{
+    return @"key";
+}
+```
+
+#### Select cache policy for GET and POST,implement `JJRequestProtocol` method
+- ReloadFromNetwork: Default mode,request from network
+- ReloadFromCacheElseLoadNetwork: If have cache,will return the cache,do not request network,if not exist cache,will load origin source
+- ReloadFromCacheTimeLimit: First time load request origin source,save the cache for the limit time,if expire，will load origin source and replace the old cache
+
+```objc
+- (HTTPCachePolicy)requestCachePolicy{
+    return ReloadFromCacheTimeLimit;
+}
+
+- (NSUInteger)cacheLimitTime{
+    return 120;
+}
+```
+
+#### Replace the domain to IP address improve performance and change customer http head field
+
+* `JJAPIDominIPModule`
+
+```objc
+@interface DomainModule : NSObject<JJAPIDominIPModule>
+
+@end
+@implementation DomainModule
+- (NSDictionary*)domainIPData{
+    return @{@"api.imemo8.com":@"218.244.140.1"};
+}
+@end
+```
+
+* `JJAPIHttpHeadModule`
+
+```objc
+@interface HttpHeadModule : NSObject<JJAPIHttpHeadModule>
+
+@end
+@implementation HttpHeadModule
+
+- (NSDictionary*)customerHttpHead{
+    return @{@"user-token":@"xxxxx",@"device-id":@"xxxxx"};
+}
+
+@end
+```
+
+```objc
+[JJAPIService registerDomainIP:[[DomainModule alloc] init]];
+[JJAPIService registerHttpHeadField:[[HttpHeadModule alloc] init]];
+```
+
+#### Interseptor network request
+
+* Implement from `JJAPIServiceInterseptor` to the instance `JJAPIService` object
+
+* JJAPIService (Extension)
+```objc
++ (void)addServiceInterseptor:(id<JJAPIServiceInterseptor>)interseptor forServiceClass:(Class)className;
++ (void)removeServiceInterseptor:(id<JJAPIServiceInterseptor>)interseptor forServiceClass:(Class)className;
+```
+
+## Simple Tourist
+
 #### 1.Create Request file，extends from `JJAPIRequest` class，Implement `JJRequestProtocol`，For example:
 
 DemoRequest.h
@@ -60,7 +133,27 @@ DemoRequest.m
 @implementation DemoRequest
 
 - (NSString*)requestURL{
-    return @"https://www.google.com";
+    return @"http://api.imemo8.com/diary.php?mod=getHotDiary";
+}
+
+- (HTTPMethod)requestMethod{
+    return GET;
+}
+
+- (BOOL)isSignParameter{
+    return NO;
+}
+
+- (NSString*)signParameterKey{
+    return @"key";
+}
+
+- (HTTPCachePolicy)requestCachePolicy{
+    return ReloadFromCacheTimeLimit;
+}
+
+- (NSUInteger)cacheLimitTime{
+    return 120;
 }
 
 @end

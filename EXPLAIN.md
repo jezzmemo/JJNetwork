@@ -25,6 +25,7 @@ typedef NS_ENUM(NSUInteger,HTTPCachePolicy){
     ReloadFromCacheTimeLimit,
 };
 ```
+__最后强调一点就是JJNetwork的Cache支持POST和Get的，iOS自带的CachePolicy只支持GET,因为JJNetwork设计之初就是为接口请求设计的，所以文件上传和下载不在我们功能之内__
 * 以及后期的扩展
 目前为止，只给Request基础的功能，后续在Request添加各项属性和方法来满足多变业务的需求
 
@@ -91,6 +92,9 @@ typedef NS_ENUM(NSUInteger, NSURLRequestCachePolicy)
 * 抽象Cache的获取，存储，删除等基本需求
 
 * 主要使用File和Memory介质来存储，具体由这两种介质来具体实现
+
+### Category
+* 这个地方就不多讲了，就是项目中用到的一些工具类
 
 ## 网络性能优化
 先看一张Chrome的Timing的流程图，清楚的表述了HTTP的整个流程的关键节点:
