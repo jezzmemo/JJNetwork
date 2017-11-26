@@ -4,14 +4,14 @@
 [![Build Status](https://travis-ci.org/jezzmemo/JJNetwork.svg?branch=master)](https://travis-ci.org/jezzmemo/JJNetwork.svg?branch=master)
 [![Pod License](http://img.shields.io/cocoapods/l/JJNetwork.svg?style=flat)](https://www.apache.org/licenses/LICENSE-2.0.html)
 
-基于AFNetworking的网络库，使用delegate为交互方式,加入了一些业务增强和性能优化，[详细文档](https://github.com/jezzmemo/JJNetwork/blob/master/EXPLAIN.md)
+基于AFNetworking的网络库，使用Delegate为交互方式,加入了一些业务增强和性能优化，[详细文档](https://github.com/jezzmemo/JJNetwork/blob/master/EXPLAIN.md)
 
 ## 特色功能
 
-- [x] 根据自定义的Key签名参数
-- [x] 根据缓存规则缓存POST或Get
+- [x] 自定义Key签名参数
+- [x] 缓存不止支持GET，还支持POST
 - [x] 支持用IP替换域名，达到提高网络性能，支持HTTP HEAD设置
-- [x] 可以设置任意一个APIService的拦截器
+- [x] JJAPIService的扩展支持拦截器,可以添加和删除任意JJAPIService
 
 ## 安装环境
 
@@ -72,7 +72,7 @@ github "jezzmemo/JJNetwork"
 }
 ```
 
-#### 支持用IP替换域名，达到提高网络性能，支持HTTP HEAD设置
+#### 支持用IP替换域名(服务器要支持IP访问)，达到提高网络性能，支持HTTP HEAD设置
 
 * `JJAPIDominIPModule`
 
@@ -102,6 +102,8 @@ github "jezzmemo/JJNetwork"
 @end
 ```
 
+并注册到`JJAPIService+Extension`
+
 ```objc
 [JJAPIService registerDomainIP:[[DomainModule alloc] init]];
 [JJAPIService registerHttpHeadField:[[HttpHeadModule alloc] init]];
@@ -109,12 +111,28 @@ github "jezzmemo/JJNetwork"
 
 #### 拦截器的使用
 
-* 从`JJAPIService`实例化对象的serviceInterseptor的属性，并实现`JJAPIServiceInterseptor`协议， 
+* 从`JJAPIService`实例化对象的serviceInterseptor的属性，并实现`JJAPIServiceInterseptor`协议:
+```objc
+- (DemoAPIService*)apiService{
+    if (_apiService != nil) {
+        return _apiService;
+    }
+    _apiService = [[DemoAPIService alloc] init];
+    _apiService.serviceProtocol = self;
+    _apiService.serviceInterseptor = self;
+    return _apiService;
+}
+``` 
 
-* JJAPIService 的扩展实现以下方法，可以监听任意JJAPIService子类
+* JJAPIService 的扩展实现以下方法，可以监听任意JJAPIService子类:
 ```objc
 + (void)addServiceInterseptor:(id<JJAPIServiceInterseptor>)interseptor forServiceClass:(Class)className;
 + (void)removeServiceInterseptor:(id<JJAPIServiceInterseptor>)interseptor forServiceClass:(Class)className;
+```
+
+使用如下:
+```objc
+[JJAPIService addServiceInterseptor:self forServiceClass:[DemoAPIService class]];
 ```
 
 ## 快速试用

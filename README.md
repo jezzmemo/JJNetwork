@@ -9,7 +9,7 @@ AFNetworking-based network library, with delegate to process network response, i
 ## Features
 
 - [x] Sign the http parameter by your customer key
-- [x] Customer cache for the GET and POST
+- [x] Http cache for the GET and POST
 - [x] Replace the domain to IP address improve performance and change customer http head field
 - [x] Interseptor network request
 
@@ -103,6 +103,8 @@ Run carthage to build the framework and drag the built `AFNetworking.framework`,
 @end
 ```
 
+Register module to `JJAPIService+Extension`
+
 ```objc
 [JJAPIService registerDomainIP:[[DomainModule alloc] init]];
 [JJAPIService registerHttpHeadField:[[HttpHeadModule alloc] init]];
@@ -110,12 +112,28 @@ Run carthage to build the framework and drag the built `AFNetworking.framework`,
 
 #### Interseptor network request
 
-* Implement from `JJAPIServiceInterseptor` to the instance `JJAPIService` object
+* Implement from `JJAPIServiceInterseptor` to the instance `JJAPIService` object:
+```objc
+- (DemoAPIService*)apiService{
+    if (_apiService != nil) {
+        return _apiService;
+    }
+    _apiService = [[DemoAPIService alloc] init];
+    _apiService.serviceProtocol = self;
+    _apiService.serviceInterseptor = self;
+    return _apiService;
+}
+```
 
 * JJAPIService (Extension)
 ```objc
 + (void)addServiceInterseptor:(id<JJAPIServiceInterseptor>)interseptor forServiceClass:(Class)className;
 + (void)removeServiceInterseptor:(id<JJAPIServiceInterseptor>)interseptor forServiceClass:(Class)className;
+```
+
+For example:
+```objc
+[JJAPIService addServiceInterseptor:self forServiceClass:[DemoAPIService class]];
 ```
 
 ## Tourist
