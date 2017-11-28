@@ -4,7 +4,7 @@
 [![Build Status](https://travis-ci.org/jezzmemo/JJNetwork.svg?branch=master)](https://travis-ci.org/jezzmemo/JJNetwork.svg?branch=master)
 [![Pod License](http://img.shields.io/cocoapods/l/JJNetwork.svg?style=flat)](https://www.apache.org/licenses/LICENSE-2.0.html)
 
-AFNetworking-based network library, with delegate to process network response, integrate more business and optimize network performance,[Chinese document](https://github.com/jezzmemo/JJNetwork/blob/master/EXPLAIN.md)
+AFNetworking-based network library, with delegate to process network response, integrate more business and optimize network performance,[中文文档](https://github.com/jezzmemo/JJNetwork/blob/master/README_CN.md)
 
 JJNetwork is used in [iMemo](https://itunes.apple.com/cn/app/%E7%88%B1%E5%A2%A8%E6%97%A5%E8%AE%B0-%E7%AE%80%E6%B4%81%E4%BE%BF%E7%AD%BE%E4%B8%8E%E5%8D%B0%E8%B1%A1%E7%AC%94%E8%AE%B0%E5%90%8C%E6%AD%A5/id912688184?mt=8)
 
