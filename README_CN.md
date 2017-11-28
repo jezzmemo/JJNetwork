@@ -6,8 +6,6 @@
 
 基于AFNetworking的网络库，使用Delegate为交互方式,加入了一些业务增强和性能优化，[详细文档](https://github.com/jezzmemo/JJNetwork/blob/master/EXPLAIN.md)
 
-下列应用已使用:[iMemo](https://itunes.apple.com/cn/app/%E7%88%B1%E5%A2%A8%E6%97%A5%E8%AE%B0-%E7%AE%80%E6%B4%81%E4%BE%BF%E7%AD%BE%E4%B8%8E%E5%8D%B0%E8%B1%A1%E7%AC%94%E8%AE%B0%E5%90%8C%E6%AD%A5/id912688184?mt=8)
-
 ## 特色功能
 
 - [x] 自定义Key签名参数
