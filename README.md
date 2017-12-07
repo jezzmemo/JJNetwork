@@ -75,9 +75,11 @@ For example:JJNetwork `http://api.imemo8.com/diary.php` send GET request，param
 ```
 
 * requestURL
+
 Fill whole request URL,this method is required,other is optional
 
 * requestMethod
+
 return enum，POST,GET,PUT,DELETE,default is GET,if you did not implement
 
 ### Parameter and Start request
@@ -129,9 +131,9 @@ return enum，POST,GET,PUT,DELETE,default is GET,if you did not implement
 @end
 ```
 
-* Invoke startRequest will process network request
-* Implement requestParameters request parameter
-* responseSuccess and responseFail,network response
+* Invoke `startRequest` will process network request
+* Implement `requestParameters` request parameter
+* `responseSuccess` and `responseFail`,network response
 
 ### Sign parameter by the customer key
 ```objc
