@@ -13,7 +13,7 @@
 @class JJAPIRequest;
 
 /**
- Use service interface
+ Request interface
  Get the request parameter
  Response delegate
  */

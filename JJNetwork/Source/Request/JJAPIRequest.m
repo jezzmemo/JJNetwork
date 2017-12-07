@@ -7,14 +7,13 @@
 //
 
 #import "JJAPIRequest.h"
-#import "JJAPIService.h"
 
 @interface JJAPIRequest()
 
 /**
  Network request implement object
  */
-@property(nonatomic,readwrite,strong)JJAPIService* apiService;
+@property(nonatomic,readwrite,strong)id apiService;
 
 @end
 
@@ -33,22 +32,26 @@
 #pragma mark - Public
 
 - (void)startRequest{
+    #pragma clang diagnostic push
+    #pragma clang diagnostic ignored "-Wundeclared-selector"
     if (self.requestInterseptor) {
-        self.apiService.serviceInterseptor = self.requestInterseptor;
+        [self.apiService performSelector:@selector(setServiceInterseptor:) withObject:self.requestInterseptor];
     }
     if (self.delegate) {
-        self.apiService.serviceDelegate = self.delegate;
+        [self.apiService performSelector:@selector(setServiceDelegate:) withObject:self.delegate];
+        
     }
-    [self.apiService startRequest:self];
+    [self.apiService performSelector:@selector(startRequest:) withObject:self];
+    #pragma clang diagnostic pop
 }
 
 #pragma mark - API Service
 
-- (JJAPIService*)apiService{
+- (id)apiService{
     if (_apiService != nil) {
         return _apiService;
     }
-    _apiService = [JJAPIService new];
+    _apiService = [[NSClassFromString(@"JJAPIService") alloc] init];
     return _apiService;
 }
 

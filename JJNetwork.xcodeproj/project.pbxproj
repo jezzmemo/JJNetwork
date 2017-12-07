@@ -28,7 +28,6 @@
 		6199ADD71F2E2874004573E3 /* JJAPIService.m in Sources */ = {isa = PBXBuildFile; fileRef = 6199ADD61F2E2874004573E3 /* JJAPIService.m */; };
 		61A0EE231FC32037003E9F13 /* AFNetworking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61A0EE221FC32037003E9F13 /* AFNetworking.framework */; };
 		61A0EE4E1FC3B890003E9F13 /* JJAPIRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 6199ADD21F2E27E9004573E3 /* JJAPIRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		61A0EE541FC3B93E003E9F13 /* JJAPIServiceDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 619FB57D1F603D2800030792 /* JJAPIServiceDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		61B6CAFC1FC2CB1900910DEA /* JJNetwork.h in Headers */ = {isa = PBXBuildFile; fileRef = 6199ADC51F2E19AD004573E3 /* JJNetwork.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		61B6CAFD1FC2CB5600910DEA /* JJAPIFileCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 6199911A1F5C570A003AAED6 /* JJAPIFileCache.m */; };
 		61B6CAFE1FC2CB5600910DEA /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = 61E270F61F4DCEAB00834D0E /* NSString+MD5.m */; };
@@ -293,7 +292,6 @@
 				618384D21FD7E4FE00450D56 /* JJRequestDelegate.h in Headers */,
 				618384D31FD7E4FE00450D56 /* JJRequestInterseptor.h in Headers */,
 				618384D41FD7E4FE00450D56 /* JJAPIRequest+Extension.h in Headers */,
-				61A0EE541FC3B93E003E9F13 /* JJAPIServiceDelegate.h in Headers */,
 				61A0EE4E1FC3B890003E9F13 /* JJAPIRequest.h in Headers */,
 				61B6CAFC1FC2CB1900910DEA /* JJNetwork.h in Headers */,
 			);

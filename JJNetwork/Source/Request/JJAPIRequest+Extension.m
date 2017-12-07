@@ -7,29 +7,38 @@
 //
 
 #import "JJAPIRequest+Extension.h"
-#import "JJAPIServiceManager.h"
 
 @implementation JJAPIRequest (Extension)
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
+
 + (void)registerDomainIP:(id<JJAPIDominIPModule>)module{
-    [JJAPIServiceManager share].domainIPs = module;
+    [[self apiServiceManager] performSelector:@selector(setDomainIPs:) withObject:module];
 }
 
 + (void)registerHttpHeadField:(id<JJAPIHttpHeadModule>)module{
-    [JJAPIServiceManager share].httpHeadField = module;
+    [[self apiServiceManager] performSelector:@selector(setHttpHeadField:) withObject:module];
 }
 
 + (void)addRequestInterseptor:(id<JJRequestInterseptor>)interseptor forRequestClass:(Class)className{
     NSAssert([interseptor conformsToProtocol:@protocol(JJRequestInterseptor)], @"interseptor must implement JJRequestInterseptor");
     NSAssert([className isSubclassOfClass:[JJAPIRequest class]], @"className must extend from JJAPIRequest");
     
-    [[JJAPIServiceManager share] addServiceInterseptor:interseptor forServiceClass:className];
+    [[self apiServiceManager] performSelector:@selector(addServiceInterseptor:forServiceClass:) withObject:interseptor withObject:className];
 }
 
 + (void)removeRequestInterseptor:(id<JJRequestInterseptor>)interseptor forRequestClass:(Class)className{
     NSAssert([interseptor conformsToProtocol:@protocol(JJRequestInterseptor)], @"interseptor must implement JJRequestInterseptor");
     NSAssert([className isSubclassOfClass:[JJAPIRequest class]], @"className must extend from JJAPIRequest");
-    [[JJAPIServiceManager share] removeServiceInterseptor:interseptor forServiceClass:className];
+    
+    [[self apiServiceManager] performSelector:@selector(removeServiceInterseptor:forServiceClass:) withObject:interseptor withObject:className];
 }
+
++ (id)apiServiceManager{
+    return [NSClassFromString(@"JJAPIServiceManager") performSelector:@selector(share)];
+}
+
+#pragma clang diagnostic pop
 
 @end

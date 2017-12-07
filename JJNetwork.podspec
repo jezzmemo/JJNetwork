@@ -100,7 +100,6 @@ Pod::Spec.new do |s|
   end
 
   s.subspec 'Request' do |ss|
-    ss.dependency 'JJNetwork/APIService'
     ss.source_files = 'JJNetwork/Source/Request/*.{h,m}'
     ss.public_header_files = 'JJNetwork/Source/Request/*.h'
   end
