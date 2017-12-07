@@ -4,10 +4,19 @@
 ## 架构
 
 ### JJAPIRequest
-每个请求的基本单位，每个网络请求必须是继承这个对象，并实现`JJRequestProtocol`，才能正常工作,[代码示例](https://github.com/jezzmemo/JJNetwork/blob/master/JJNetwork/Demo/DemoRequest.m)
+每个请求的基本单位，每个网络请求必须是继承这个对象,并实现`JJRequestInput`里的方法，最终调用startRequest即可工作,[代码示例](https://github.com/jezzmemo/JJNetwork/blob/master/JJNetwork/Demo/DemoRequest.m)
 
-* 网络请求的必要信息
-这里是指网络请求的一些必要信息，最少是需要URL的，默认的HTTP Method是GET,其他都是可选的
+* 使用方式的选择:Category or Extend
+
+使用Extend的好处是：编译期间,可以使用自定义变量，对于开发者来说比较灵活 坏处是：侵入性太强
+使用Category的好处是：运行时,按需加载，不破坏原来的结构扩展 坏处是：写自定义变量不方便(技术上做的到)，方法名重复问题
+
+在这个选择上，我选择了继承(extend)这种方式，主要是考虑开发者使用的灵活，以及不受方法名约束的问题
+
+* 拦截器的使用
+
+这是JJNetwork的高级功能，有两种方式使用这个功能，使用JJAPIService实例化对象实现`JJAPIServiceInterseptor`或者`[JJAPIService addServiceInterseptor]`来指定任意JJAPIService，拦截器主要功能是监听任意JJAPIService，以及网络执行前后需要做一些工作
+
 * 缓存的策略选择
 每个Request可以选择自己对应的缓存策略，由于是Protocol的设计，开发者可以根据自己的逻辑来选择，现在暂时只提供三种策略:
 ```objc
@@ -26,26 +35,23 @@ typedef NS_ENUM(NSUInteger,HTTPCachePolicy){
 };
 ```
 __最后强调一点就是JJNetwork的Cache支持POST和Get的，iOS自带的CachePolicy只支持GET,因为JJNetwork设计之初就是为接口请求设计的，所以文件上传和下载不在我们功能之内__
-* 以及后期的扩展
-目前为止，只给Request基础的功能，后续在Request添加各项属性和方法来满足多变业务的需求
+* JJAPIDominIPModule和JJAPIHttpHeadModule
+
+`JJAPIDominIPModule`提供全局设置域名和IP映射的功能，减少DNS查找过程，提供性能用的.
+
+`JJAPIHttpHeadModule`全局设置HttpHeadField.
+
 
 ### JJAPIService
-JJAPIService是整个JJNetwork的核心和入口，网络的请求都是由这个地方发送出去的，从层次的角度来说，这里就是App的网络数据提供层,[代码示例](https://github.com/jezzmemo/JJNetwork/blob/master/JJNetwork/Demo/DemoAPIService.m)
 
-* 使用方式的选择:Category or Extend
+__在用户是否需要使用APIService这层，我纠结了好久，最终在实用性和学习成本上，我还是选择简便，去掉了这层，只需要继承JJAPIRequest即可，如果中间需要层次，由开发者来决定,自行建立中间层，不过在内部我还是保留了这层，JJAPIRequest只是一个壳，所有的具体的工作都是JJAPIService来做，所有的逻辑和转发请求到第三方库都由JJAPIService来完成__
 
-使用Extend的好处是：编译期间,可以使用自定义变量，对于开发者来说比较灵活 坏处是：侵入性太强
-使用Category的好处是：运行时,按需加载，不破坏原来的结构扩展 坏处是：写自定义变量不方便(技术上做的到)，方法名重复问题
+* ~~方法名表达具体意思~~
 
-在这个选择上，我选择了继承(extend)这种方式，主要是考虑开发者使用的灵活，以及不受方法名约束的问题
+~~在这个地方是我要坚持的地方，当我们继承于JJAPIService，我们需要一个自定义的方法来表达我的请求是要干什么，需要传递什么参数，具体达到什么功能用方法名来体现，所以这个方式给维护者来说很明确，使用者看到这个类和方法，很快的清晰知道了Service的作用~~
 
-* 方法名表达具体意思
+__每个Request就是一个对象，所以在命名清楚，就可以知道每个Request是什么作用__
 
-在这个地方是我要坚持的地方，当我们继承于JJAPIService，我们需要一个自定义的方法来表达我的请求是要干什么，需要传递什么参数，具体达到什么功能用方法名来体现，所以这个方式给维护者来说很明确，使用者看到这个类和方法，很快的清晰知道了Service的作用
-
-* 拦截器的使用
-
-这是JJNetwork的高级功能，有两种方式使用这个功能，使用JJAPIService实例化对象实现`JJAPIServiceInterseptor`或者`[JJAPIService addServiceInterseptor]`来指定任意JJAPIService，拦截器主要功能是监听任意JJAPIService，以及网络执行前后需要做一些工作
 
 ### ThirdParty
 * 抽象HTTP接口
