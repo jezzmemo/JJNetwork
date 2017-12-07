@@ -2,7 +2,7 @@
 [![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![Platform](https://img.shields.io/cocoapods/p/JJNetwork.svg?style=flat)](http://cocoadocs.org/docsets/JJNetwork)
 [![Build Status](https://travis-ci.org/jezzmemo/JJNetwork.svg?branch=master)](https://travis-ci.org/jezzmemo/JJNetwork.svg?branch=master)
-[![Pod License](http://img.shields.io/cocoapods/l/JJNetwork.svg?style=flat)](https://www.apache.org/licenses/LICENSE-2.0.html)
+![License MIT](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)
 
 基于AFNetworking封装的网络库，主要是为了满足一些复杂App的网络请求，并在层次划分上比较清新，所有的网络请求是数据提供者，还归纳了一些常见的功能封装在里面(缓存,签名...),[设计文档](https://github.com/jezzmemo/JJNetwork/blob/master/EXPLAIN.md)
 
