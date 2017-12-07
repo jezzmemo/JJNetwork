@@ -26,25 +26,26 @@
     return serviceManager;
 }
 
-- (void)addServiceInterseptor:(id<JJAPIServiceInterseptor>)interseptor forServiceClass:(Class)className{
+- (void)addServiceInterseptor:(id<JJRequestInterseptor>)interseptor forServiceClass:(Class)className{
     NSMutableArray* array = self.classNameToInterseptorDic[NSStringFromClass(className)];
     if (array) {
-        if ([array indexOfObject:interseptor] != NSNotFound) {
+        if ([array indexOfObject:[NSValue valueWithNonretainedObject:interseptor]] != NSNotFound) {
             NSLog(@"Add duplicate interseptor for the :%@",NSStringFromClass(className));
             return;
         }
-        [array addObject:interseptor];
+        [array addObject:[NSValue valueWithNonretainedObject:interseptor]];
         self.classNameToInterseptorDic[NSStringFromClass(className)] = array;
     }else{
-        NSMutableArray*  array = [NSMutableArray arrayWithObject:interseptor];
+        NSMutableArray*  array = [NSMutableArray arrayWithObject:[NSValue valueWithNonretainedObject:interseptor]];
         self.classNameToInterseptorDic[NSStringFromClass(className)] = array;
     }
 }
 
-- (void)removeServiceInterseptor:(id<JJAPIServiceInterseptor>)interseptor forServiceClass:(Class)className{
+- (void)removeServiceInterseptor:(id<JJRequestInterseptor>)interseptor forServiceClass:(Class)className{
     NSMutableArray* array = self.classNameToInterseptorDic[NSStringFromClass(className)];
     for (int i = 0; i < array.count; i++) {
-        if (array[i] == interseptor) {
+        NSValue* value = array[i];
+        if (value.nonretainedObjectValue == interseptor) {
             [array removeObjectAtIndex:i];
             self.classNameToInterseptorDic[NSStringFromClass(className)] = array;
             break;
@@ -60,35 +61,39 @@
     return _classNameToInterseptorDic;
 }
 
-- (void)apiService:(JJAPIService*)service beforeStartRequest:(JJAPIRequest*)request{
-    NSString* className = NSStringFromClass([service class]);
+- (void)beforeRequest:(JJAPIRequest*)request{
+    NSString* className = NSStringFromClass([request class]);
     NSArray* interseptorArray = self.classNameToInterseptorDic[className];
-    for (id<JJAPIServiceInterseptor> interseptor in interseptorArray) {
-        [interseptor apiService:service beforeStartRequest:request];
+    for (NSValue* value in interseptorArray) {
+        id<JJRequestInterseptor> interseptor = value.nonretainedObjectValue;
+        [interseptor beforeRequest:request];
     }
 }
 
-- (void)apiService:(JJAPIService*)service afterStartRequest:(JJAPIRequest*)request{
-    NSString* className = NSStringFromClass([service class]);
+- (void)afterRequest:(JJAPIRequest*)request{
+    NSString* className = NSStringFromClass([request class]);
     NSArray* interseptorArray = self.classNameToInterseptorDic[className];
-    for (id<JJAPIServiceInterseptor> interseptor in interseptorArray) {
-        [interseptor apiService:service afterStartRequest:request];
+    for (NSValue* value in interseptorArray) {
+        id<JJRequestInterseptor> interseptor = value.nonretainedObjectValue;
+        [interseptor afterRequest:request];
     }
 }
 
-- (void)apiService:(JJAPIService*)service beforeResponse:(id)data{
-    NSString* className = NSStringFromClass([service class]);
+- (void)request:(JJAPIRequest*)request beforeResponse:(id)data{
+    NSString* className = NSStringFromClass([request class]);
     NSArray* interseptorArray = self.classNameToInterseptorDic[className];
-    for (id<JJAPIServiceInterseptor> interseptor in interseptorArray) {
-        [interseptor apiService:service beforeResponse:data];
+    for (NSValue* value in interseptorArray) {
+        id<JJRequestInterseptor> interseptor = value.nonretainedObjectValue;
+        [interseptor request:request beforeResponse:data];
     }
 }
 
-- (void)apiService:(JJAPIService*)service afterResponse:(id)data{
-    NSString* className = NSStringFromClass([service class]);
+- (void)request:(JJAPIRequest*)request afterResponse:(id)data{
+    NSString* className = NSStringFromClass([request class]);
     NSArray* interseptorArray = self.classNameToInterseptorDic[className];
-    for (id<JJAPIServiceInterseptor> interseptor in interseptorArray) {
-        [interseptor apiService:service afterResponse:data];
+    for (NSValue* value in interseptorArray) {
+        id<JJRequestInterseptor> interseptor = value.nonretainedObjectValue;
+        [interseptor request:request afterResponse:data];
     }
 }
 

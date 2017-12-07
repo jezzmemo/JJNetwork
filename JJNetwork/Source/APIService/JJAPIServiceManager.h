@@ -8,9 +8,13 @@
 
 #import <Foundation/Foundation.h>
 #import "JJAPIModule.h"
-#import "JJAPIService.h"
+#import "JJAPIRequest.h"
 
-@interface JJAPIServiceManager : NSObject<JJAPIServiceInterseptor>
+/**
+ Global config http request
+ Monitor the request by the class name,add/remove
+ */
+@interface JJAPIServiceManager : NSObject<JJRequestInterseptor>
 
 + (instancetype)share;
 
@@ -18,8 +22,8 @@
 
 @property(nonatomic,readwrite,weak)id<JJAPIHttpHeadModule> httpHeadField;
 
-- (void)addServiceInterseptor:(id<JJAPIServiceInterseptor>)interseptor forServiceClass:(Class)className;
+- (void)addServiceInterseptor:(id<JJRequestInterseptor>)interseptor forServiceClass:(Class)className;
 
-- (void)removeServiceInterseptor:(id<JJAPIServiceInterseptor>)interseptor forServiceClass:(Class)className;
+- (void)removeServiceInterseptor:(id<JJRequestInterseptor>)interseptor forServiceClass:(Class)className;
 
 @end

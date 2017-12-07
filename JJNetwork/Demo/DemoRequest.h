@@ -8,6 +8,6 @@
 
 #import "JJNetwork.h"
 
-@interface DemoRequest : JJAPIRequest<JJRequestProtocol>
+@interface DemoRequest : JJAPIRequest
 
 @end

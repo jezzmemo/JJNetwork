@@ -10,7 +10,6 @@
 		071BB4FB0FAB832FFDBC3888 /* Pods_JJNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7221CB53D12F96CAC74AFE14 /* Pods_JJNetwork.framework */; };
 		611E5A981F66D42800FAF5BD /* DomainModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 611E5A971F66D42800FAF5BD /* DomainModule.m */; };
 		61237DB71F2F315700889CD1 /* DemoRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 61237DB61F2F315700889CD1 /* DemoRequest.m */; };
-		61237DBA1F2F316E00889CD1 /* DemoAPIService.m in Sources */ = {isa = PBXBuildFile; fileRef = 61237DB91F2F316E00889CD1 /* DemoAPIService.m */; };
 		61237DC01F30798400889CD1 /* JJAPIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 61237DBF1F30798400889CD1 /* JJAPIManager.m */; };
 		6164057A1F2E159300CA819D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 616405791F2E159300CA819D /* main.m */; };
 		6164057D1F2E159300CA819D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6164057C1F2E159300CA819D /* AppDelegate.m */; };
@@ -18,17 +17,18 @@
 		616405831F2E159300CA819D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 616405811F2E159300CA819D /* Main.storyboard */; };
 		616405851F2E159300CA819D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 616405841F2E159300CA819D /* Assets.xcassets */; };
 		616405881F2E159300CA819D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 616405861F2E159300CA819D /* LaunchScreen.storyboard */; };
-		618C6ED21FA22DAE001A9EA7 /* JJAPIService+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 618C6ED11FA22DAE001A9EA7 /* JJAPIService+Extension.m */; };
+		618384D01FD6826E00450D56 /* JJAPIRequest+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 618384CF1FD6826E00450D56 /* JJAPIRequest+Extension.m */; };
+		618384D11FD7E4FE00450D56 /* JJAPIModule.h in Headers */ = {isa = PBXBuildFile; fileRef = 618384CD1FD6822C00450D56 /* JJAPIModule.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		618384D21FD7E4FE00450D56 /* JJRequestDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 61F366C21FCDA714001CC01A /* JJRequestDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		618384D31FD7E4FE00450D56 /* JJRequestInterseptor.h in Headers */ = {isa = PBXBuildFile; fileRef = 617B37C01FD054FB00FDABF0 /* JJRequestInterseptor.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		618384D41FD7E4FE00450D56 /* JJAPIRequest+Extension.h in Headers */ = {isa = PBXBuildFile; fileRef = 618384CE1FD6826E00450D56 /* JJAPIRequest+Extension.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6199911B1F5C570A003AAED6 /* JJAPIFileCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 6199911A1F5C570A003AAED6 /* JJAPIFileCache.m */; };
 		6199ADCA1F2E2618004573E3 /* JJAFNetworkImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 6199ADC91F2E2618004573E3 /* JJAFNetworkImpl.m */; };
 		6199ADD41F2E27E9004573E3 /* JJAPIRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6199ADD31F2E27E9004573E3 /* JJAPIRequest.m */; };
 		6199ADD71F2E2874004573E3 /* JJAPIService.m in Sources */ = {isa = PBXBuildFile; fileRef = 6199ADD61F2E2874004573E3 /* JJAPIService.m */; };
 		61A0EE231FC32037003E9F13 /* AFNetworking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61A0EE221FC32037003E9F13 /* AFNetworking.framework */; };
-		61A0EE4D1FC3B890003E9F13 /* JJAPIService.h in Headers */ = {isa = PBXBuildFile; fileRef = 6199ADD51F2E2874004573E3 /* JJAPIService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		61A0EE4E1FC3B890003E9F13 /* JJAPIRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 6199ADD21F2E27E9004573E3 /* JJAPIRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		61A0EE541FC3B93E003E9F13 /* JJAPIServiceDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 619FB57D1F603D2800030792 /* JJAPIServiceDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		61A0EE561FC3B93E003E9F13 /* JJAPIModule.h in Headers */ = {isa = PBXBuildFile; fileRef = 61B734B51F65257B001549C1 /* JJAPIModule.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		61A0EE571FC3B93E003E9F13 /* JJAPIService+Extension.h in Headers */ = {isa = PBXBuildFile; fileRef = 618C6ED01FA22DAE001A9EA7 /* JJAPIService+Extension.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		61B6CAFC1FC2CB1900910DEA /* JJNetwork.h in Headers */ = {isa = PBXBuildFile; fileRef = 6199ADC51F2E19AD004573E3 /* JJNetwork.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		61B6CAFD1FC2CB5600910DEA /* JJAPIFileCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 6199911A1F5C570A003AAED6 /* JJAPIFileCache.m */; };
 		61B6CAFE1FC2CB5600910DEA /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = 61E270F61F4DCEAB00834D0E /* NSString+MD5.m */; };
@@ -36,7 +36,6 @@
 		61B6CB001FC2CB5600910DEA /* JJAFNetworkImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 6199ADC91F2E2618004573E3 /* JJAFNetworkImpl.m */; };
 		61B6CB011FC2CB5600910DEA /* JJAPIService.m in Sources */ = {isa = PBXBuildFile; fileRef = 6199ADD61F2E2874004573E3 /* JJAPIService.m */; };
 		61B6CB021FC2CB5600910DEA /* JJAPIServiceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 61B734B31F62A27D001549C1 /* JJAPIServiceManager.m */; };
-		61B6CB031FC2CB5600910DEA /* JJAPIService+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 618C6ED11FA22DAE001A9EA7 /* JJAPIService+Extension.m */; };
 		61B6CB041FC2CB5600910DEA /* JJAPIRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6199ADD31F2E27E9004573E3 /* JJAPIRequest.m */; };
 		61B734B41F62A27D001549C1 /* JJAPIServiceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 61B734B31F62A27D001549C1 /* JJAPIServiceManager.m */; };
 		61CEE54F1F6B68EB00726441 /* HttpHeadModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 61CEE54E1F6B68EB00726441 /* HttpHeadModule.m */; };
@@ -49,8 +48,6 @@
 		611E5A971F66D42800FAF5BD /* DomainModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DomainModule.m; sourceTree = "<group>"; };
 		61237DB51F2F315700889CD1 /* DemoRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoRequest.h; sourceTree = "<group>"; };
 		61237DB61F2F315700889CD1 /* DemoRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoRequest.m; sourceTree = "<group>"; };
-		61237DB81F2F316E00889CD1 /* DemoAPIService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoAPIService.h; sourceTree = "<group>"; };
-		61237DB91F2F316E00889CD1 /* DemoAPIService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoAPIService.m; sourceTree = "<group>"; };
 		61237DBE1F30798400889CD1 /* JJAPIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JJAPIManager.h; sourceTree = "<group>"; };
 		61237DBF1F30798400889CD1 /* JJAPIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JJAPIManager.m; sourceTree = "<group>"; };
 		616405751F2E159300CA819D /* JJNetwork.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JJNetwork.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -63,8 +60,10 @@
 		616405841F2E159300CA819D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		616405871F2E159300CA819D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		616405891F2E159400CA819D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		618C6ED01FA22DAE001A9EA7 /* JJAPIService+Extension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "JJAPIService+Extension.h"; sourceTree = "<group>"; };
-		618C6ED11FA22DAE001A9EA7 /* JJAPIService+Extension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "JJAPIService+Extension.m"; sourceTree = "<group>"; };
+		617B37C01FD054FB00FDABF0 /* JJRequestInterseptor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JJRequestInterseptor.h; sourceTree = "<group>"; };
+		618384CD1FD6822C00450D56 /* JJAPIModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JJAPIModule.h; sourceTree = "<group>"; };
+		618384CE1FD6826E00450D56 /* JJAPIRequest+Extension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "JJAPIRequest+Extension.h"; sourceTree = "<group>"; };
+		618384CF1FD6826E00450D56 /* JJAPIRequest+Extension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "JJAPIRequest+Extension.m"; sourceTree = "<group>"; };
 		619991181F5C5555003AAED6 /* JJAPICache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JJAPICache.h; sourceTree = "<group>"; };
 		619991191F5C570A003AAED6 /* JJAPIFileCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JJAPIFileCache.h; sourceTree = "<group>"; };
 		6199911A1F5C570A003AAED6 /* JJAPIFileCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JJAPIFileCache.m; sourceTree = "<group>"; };
@@ -88,13 +87,13 @@
 		61B6CB111FC2DC7100910DEA /* AFNetworking.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = AFNetworking.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		61B734B21F62A27D001549C1 /* JJAPIServiceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JJAPIServiceManager.h; sourceTree = "<group>"; };
 		61B734B31F62A27D001549C1 /* JJAPIServiceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JJAPIServiceManager.m; sourceTree = "<group>"; };
-		61B734B51F65257B001549C1 /* JJAPIModule.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JJAPIModule.h; sourceTree = "<group>"; };
 		61CEE54D1F6B68EB00726441 /* HttpHeadModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HttpHeadModule.h; sourceTree = "<group>"; };
 		61CEE54E1F6B68EB00726441 /* HttpHeadModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HttpHeadModule.m; sourceTree = "<group>"; };
 		61E270F51F4DCEAB00834D0E /* NSString+MD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MD5.h"; sourceTree = "<group>"; };
 		61E270F61F4DCEAB00834D0E /* NSString+MD5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MD5.m"; sourceTree = "<group>"; };
 		61E271041F52A5BA00834D0E /* PresentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PresentViewController.h; sourceTree = "<group>"; };
 		61E271051F52A5BA00834D0E /* PresentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PresentViewController.m; sourceTree = "<group>"; };
+		61F366C21FCDA714001CC01A /* JJRequestDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JJRequestDelegate.h; sourceTree = "<group>"; };
 		6900DC2B70A949A892CE33C9 /* Pods-JJNetwork.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JJNetwork.release.xcconfig"; path = "Pods/Target Support Files/Pods-JJNetwork/Pods-JJNetwork.release.xcconfig"; sourceTree = "<group>"; };
 		7221CB53D12F96CAC74AFE14 /* Pods_JJNetwork.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_JJNetwork.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7DE2946F419FD83108BAE7BA /* Pods-JJNetwork.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JJNetwork.debug.xcconfig"; path = "Pods/Target Support Files/Pods-JJNetwork/Pods-JJNetwork.debug.xcconfig"; sourceTree = "<group>"; };
@@ -140,8 +139,6 @@
 			children = (
 				61237DB51F2F315700889CD1 /* DemoRequest.h */,
 				61237DB61F2F315700889CD1 /* DemoRequest.m */,
-				61237DB81F2F316E00889CD1 /* DemoAPIService.h */,
-				61237DB91F2F316E00889CD1 /* DemoAPIService.m */,
 				611E5A961F66D42800FAF5BD /* DomainModule.h */,
 				611E5A971F66D42800FAF5BD /* DomainModule.m */,
 				61CEE54D1F6B68EB00726441 /* HttpHeadModule.h */,
@@ -229,9 +226,6 @@
 				619FB57D1F603D2800030792 /* JJAPIServiceDelegate.h */,
 				61B734B21F62A27D001549C1 /* JJAPIServiceManager.h */,
 				61B734B31F62A27D001549C1 /* JJAPIServiceManager.m */,
-				61B734B51F65257B001549C1 /* JJAPIModule.h */,
-				618C6ED01FA22DAE001A9EA7 /* JJAPIService+Extension.h */,
-				618C6ED11FA22DAE001A9EA7 /* JJAPIService+Extension.m */,
 			);
 			path = APIService;
 			sourceTree = "<group>";
@@ -239,8 +233,13 @@
 		6199ADC41F2E193C004573E3 /* Request */ = {
 			isa = PBXGroup;
 			children = (
+				618384CD1FD6822C00450D56 /* JJAPIModule.h */,
 				6199ADD21F2E27E9004573E3 /* JJAPIRequest.h */,
 				6199ADD31F2E27E9004573E3 /* JJAPIRequest.m */,
+				61F366C21FCDA714001CC01A /* JJRequestDelegate.h */,
+				617B37C01FD054FB00FDABF0 /* JJRequestInterseptor.h */,
+				618384CE1FD6826E00450D56 /* JJAPIRequest+Extension.h */,
+				618384CF1FD6826E00450D56 /* JJAPIRequest+Extension.m */,
 			);
 			path = Request;
 			sourceTree = "<group>";
@@ -290,11 +289,12 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				618384D11FD7E4FE00450D56 /* JJAPIModule.h in Headers */,
+				618384D21FD7E4FE00450D56 /* JJRequestDelegate.h in Headers */,
+				618384D31FD7E4FE00450D56 /* JJRequestInterseptor.h in Headers */,
+				618384D41FD7E4FE00450D56 /* JJAPIRequest+Extension.h in Headers */,
 				61A0EE541FC3B93E003E9F13 /* JJAPIServiceDelegate.h in Headers */,
-				61A0EE561FC3B93E003E9F13 /* JJAPIModule.h in Headers */,
-				61A0EE571FC3B93E003E9F13 /* JJAPIService+Extension.h in Headers */,
 				61A0EE4E1FC3B890003E9F13 /* JJAPIRequest.h in Headers */,
-				61A0EE4D1FC3B890003E9F13 /* JJAPIService.h in Headers */,
 				61B6CAFC1FC2CB1900910DEA /* JJNetwork.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -461,13 +461,12 @@
 			files = (
 				61E271061F52A5BA00834D0E /* PresentViewController.m in Sources */,
 				6199ADD71F2E2874004573E3 /* JJAPIService.m in Sources */,
+				618384D01FD6826E00450D56 /* JJAPIRequest+Extension.m in Sources */,
 				616405801F2E159300CA819D /* DemoViewController.m in Sources */,
 				61B734B41F62A27D001549C1 /* JJAPIServiceManager.m in Sources */,
-				618C6ED21FA22DAE001A9EA7 /* JJAPIService+Extension.m in Sources */,
 				61E270F71F4DCEAB00834D0E /* NSString+MD5.m in Sources */,
 				61237DC01F30798400889CD1 /* JJAPIManager.m in Sources */,
 				6199ADCA1F2E2618004573E3 /* JJAFNetworkImpl.m in Sources */,
-				61237DBA1F2F316E00889CD1 /* DemoAPIService.m in Sources */,
 				61CEE54F1F6B68EB00726441 /* HttpHeadModule.m in Sources */,
 				6199911B1F5C570A003AAED6 /* JJAPIFileCache.m in Sources */,
 				611E5A981F66D42800FAF5BD /* DomainModule.m in Sources */,
@@ -488,7 +487,6 @@
 				61B6CB001FC2CB5600910DEA /* JJAFNetworkImpl.m in Sources */,
 				61B6CB011FC2CB5600910DEA /* JJAPIService.m in Sources */,
 				61B6CB021FC2CB5600910DEA /* JJAPIServiceManager.m in Sources */,
-				61B6CB031FC2CB5600910DEA /* JJAPIService+Extension.m in Sources */,
 				61B6CB041FC2CB5600910DEA /* JJAPIRequest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

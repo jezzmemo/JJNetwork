@@ -7,15 +7,18 @@
 //
 
 #import "PresentViewController.h"
-#import "DemoAPIService.h"
 #import "DomainModule.h"
 #import "HttpHeadModule.h"
-#import "JJAPIService+Extension.h"
+#import "DemoRequest.h"
+#import "JJAPIRequest+Extension.h"
 
-@interface PresentViewController ()<JJAPIServiceProtocol,JJAPIServiceInterseptor>
+@interface PresentViewController ()<JJRequestDelegate,JJRequestInterseptor>
 
-@property(nonatomic,readwrite,strong)DemoAPIService* apiService;
+@property(nonatomic,readwrite,strong)DemoRequest* demoRequest;
 
+@property(nonatomic,readwrite,strong)DomainModule* domainModule;
+
+@property(nonatomic,readwrite,strong)HttpHeadModule* allHttpHeadField;
 
 @end
 
@@ -33,55 +36,81 @@
     button.center = self.view.center;
     [self.view addSubview:button];
     
-    [JJAPIService registerDomainIP:[[DomainModule alloc] init]];
-    [JJAPIService registerHttpHeadField:[[HttpHeadModule alloc] init]];
+//    [JJAPIRequest registerDomainIP:self.domainModule];
+    [JJAPIRequest registerHttpHeadField:self.allHttpHeadField];
     
-    [JJAPIService addServiceInterseptor:self forServiceClass:[DemoAPIService class]];
-    //[APIService removeServiceInterseptor:self forServiceClass:[DemoAPIService class]];
+    [JJAPIRequest addRequestInterseptor:self forRequestClass:[DemoRequest class]];
     
-    [self.apiService userDetailInfo:100];
-    
+    [self.demoRequest startRequest];
+}
+
+- (void)dealloc{
+    [JJAPIRequest removeRequestInterseptor:self forRequestClass:[DemoRequest class]];
 }
 
 - (void)dismissViewController{
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (DemoAPIService*)apiService{
-    if (_apiService != nil) {
-        return _apiService;
+#pragma mark - Get property
+
+- (HttpHeadModule*)allHttpHeadField{
+    if (_allHttpHeadField != nil) {
+        return _allHttpHeadField;
     }
-    _apiService = [[DemoAPIService alloc] init];
-    _apiService.serviceProtocol = self;
-    _apiService.serviceInterseptor = self;
-    return _apiService;
+    _allHttpHeadField = [HttpHeadModule new];
+    return _allHttpHeadField;
+}
+
+- (DomainModule*)domainModule{
+    if (_domainModule != nil) {
+        return _domainModule;
+    }
+    _domainModule = [DomainModule new];
+    return _domainModule;
+}
+
+- (DemoRequest*)demoRequest{
+    if (_demoRequest != nil) {
+        return _demoRequest;
+    }
+    _demoRequest = [DemoRequest new];
+    _demoRequest.delegate = self;
+    _demoRequest.requestInterseptor = self;
+    return _demoRequest;
+}
+
+#pragma mark - Request parameter
+
+- (NSDictionary*)requestParameters:(JJAPIRequest *)request{
+    return @{@"mod":@"getHotDiary"};
 }
 
 #pragma mark - Network response
 
-- (void)responseSuccess:(JJAPIService *)service responseData:(id)data{
+- (void)responseSuccess:(JJAPIRequest *)request responseData:(id)data{
     NSLog(@"responseSuccess");
 }
 
-- (void)responseFail:(JJAPIService *)service errorMessage:(NSError *)error{
+- (void)responseFail:(JJAPIRequest *)request errorMessage:(NSError *)error{
     NSLog(@"responseFail");
 }
 
-#pragma mark - APIService Interseptor
+#pragma mark - JJAPIRequest Interseptor
 
-- (void)apiService:(JJAPIService*)service beforeStartRequest:(JJAPIRequest*)request{
+- (void)beforeRequest:(JJAPIRequest*)request{
     NSLog(@"beforeStartRequest");
 }
 
-- (void)apiService:(JJAPIService*)service afterStartRequest:(JJAPIRequest*)request{
+- (void)afterRequest:(JJAPIRequest*)request{
     NSLog(@"afterStartRequest");
 }
 
-- (void)apiService:(JJAPIService*)service beforeResponse:(id)data{
+- (void)request:(JJAPIRequest*)request beforeResponse:(id)data{
     NSLog(@"beforeResponse");
 }
 
-- (void)apiService:(JJAPIService*)service afterResponse:(id)data{
+- (void)request:(JJAPIRequest*)request afterResponse:(id)data{
     NSLog(@"afterResponse");
 }
 

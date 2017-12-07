@@ -4,14 +4,14 @@
 [![Build Status](https://travis-ci.org/jezzmemo/JJNetwork.svg?branch=master)](https://travis-ci.org/jezzmemo/JJNetwork.svg?branch=master)
 [![Pod License](http://img.shields.io/cocoapods/l/JJNetwork.svg?style=flat)](https://www.apache.org/licenses/LICENSE-2.0.html)
 
-AFNetworking-based network library, with delegate to process network response, integrate more business and optimize network performance,[中文文档](https://github.com/jezzmemo/JJNetwork/blob/master/README_CN.md)
+AFNetworking-based network library, with delegate to process network response, integrate more business and optimize network performance,[中文使用说明](https://github.com/jezzmemo/JJNetwork/blob/master/README_CN.md),[设计文档](https://github.com/jezzmemo/JJNetwork/blob/master/EXPLAIN.md)
 
 ## Features
 
 - [x] Sign the http parameter by your customer key
 - [x] Http cache for the GET and POST
 - [x] Replace the domain to IP address improve performance and change customer http head field
-- [x] Interseptor network request
+- [x] Interseptor request and response
 
 ## Requirements
 
@@ -39,7 +39,6 @@ $ pod install
 To integrate JJNetwork into your Xcode project using Carthage, specify it in your `Cartfile`:
 
 ```
-github "AFNetworking/AFNetworking" ~> 3.0
 github "jezzmemo/JJNetwork"
 ```
 
@@ -49,10 +48,6 @@ Run carthage to build the framework and drag the built `AFNetworking.framework`,
 
 #### Sign parameter by the customer key,implement `JJRequestProtocol` method
 ```objc
-- (BOOL)isSignParameter{
-    return YES;
-}
-
 - (NSString*)signParameterKey{
     return @"key";
 }
@@ -138,11 +133,11 @@ For example:
 
 ## Tourist
 
-#### 1.Create Request file，extends from `JJAPIRequest` class，Implement `JJRequestProtocol`，For example:
+#### 1.Create Request file，extends from `JJAPIRequest` class，For example:
 
 DemoRequest.h
 ```objc
-@interface DemoRequest : JJAPIRequest<JJRequestProtocol>
+@interface DemoRequest : JJAPIRequest
 
 @end
 ```
@@ -156,10 +151,6 @@ DemoRequest.m
 
 - (HTTPMethod)requestMethod{
     return GET;
-}
-
-- (BOOL)isSignParameter{
-    return NO;
 }
 
 - (NSString*)signParameterKey{
@@ -177,38 +168,8 @@ DemoRequest.m
 @end
 ```
 
-#### 2.Create Service extends from `JJAPIService`,for example：
 
-DemoAPIService.h
-```objc
-@interface DemoAPIService : JJAPIService
-
-- (void)userDetailInfo:(NSInteger)uid;
-
-@end
-```
-
-DemoAPIService.m
-```objc
-@implementation DemoAPIService
-
-
-- (void)userDetailInfo:(NSInteger)uid{
-    //wrapper the parameter
-    NSDictionary* parameter = @{@"userid":[NSString stringWithFormat:@"%d",uid]};
-    
-    //generate request,set the parameter
-    DemoRequest* request = [[DemoRequest alloc] init];
-    [request setParameter:parameter];
-    
-    //send request
-    [self startRequest:request];
-}
-
-@end
-```
-
-#### 3.Finaly,Invoke the DemoAPIService,for example:
+#### 2.Finaly,Invoke the DemoAPIService,for example:
 ```objc
 @interface DemoViewController ()<JJAPIServiceProtocol>
 

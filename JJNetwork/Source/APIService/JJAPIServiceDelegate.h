@@ -7,8 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
-@class JJAPIRequest;
+#import "JJAPIRequest.h"
 
 @protocol JJAPIServiceDelegate <NSObject>
 
@@ -20,7 +19,7 @@
  @param request Must pass the APIRequest<RequestProtocol> point object
  */
 
-- (void)startRequest:(JJAPIRequest<JJRequestProtocol>*)request;
+- (void)startRequest:(JJAPIRequest<JJRequestInput>*)request;
 
 
 @end

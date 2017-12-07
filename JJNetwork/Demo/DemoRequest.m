@@ -11,15 +11,11 @@
 @implementation DemoRequest
 
 - (NSString*)requestURL{
-	return @"http://api.imemo8.com/diary.php?mod=getHotDiary";
+	return @"http://api.imemo8.com/diary.php";
 }
 
 - (HTTPMethod)requestMethod{
-	return GET;
-}
-
-- (BOOL)isSignParameter{
-    return NO;
+	return JJRequestGET;
 }
 
 - (NSString*)signParameterKey{

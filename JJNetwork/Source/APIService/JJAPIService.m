@@ -12,6 +12,7 @@
 #import "NSString+MD5.h"
 #import "JJAPIServiceManager.h"
 #import "JJAPIFileCache.h"
+#import "JJAPIRequest+Extension.h"
 
 @interface JJAPIService ()
 
@@ -55,7 +56,7 @@
 
 #pragma mark - Request
 
-- (void)startRequest:(JJAPIRequest<JJRequestProtocol>*)request{
+- (void)startRequest:(JJAPIRequest<JJRequestInput>*)request{
     
     //Hold the request,callback may be use request object
     
@@ -74,15 +75,19 @@
     
     NSString* url = [self replaceDomainIPFromURL:[request requestURL]];
     
-    BOOL isSignParameter = NO;
+    NSString* signParametersKey = @"";
     
-    if ([request respondsToSelector:@selector(isSignParameter)]) {
-        isSignParameter = [request isSignParameter];
+    if ([request respondsToSelector:@selector(signParameterKey)]) {
+        signParametersKey = [request signParameterKey];
     }
     
-    NSDictionary* parameters = request.parameter;
+    NSDictionary* parameters = nil;
     
-    HTTPMethod httpMethod = GET;
+    if ([self.serviceDelegate respondsToSelector:@selector(requestParameters:)]) {
+        parameters = [self.serviceDelegate requestParameters:request];
+    }
+    
+    HTTPMethod httpMethod = JJRequestGET;
     if ([request respondsToSelector:@selector(requestMethod)]) {
         httpMethod = [request requestMethod];
     }
@@ -100,7 +105,7 @@
     
     //Sign the parameter to safety
     
-    if (isSignParameter && parameters) {
+    if ([signParametersKey length] > 0 && parameters) {
         parameters = [self signParameterWithKey:parameters key:[request signParameterKey]];
     }
     
@@ -110,9 +115,9 @@
     
     [self addHttpHeadFieldFromRequest:&sendRequest];
     
-    if (httpMethod == GET){
+    if (httpMethod == JJRequestGET){
         self.taskRequest = [[JJAPIManager shareAPIManaer] httpGetRequest:sendRequest parameters:parameters target:self selector:@selector(networkResponse:)];
-    }else if(httpMethod == POST){
+    }else if(httpMethod == JJRequestPOST){
         self.taskRequest = [[JJAPIManager shareAPIManaer] httpPostRequest:sendRequest parameters:parameters target:self selector:@selector(networkResponse:)];
     }
     
@@ -154,8 +159,8 @@
     
     [self beforeResponse:cacheData];
     
-    if([self.serviceProtocol respondsToSelector:@selector(responseSuccess:responseData:)]){
-        [self.serviceProtocol responseSuccess:self responseData:cacheData];
+    if([self.serviceDelegate respondsToSelector:@selector(responseSuccess:responseData:)]){
+        [self.serviceDelegate responseSuccess:self.currentRequest responseData:cacheData];
     }
     
     [self afterResponse:cacheData];
@@ -163,13 +168,13 @@
     return NO;
 }
 
-- (BOOL)checkRequestValidity:(JJAPIRequest<JJRequestProtocol>*)request{
+- (BOOL)checkRequestValidity:(JJAPIRequest<JJRequestInput>*)request{
     if (!request) {
         NSAssert(request != nil, @"Request object must not be nil");
         return NO;
     }
-    if (![request conformsToProtocol:@protocol(JJRequestProtocol)]) {
-        NSAssert([request conformsToProtocol:@protocol(JJRequestProtocol)],@"Request must implement RequestProtocol");
+    if (![request conformsToProtocol:@protocol(JJRequestInput)]) {
+        NSAssert([request conformsToProtocol:@protocol(JJRequestInput)],@"Request must implement RequestProtocol");
         return NO;
     }
     
@@ -232,31 +237,31 @@
 #pragma mark  - Interseptor
 
 - (void)beforeStartRequest:(JJAPIRequest*)request{
-    if ([self.serviceInterseptor respondsToSelector:@selector(apiService:beforeStartRequest:)]) {
-        [self.serviceInterseptor apiService:self beforeStartRequest:request];
+    if ([self.serviceInterseptor respondsToSelector:@selector(beforeRequest:)]) {
+        [self.serviceInterseptor beforeRequest:request];
     }
-    [[JJAPIServiceManager share] apiService:self beforeStartRequest:request];
+    [[JJAPIServiceManager share] beforeRequest:request];
 }
 
 - (void)afterStartRequest:(JJAPIRequest*)request{
-    if ([self.serviceInterseptor respondsToSelector:@selector(apiService:afterStartRequest:)]) {
-        [self.serviceInterseptor apiService:self afterStartRequest:request];
+    if ([self.serviceInterseptor respondsToSelector:@selector(afterRequest:)]) {
+        [self.serviceInterseptor afterRequest:request];
     }
-    [[JJAPIServiceManager share] apiService:self afterStartRequest:request];
+    [[JJAPIServiceManager share] afterRequest:request];
 }
 
 - (void)beforeResponse:(id)response{
-    if ([self.serviceInterseptor respondsToSelector:@selector(apiService:beforeResponse:)]) {
-        [self.serviceInterseptor apiService:self beforeResponse:response];
+    if ([self.serviceInterseptor respondsToSelector:@selector(request:beforeResponse:)]) {
+        [self.serviceInterseptor request:self.currentRequest beforeResponse:response];
     }
-    [[JJAPIServiceManager share] apiService:self beforeResponse:response];
+    [[JJAPIServiceManager share] request:self.currentRequest beforeResponse:response];
 }
 
 - (void)afterResponse:(id)response{
-    if ([self.serviceInterseptor respondsToSelector:@selector(apiService:afterResponse:)]) {
-        [self.serviceInterseptor apiService:self afterResponse:response];
+    if ([self.serviceInterseptor respondsToSelector:@selector(request:afterResponse:)]) {
+        [self.serviceInterseptor request:self.currentRequest afterResponse:response];
     }
-    [[JJAPIServiceManager share] apiService:self afterResponse:response];
+    [[JJAPIServiceManager share] request:self.currentRequest afterResponse:response];
 }
 
 #pragma mark - Response
@@ -266,16 +271,16 @@
     
 	if ([response isKindOfClass:[NSError class]]) {
 		//Handle Error
-		if([self.serviceProtocol respondsToSelector:@selector(responseFail:errorMessage:)]){
-			[self.serviceProtocol responseFail:self errorMessage:response];
+		if([self.serviceDelegate respondsToSelector:@selector(responseFail:errorMessage:)]){
+			[self.serviceDelegate responseFail:self.currentRequest errorMessage:response];
 		}
 	}else{
         //Save override the cache data
         [self.apiCache saveCacheWithData:response withKey:self.requestKey];
         
 		//Handle Content
-		if([self.serviceProtocol respondsToSelector:@selector(responseSuccess:responseData:)]){
-			[self.serviceProtocol responseSuccess:self responseData:response];
+		if([self.serviceDelegate respondsToSelector:@selector(responseSuccess:responseData:)]){
+			[self.serviceDelegate responseSuccess:self.currentRequest responseData:response];
 		}
 	}
     

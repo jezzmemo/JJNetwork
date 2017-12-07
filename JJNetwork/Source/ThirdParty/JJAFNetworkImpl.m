@@ -82,6 +82,7 @@
     NSLog(@"Send request >>>>>>>>>>>>>>>>>> START");
     NSLog(@"Request url:%@",[request.URL absoluteString]);
     NSLog(@"Request parameter:%@",parameter);
+    NSLog(@"Request http head field:%@",request.allHTTPHeaderFields);
     NSLog(@"Send request >>>>>>>>>>>>>>>>>> END");
     
     //NSMutableURLRequest
@@ -98,6 +99,7 @@
         __strong typeof(target) strongTarget = weakTarget;
         NSLog(@"Response <<<<<<<<<<<<<<<<<<<<<<<<<<<< START");
         NSLog(@"Response from url:%@",[[response URL] absoluteString]);
+        NSLog(@"Response http head field:%@",[(NSHTTPURLResponse*)response allHeaderFields]);
         if (error) {
             NSLog(@"Get Error: %@", error);
             [strongSelf performSelectorOnMainThread:selector withTarget:strongTarget withObject:error];

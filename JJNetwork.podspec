@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "JJNetwork"
-  s.version      = "0.1.0"
+  s.version      = "1.0.0"
   s.summary      = "JJNetwork."
 
   # This description is used to generate tags and improve search results.
@@ -25,7 +25,7 @@ Pod::Spec.new do |s|
   #   * Write the description between the DESC delimiters below.
   #   * Finally, don't worry about the indent, CocoaPods strips it!
   s.description  = <<-DESC
-                    iOS Network Module
+                    iOS Netwok Library based on AFNetworking
                    DESC
 
   s.homepage     = "https://github.com/jezzmemo/JJNetwork"
@@ -100,6 +100,7 @@ Pod::Spec.new do |s|
   end
 
   s.subspec 'Request' do |ss|
+    ss.dependency 'JJNetwork/APIService'
     ss.source_files = 'JJNetwork/Source/Request/*.{h,m}'
     ss.public_header_files = 'JJNetwork/Source/Request/*.h'
   end

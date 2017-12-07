@@ -7,12 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "JJRequestDelegate.h"
+#import "JJRequestInterseptor.h"
 
 typedef NS_ENUM(NSUInteger,HTTPMethod){
-	POST,
-	GET,
-	PUT,
-	DELETE,
+	JJRequestPOST,
+	JJRequestGET,
+	JJRequestPUT,
+	JJRequestDELETE,
 };
 
 /**
@@ -29,9 +31,9 @@ typedef NS_ENUM(NSUInteger,HTTPCachePolicy){
     ReloadFromCacheTimeLimit,
 };
 
-@protocol JJRequestProtocol <NSObject>
+@protocol JJRequestInput <NSObject>
 
-@required
+@optional
 
 
 /**
@@ -41,8 +43,6 @@ typedef NS_ENUM(NSUInteger,HTTPCachePolicy){
  */
 - (NSString*)requestURL;
 
-@optional
-
 
 /**
  * Default request method is GET
@@ -51,19 +51,8 @@ typedef NS_ENUM(NSUInteger,HTTPCachePolicy){
  */
 - (HTTPMethod)requestMethod;
 
-
 /**
- * Sign the parameter with key
- * Default value is NO
- * If you set the YES,you must implement signParameterKey method and return the key
-
- @return If YES will invoke signParameterKey the method or NO did not invoke any method
- */
-- (BOOL)isSignParameter;
-
-
-/**
- If isSignParameter return YES
+ If return key lenght greater than zero
  will sign the http parameter
 
  @return Sign the parameter with parameterKey
@@ -91,14 +80,29 @@ typedef NS_ENUM(NSUInteger,HTTPCachePolicy){
 
 @end
 
-@interface JJAPIRequest : NSObject<NSCopying>
-
+@interface JJAPIRequest : NSObject<NSCopying,JJRequestInput>
 
 /**
- Http request parameter,Option
+ Customer Head Field
  */
-@property(nonatomic,readwrite,copy)NSDictionary* parameter;
-
 @property(nonatomic,readwrite,copy)NSDictionary* httpHeadField;
+
+/**
+ JJAPIRequest's send network request interseptor
+ Monitor the send request before or after,response before or after action
+ */
+@property(nonatomic,readwrite,weak)id<JJRequestInterseptor> requestInterseptor;
+
+/**
+ JJAPIRequest's delegate
+ Http response, success or fail
+ */
+@property(nonatomic,readwrite,weak)id<JJRequestDelegate> delegate;
+
+/**
+ Every request extends from JJAPIRequest,config the parameter and delegate,
+ and then,invoke this method,will request network
+ */
+- (void)startRequest;
 
 @end

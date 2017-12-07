@@ -9,10 +9,10 @@
 #ifndef JJNetwork_h
 #define JJNetwork_h
 
-#import "JJAPIService.h"
 #import "JJAPIRequest.h"
-#import "JJAPIService+Extension.h"
+#import "JJAPIRequest+Extension.h"
 #import "JJAPIModule.h"
-#import "JJAPIServiceDelegate.h"
+#import "JJRequestDelegate.h"
+#import "JJRequestInterseptor.h"
 
 #endif /* JJNetwork_h */
