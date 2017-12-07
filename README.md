@@ -46,29 +46,120 @@ Run carthage to build the framework and drag the built `AFNetworking.framework`,
 
 ## Usage
 
-#### Sign parameter by the customer key,implement `JJRequestProtocol` method
+### JJAPIRequest
+
+Every network request extends from `JJAPIRequest`,and then implement `JJRequestInput` protocol,overwrite some method.
+
+
+For example:JJNetwork `http://api.imemo8.com/diary.php` send GET request，parameter:mod=getHotDiary
+
+```objc
+#import "JJNetwork.h"
+
+@interface DemoRequest : JJAPIRequest
+
+@end
+
+#import "DemoRequest.h"
+
+@implementation DemoRequest
+
+- (NSString*)requestURL{
+    return @"http://api.imemo8.com/diary.php";
+}
+
+- (HTTPMethod)requestMethod{
+    return JJRequestGET;
+}
+@end
+```
+
+* requestURL
+Fill whole request URL,this method is required,other is optional
+
+* requestMethod
+return enum，POST,GET,PUT,DELETE,default is GET,if you did not implement
+
+### Parameter and Start request
+
+```objc
+#import "PresentViewController.h"
+#import "DemoRequest.h"
+
+@interface PresentViewController ()<JJRequestDelegate>
+
+@property(nonatomic,readwrite,strong)DemoRequest* demoRequest;
+
+@end
+
+@implementation PresentViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    [self.demoRequest startRequest];
+}
+
+#pragma mark - Get property
+
+- (DemoRequest*)demoRequest{
+    if (_demoRequest != nil) {
+        return _demoRequest;
+    }
+    _demoRequest = [DemoRequest new];
+    _demoRequest.delegate = self;
+    return _demoRequest;
+}
+
+#pragma mark - Request parameter
+
+- (NSDictionary*)requestParameters:(JJAPIRequest *)request{
+    return @{@"mod":@"getHotDiary"};
+}
+
+#pragma mark - Network response
+
+- (void)responseSuccess:(JJAPIRequest *)request responseData:(id)data{
+    NSLog(@"responseSuccess");
+}
+
+- (void)responseFail:(JJAPIRequest *)request errorMessage:(NSError *)error{
+    NSLog(@"responseFail");
+}
+@end
+```
+
+* Invoke startRequest will process network request
+* Implement requestParameters request parameter
+* responseSuccess and responseFail,network response
+
+### Sign parameter by the customer key
 ```objc
 - (NSString*)signParameterKey{
     return @"key";
 }
 ```
+If implement `signParameterKey`,request will add two parameters,`sign` and `timestamp`,sign = md5(parameters + timestamp + key)
 
-#### Select cache policy for GET and POST,implement `JJRequestProtocol` method
-- ReloadFromNetwork: Default mode,request from network
-- ReloadFromCacheElseLoadNetwork: If have cache,will return the cache,do not request network,if not exist cache,will load origin source
-- ReloadFromCacheTimeLimit: First time load request origin source,save the cache for the limit time,if expire，will load origin source and replace the old cache
-
+### Select cache policy for GET and POST
 ```objc
 - (HTTPCachePolicy)requestCachePolicy{
     return ReloadFromCacheTimeLimit;
 }
 
+//UNIT Second
 - (NSUInteger)cacheLimitTime{
     return 120;
 }
 ```
 
-#### Replace the domain to IP address improve performance and change customer http head field
+- ReloadFromNetwork: Default mode,request from network
+- ReloadFromCacheElseLoadNetwork: If have cache,will return the cache,do not request network,if not exist cache,will load origin source
+- ReloadFromCacheTimeLimit: First time load request origin source,save the cache for the limit time,if expire，will load origin source and replace the old cache
+
+If choose ReloadFromCacheTimeLimit policy,you must implement `cacheLimitTime`
+
+### Replace the domain to IP address improve performance and change customer http head field
 
 * `JJAPIDominIPModule`
 
@@ -105,7 +196,7 @@ Register module to `JJAPIService+Extension`
 [JJAPIService registerHttpHeadField:[[HttpHeadModule alloc] init]];
 ```
 
-#### Interseptor network request
+### Interseptor
 
 * Implement from `JJAPIServiceInterseptor` to the instance `JJAPIService` object:
 ```objc
@@ -129,82 +220,26 @@ Register module to `JJAPIService+Extension`
 For example:
 ```objc
 [JJAPIService addServiceInterseptor:self forServiceClass:[DemoAPIService class]];
+
+- (void)beforeRequest:(JJAPIRequest*)request{
+    NSLog(@"beforeRequest");
+}
+
+- (void)afterRequest:(JJAPIRequest*)request{
+    NSLog(@"afterRequest");
+}
+
+- (void)request:(JJAPIRequest*)request beforeResponse:(id)data{
+    NSLog(@"beforeResponse");
+}
+
+- (void)request:(JJAPIRequest*)request afterResponse:(id)data{
+    NSLog(@"afterResponse");
+}
 ```
 
-## Tourist
+* Control Loading show/hide
+* AOP Request
 
-#### 1.Create Request file，extends from `JJAPIRequest` class，For example:
-
-DemoRequest.h
-```objc
-@interface DemoRequest : JJAPIRequest
-
-@end
-```
-DemoRequest.m
-```objc
-@implementation DemoRequest
-
-- (NSString*)requestURL{
-    return @"http://api.imemo8.com/diary.php?mod=getHotDiary";
-}
-
-- (HTTPMethod)requestMethod{
-    return GET;
-}
-
-- (NSString*)signParameterKey{
-    return @"key";
-}
-
-- (HTTPCachePolicy)requestCachePolicy{
-    return ReloadFromCacheTimeLimit;
-}
-
-- (NSUInteger)cacheLimitTime{
-    return 120;
-}
-
-@end
-```
-
-
-#### 2.Finaly,Invoke the DemoAPIService,for example:
-```objc
-@interface DemoViewController ()<JJAPIServiceProtocol>
-
-@property(nonatomic,readwrite,strong)DemoAPIService* apiService;
-
-@end
-
-@implementation DemoViewController
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-	
-    [self.apiService userDetailInfo:100];
-}
-
-
-- (DemoAPIService*)apiService{
-    if (_apiService != nil) {
-	return _apiService;
-    }
-    _apiService = [[DemoAPIService alloc] init];
-    _apiService.serviceProtocol = self;
-    return _apiService;
-}
-
-#pragma mark - Network response
-
-- (void)responseSuccess:(JJAPIService *)service responseData:(id)data{
-	
-}
-- (void)responseFail:(JJAPIService *)service errorMessage:(NSError *)error{
-	
-}
-
-@end
-```
 ## License
 JJNetwork is released under the MIT license. See LICENSE for details.
