@@ -37,9 +37,9 @@ typedef NS_ENUM(NSUInteger,HTTPCachePolicy){
 __最后强调一点就是JJNetwork的Cache支持POST和Get的，iOS自带的CachePolicy只支持GET,因为JJNetwork设计之初就是为接口请求设计的，所以文件上传和下载不在我们功能之内__
 * JJAPIDominIPModule和JJAPIHttpHeadModule
 
-`JJAPIDominIPModule`提供全局设置域名和IP映射的功能，减少DNS查找过程，提供性能用的.
+`JJAPIDominIPModule`提供全局设置域名和IP映射的功能，减少DNS查找过程，提高性能,[代码示例](https://github.com/jezzmemo/JJNetwork/blob/master/JJNetwork/Demo/DomainModule.m).
 
-`JJAPIHttpHeadModule`全局设置HttpHeadField.
+`JJAPIHttpHeadModule`全局设置HttpHeadField,[代码示例](https://github.com/jezzmemo/JJNetwork/blob/master/JJNetwork/Demo/HttpHeadModule.m).
 
 
 ### JJAPIService
