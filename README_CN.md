@@ -12,6 +12,7 @@
 - [x] 缓存不止支持GET，还支持POST,根据自己的场景，自己选择策略
 - [x] 支持用IP替换域名，达到提高网络性能，支持HTTP HEAD设置
 - [x] 拦截网络请求，方便拦截任意请求，复用请求，加入Loading
+- [x] 支持文件上传
 
 ## 安装环境
 
@@ -133,7 +134,7 @@ github "jezzmemo/JJNetwork"
 * responseSuccess和responseFail,网络请求的输出
 * 至于为什么选择Delegate这种交互方式，[传送门](https://github.com/jezzmemo/JJNetwork/blob/master/EXPLAIN.md)
 
-#### 使用自定义Key签名参数,示例如下:
+### 使用自定义Key签名参数,示例如下:
 ```objc
 - (NSString*)signParameterKey{
     return @"key";
@@ -141,7 +142,7 @@ github "jezzmemo/JJNetwork"
 ```
 如果使用了`signParameterKey`方法，就会产生两个参数`sign`和`timestamp`,并且实现的方式是:md5(parameters + timestamp + key)
 
-#### GET和POST都支持缓存,示例如下:
+### GET和POST都支持缓存,示例如下:
 ```objc
 - (HTTPCachePolicy)requestCachePolicy{
     return ReloadFromCacheTimeLimit;
@@ -158,7 +159,7 @@ github "jezzmemo/JJNetwork"
 - ReloadFromCacheElseLoadNetwork: 有缓存就从缓存获取，没有就从网路获取
 - ReloadFromCacheTimeLimit: 缓存限定的时间范围内
 
-#### 支持用IP替换域名(服务器要支持IP访问)，达到提高网络性能，支持HTTP HEAD设置
+### 支持用IP替换域名(服务器要支持IP访问)，达到提高网络性能，支持HTTP HEAD设置
 
 * `JJAPIDominIPModule`
 
@@ -199,7 +200,7 @@ github "jezzmemo/JJNetwork"
 
 HttpHeadModule是设置全局的Head Field,根据自己的项目需要来决定是否需要设置.
 
-#### 拦截器的使用
+### 拦截器的使用
 
 * 从`JJAPIRequest`实例化对象的requestInterseptor的属性，并实现`JJRequestInterseptor`协议:
 ```objc
@@ -243,6 +244,66 @@ HttpHeadModule是设置全局的Head Field,根据自己的项目需要来决定�
 
 主要应用的两个场景就是Loading的显示和关闭,还有就是如果我需要用某个网络请求的数据，不需要改动原来的业务逻辑，只需要添加一份拦截即可，对已有的代码不需要任何改动.
 
+### 文件上传
+
+支持单个文件和多个文件上传，Request的demo如下:
+```objc
+
+#import <JJNetwork/JJNetwork.h>
+
+@interface UploadFileDemoRequest : JJAPIRequest
+
+@end
+
+@implementation UploadFileDemoRequest
+
+- (NSString*)requestURL{
+    return @"http://api.imemo8.com/xxxx.php";
+}
+
+- (HTTPMethod)requestMethod{
+    return JJRequestPOST;
+}
+
+
+@end
+```
+
+ViewController的代码片段示例:
+```objc
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    [self.demoRequest startRequest];
+}
+
+#pragma mark - Upload file
+
+- (NSDictionary*)requestParameters:(JJAPIRequest *)request{
+    return @{@"mod":@"upload"};
+}
+
+//主要实现这个方法，添加要上传的文件即可
+- (JJUploadFileBlock)requestFileBody:(JJAPIRequest*)request{
+    return ^(id<JJUploadFileBody> fileBody){
+        NSString* filePath = [[NSBundle mainBundle] pathForResource:@"Info" ofType:@"plist"];
+        [fileBody addFileURL:[NSURL fileURLWithPath:filePath] name:@"name" fileName:@"filename" mimeType:@"txt"];
+    };
+}
+
+#pragma mark - Get property
+
+- (UploadFileDemoRequest*)demoRequest{
+    if (_demoRequest != nil) {
+        return _demoRequest;
+    }
+    _demoRequest = [UploadFileDemoRequest new];
+    _demoRequest.delegate = self;
+    return _demoRequest;
+}
+```
+
+实现`requestFileBody`方法，添加要上传的文件即可，__这是HTTP上传文件，建议上传较小的文件__
 
 ## License
 JJNetwork is released under the MIT license. See LICENSE for details.

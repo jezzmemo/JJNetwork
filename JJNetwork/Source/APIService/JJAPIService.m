@@ -14,6 +14,43 @@
 #import "JJAPIFileCache.h"
 #import "JJAPIRequest+Extension.h"
 
+
+/**
+ Convert normal object to file Dictionary Array object
+ */
+@interface JJFileBodyImpl : NSObject <JJUploadFileBody>{
+    NSMutableArray* _uploadFiles;
+}
+
+@property(nonatomic,readonly,copy)NSArray* uploadFiles;
+
+@end
+
+@implementation JJFileBodyImpl
+
+- (instancetype)init{
+    self = [super init];
+    if (self) {
+        _uploadFiles = [NSMutableArray array];
+    }
+    return self;
+}
+
+- (void)addFileURL:(NSURL *)fileURL name:(NSString *)name fileName:(NSString *)fileName mimeType:(NSString *)mimeType{
+    NSMutableDictionary* fileInfo = [NSMutableDictionary dictionary];
+    fileInfo[JJUploadBodyURLKey] = fileURL;
+    fileInfo[JJUploadBodyNameKey] = name;
+    fileInfo[JJUploadBodyFileNameKey] = fileName;
+    fileInfo[JJUploadBodyMimeTypeKey] = mimeType;
+    
+    [_uploadFiles addObject:fileInfo];
+}
+
+- (NSArray*)uploadFiles{
+    return _uploadFiles;
+}
+@end
+
 @interface JJAPIService ()
 
 
@@ -115,9 +152,20 @@
     
     [self addHttpHeadFieldFromRequest:&sendRequest];
     
+
     if (httpMethod == JJRequestGET){
+        //GET
         self.taskRequest = [[JJAPIManager shareAPIManaer] httpGetRequest:sendRequest parameters:parameters target:self selector:@selector(networkResponse:)];
+    }else if ([self.serviceDelegate respondsToSelector:@selector(requestFileBody:)]) {
+        //Upload
+        JJUploadFileBlock fileBodyBlock  = [self.serviceDelegate requestFileBody:_currentRequest];
+        JJFileBodyImpl* fileImpl = [JJFileBodyImpl new];
+        if (fileBodyBlock) {
+            fileBodyBlock(fileImpl);
+        }
+        self.taskRequest = [[JJAPIManager shareAPIManaer] httpUploadFileRequest:sendRequest parameters:parameters target:self selector:@selector(networkResponse:) files:fileImpl.uploadFiles];
     }else if(httpMethod == JJRequestPOST){
+        //POST
         self.taskRequest = [[JJAPIManager shareAPIManaer] httpPostRequest:sendRequest parameters:parameters target:self selector:@selector(networkResponse:)];
     }
     

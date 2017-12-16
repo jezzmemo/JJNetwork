@@ -40,6 +40,9 @@
 		61CEE54F1F6B68EB00726441 /* HttpHeadModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 61CEE54E1F6B68EB00726441 /* HttpHeadModule.m */; };
 		61E270F71F4DCEAB00834D0E /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = 61E270F61F4DCEAB00834D0E /* NSString+MD5.m */; };
 		61E271061F52A5BA00834D0E /* PresentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 61E271051F52A5BA00834D0E /* PresentViewController.m */; };
+		61E90E601FE3DBAF0074778C /* UploadFileDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 61E90E5F1FE3DBAF0074778C /* UploadFileDemoViewController.m */; };
+		61E90E631FE3DC3D0074778C /* UploadFileDemoRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 61E90E621FE3DC3D0074778C /* UploadFileDemoRequest.m */; };
+		61F3E7981FE1F81B003AEF60 /* JJAPIResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 61F3E7971FE1F81B003AEF60 /* JJAPIResponse.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -92,7 +95,13 @@
 		61E270F61F4DCEAB00834D0E /* NSString+MD5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MD5.m"; sourceTree = "<group>"; };
 		61E271041F52A5BA00834D0E /* PresentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PresentViewController.h; sourceTree = "<group>"; };
 		61E271051F52A5BA00834D0E /* PresentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PresentViewController.m; sourceTree = "<group>"; };
+		61E90E5E1FE3DBAF0074778C /* UploadFileDemoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UploadFileDemoViewController.h; sourceTree = "<group>"; };
+		61E90E5F1FE3DBAF0074778C /* UploadFileDemoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UploadFileDemoViewController.m; sourceTree = "<group>"; };
+		61E90E611FE3DC3D0074778C /* UploadFileDemoRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UploadFileDemoRequest.h; sourceTree = "<group>"; };
+		61E90E621FE3DC3D0074778C /* UploadFileDemoRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UploadFileDemoRequest.m; sourceTree = "<group>"; };
 		61F366C21FCDA714001CC01A /* JJRequestDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JJRequestDelegate.h; sourceTree = "<group>"; };
+		61F3E7961FE1F81B003AEF60 /* JJAPIResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JJAPIResponse.h; sourceTree = "<group>"; };
+		61F3E7971FE1F81B003AEF60 /* JJAPIResponse.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JJAPIResponse.m; sourceTree = "<group>"; };
 		6900DC2B70A949A892CE33C9 /* Pods-JJNetwork.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JJNetwork.release.xcconfig"; path = "Pods/Target Support Files/Pods-JJNetwork/Pods-JJNetwork.release.xcconfig"; sourceTree = "<group>"; };
 		7221CB53D12F96CAC74AFE14 /* Pods_JJNetwork.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_JJNetwork.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7DE2946F419FD83108BAE7BA /* Pods-JJNetwork.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JJNetwork.debug.xcconfig"; path = "Pods/Target Support Files/Pods-JJNetwork/Pods-JJNetwork.debug.xcconfig"; sourceTree = "<group>"; };
@@ -142,6 +151,8 @@
 				611E5A971F66D42800FAF5BD /* DomainModule.m */,
 				61CEE54D1F6B68EB00726441 /* HttpHeadModule.h */,
 				61CEE54E1F6B68EB00726441 /* HttpHeadModule.m */,
+				61E90E611FE3DC3D0074778C /* UploadFileDemoRequest.h */,
+				61E90E621FE3DC3D0074778C /* UploadFileDemoRequest.m */,
 			);
 			path = Demo;
 			sourceTree = "<group>";
@@ -177,6 +188,8 @@
 				6164057F1F2E159300CA819D /* DemoViewController.m */,
 				61E271041F52A5BA00834D0E /* PresentViewController.h */,
 				61E271051F52A5BA00834D0E /* PresentViewController.m */,
+				61E90E5E1FE3DBAF0074778C /* UploadFileDemoViewController.h */,
+				61E90E5F1FE3DBAF0074778C /* UploadFileDemoViewController.m */,
 				616405811F2E159300CA819D /* Main.storyboard */,
 				616405841F2E159300CA819D /* Assets.xcassets */,
 				616405861F2E159300CA819D /* LaunchScreen.storyboard */,
@@ -239,6 +252,8 @@
 				617B37C01FD054FB00FDABF0 /* JJRequestInterseptor.h */,
 				618384CE1FD6826E00450D56 /* JJAPIRequest+Extension.h */,
 				618384CF1FD6826E00450D56 /* JJAPIRequest+Extension.m */,
+				61F3E7961FE1F81B003AEF60 /* JJAPIResponse.h */,
+				61F3E7971FE1F81B003AEF60 /* JJAPIResponse.m */,
 			);
 			path = Request;
 			sourceTree = "<group>";
@@ -464,11 +479,14 @@
 				61B734B41F62A27D001549C1 /* JJAPIServiceManager.m in Sources */,
 				61E270F71F4DCEAB00834D0E /* NSString+MD5.m in Sources */,
 				61237DC01F30798400889CD1 /* JJAPIManager.m in Sources */,
+				61E90E631FE3DC3D0074778C /* UploadFileDemoRequest.m in Sources */,
+				61F3E7981FE1F81B003AEF60 /* JJAPIResponse.m in Sources */,
 				6199ADCA1F2E2618004573E3 /* JJAFNetworkImpl.m in Sources */,
 				61CEE54F1F6B68EB00726441 /* HttpHeadModule.m in Sources */,
 				6199911B1F5C570A003AAED6 /* JJAPIFileCache.m in Sources */,
 				611E5A981F66D42800FAF5BD /* DomainModule.m in Sources */,
 				61237DB71F2F315700889CD1 /* DemoRequest.m in Sources */,
+				61E90E601FE3DBAF0074778C /* UploadFileDemoViewController.m in Sources */,
 				6164057D1F2E159300CA819D /* AppDelegate.m in Sources */,
 				6199ADD41F2E27E9004573E3 /* JJAPIRequest.m in Sources */,
 				6164057A1F2E159300CA819D /* main.m in Sources */,

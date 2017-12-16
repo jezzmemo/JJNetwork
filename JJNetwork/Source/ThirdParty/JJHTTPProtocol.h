@@ -20,6 +20,7 @@
  @param parameters HTTP POST parameter
  @param target callback target
  @param selector callback method name
+ @return NSURLSessionTask
  */
 
 - (NSURLSessionTask*)httpPostRequest:(NSURLRequest*)request
@@ -34,12 +35,29 @@
  @param parameters Http get parameter
  @param target callback target
  @param selector callback method name
+ @return NSURLSessionTask
  */
 
 - (NSURLSessionTask*)httpGetRequest:(NSURLRequest*)request
                          parameters:(NSDictionary*)parameters
                              target:(id)target
                            selector:(SEL)selector;
+
+/**
+ Http upload one or more files
+
+ @param request NSURLRequest
+ @param parameters NSDictionary
+ @param target callback target
+ @param selector callback method name
+ @param files need upload file array
+ @return NSURLSessionTask
+ */
+- (NSURLSessionTask*)httpUploadFileRequest:(NSURLRequest*)request
+                                parameters:(NSDictionary*)parameters
+                                    target:(id)target
+                                  selector:(SEL)selector
+                                     files:(NSArray*)files;
 
 @end
 

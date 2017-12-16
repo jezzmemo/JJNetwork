@@ -9,6 +9,10 @@
 #import "JJAPIManager.h"
 #import "JJAFNetworkImpl.h"
 
+NSString * const JJUploadBodyURLKey = @"JJUploadBodyURLKey";
+NSString * const JJUploadBodyNameKey = @"JJUploadBodyNameKey";
+NSString * const JJUploadBodyFileNameKey = @"JJUploadBodyFileNameKey";
+NSString * const JJUploadBodyMimeTypeKey = @"JJUploadBodyMimeTypeKey";
 
 @interface JJAPIManager ()
 
@@ -61,6 +65,14 @@
  */
 - (NSURLSessionTask*)httpGetRequest:(NSURLRequest*)request parameters:(NSDictionary*)parameter target:(id)target selector:(SEL)selector{
 	return [self.networkImpl httpGetRequest:request parameters:parameter target:target selector:selector];
+}
+
+- (NSURLSessionTask*)httpUploadFileRequest:(NSURLRequest*)request
+                                parameters:(NSDictionary*)parameters
+                                    target:(id)target
+                                  selector:(SEL)selector
+                                     files:(NSArray*)files{
+    return [self.networkImpl httpUploadFileRequest:request parameters:parameters target:target selector:selector files:files];
 }
 
 @end

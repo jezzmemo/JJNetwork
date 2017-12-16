@@ -12,6 +12,7 @@ AFNetworking-based network library, with delegate to process network response, i
 - [x] Http cache for the GET and POST
 - [x] Replace the domain to IP address improve performance and change customer http head field
 - [x] Interseptor request and response
+- [x] Support upload files
 
 ## Requirements
 
@@ -242,6 +243,66 @@ For example:
 
 * Control Loading show/hide
 * AOP Request
+
+### Upload files
+
+Support upload one or more files，UploadFileDemoRequest's demo:
+```objc
+
+#import <JJNetwork/JJNetwork.h>
+
+@interface UploadFileDemoRequest : JJAPIRequest
+
+@end
+
+@implementation UploadFileDemoRequest
+
+- (NSString*)requestURL{
+    return @"http://api.imemo8.com/xxxx.php";
+}
+
+- (HTTPMethod)requestMethod{
+    return JJRequestPOST;
+}
+
+
+@end
+```
+
+ViewController's Demo:
+```objc
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    [self.demoRequest startRequest];
+}
+
+#pragma mark - Upload file
+
+- (NSDictionary*)requestParameters:(JJAPIRequest *)request{
+    return @{@"mod":@"upload"};
+}
+
+- (JJUploadFileBlock)requestFileBody:(JJAPIRequest*)request{
+    return ^(id<JJUploadFileBody> fileBody){
+        NSString* filePath = [[NSBundle mainBundle] pathForResource:@"Info" ofType:@"plist"];
+        [fileBody addFileURL:[NSURL fileURLWithPath:filePath] name:@"name" fileName:@"filename" mimeType:@"txt"];
+    };
+}
+
+#pragma mark - Get property
+
+- (UploadFileDemoRequest*)demoRequest{
+    if (_demoRequest != nil) {
+        return _demoRequest;
+    }
+    _demoRequest = [UploadFileDemoRequest new];
+    _demoRequest.delegate = self;
+    return _demoRequest;
+}
+```
+
+Implement `requestFileBody` method，add file information，__This is upload file by HTTP, it is recommended to upload a smaller file__
 
 ## License
 JJNetwork is released under the MIT license. See LICENSE for details.

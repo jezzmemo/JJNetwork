@@ -8,25 +8,15 @@
 
 #import "JJAFNetworkImpl.h"
 #import <AFNetworking/AFNetworking.h>
+#import "JJAPIManager.h"
 
 @interface JJAFNetworkImpl ()
-
-@property(nonatomic,readwrite,copy)NSDictionary* httpHead;
 
 @end
 
 @implementation JJAFNetworkImpl
 
-#pragma mark - Init
-
-- (instancetype)init{
-    self = [super init];
-    if (self) {
-        
-    }
-    return self;
-}
-
+#pragma mark - AFURLSessionManager
 
 /**
  Get AFNetworking AFURLSessionManager object
@@ -41,6 +31,7 @@
     return manager;
 }
 
+#pragma mark - Implementaion protocol method
 
 /**
  Wrap POST request
@@ -66,6 +57,66 @@
     return [self sendHttpRequest:request parameter:parameters httpMethod:@"GET" target:target selector:selector];
 }
 
+/**
+ Upload files request
+
+ @param request NSURLRequest
+ @param parameters NSDictionary
+ @param target Which target
+ @param selector Target's method name
+ @param files file array
+ @return NSURLSessionTask track the request object
+ */
+- (NSURLSessionTask*)httpUploadFileRequest:(NSURLRequest*)request
+                                parameters:(NSDictionary*)parameters
+                                    target:(id)target
+                                  selector:(SEL)selector
+                                     files:(NSArray*)files{
+    
+    [self requestDebugInfo:request parameters:parameters];
+    
+    NSMutableURLRequest* uploadRequest = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:request.URL.absoluteString  parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        for (NSDictionary* fileInfo in files) {
+            [formData appendPartWithFileURL:fileInfo[JJUploadBodyURLKey] name:fileInfo[JJUploadBodyNameKey] fileName:fileInfo[JJUploadBodyFileNameKey] mimeType:fileInfo[JJUploadBodyMimeTypeKey] error:nil];
+        }
+        
+    } error:nil];
+    
+    uploadRequest.allHTTPHeaderFields = request.allHTTPHeaderFields;
+    
+    AFURLSessionManager* sessionManager = [self sessionManager];
+    
+    __weak typeof(self) weakSelf = self;
+    __weak typeof(target) weakTarget = target;
+    NSURLSessionUploadTask *uploadTask = [sessionManager
+                                          uploadTaskWithStreamedRequest:uploadRequest
+                                          progress:nil
+                                          completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
+                                              __strong typeof(self) strongSelf = weakSelf;
+                                              __strong typeof(target) strongTarget = weakTarget;
+                                              NSLog(@"Response <<<<<<<<<<<<<<<<<<<<<<<<<<<< START");
+                                              NSLog(@"Response from url:%@",[[response URL] absoluteString]);
+                                              NSLog(@"Response http head field:%@",[(NSHTTPURLResponse*)response allHeaderFields]);
+                                              if (error) {
+                                                  NSLog(@"Upload Error: %@", error);
+                                                  [strongSelf performSelectorOnMainThread:selector withTarget:strongTarget withObject:error];
+                                              } else {
+                                                  [strongSelf performSelectorOnMainThread:selector withTarget:strongTarget withObject:responseObject];
+                                                  NSString* string = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+                                                  if (string) {
+                                                      NSLog(@"Response content:%@",string);
+                                                  }else{
+                                                      NSLog(@"Response binary:%@",responseObject);
+                                                  }
+                                              }
+                                              NSLog(@"Response <<<<<<<<<<<<<<<<<<<<<<<<<<<< END");
+                                          }];
+    [uploadTask resume];
+    return uploadTask;
+}
+
+
+#pragma mark - Inner implementation
 
 /**
  Final AFNetworking send http request
@@ -78,16 +129,11 @@
  @return NSURLSessionTask track the request object
  */
 - (NSURLSessionTask*)sendHttpRequest:(NSURLRequest*)request parameter:(NSDictionary*)parameter httpMethod:(NSString*)method target:(id)target selector:(SEL)selector{
-    //Show log
-    NSLog(@"Send request >>>>>>>>>>>>>>>>>> START");
-    NSLog(@"Request url:%@",[request.URL absoluteString]);
-    NSLog(@"Request parameter:%@",parameter);
-    NSLog(@"Request http head field:%@",request.allHTTPHeaderFields);
-    NSLog(@"Send request >>>>>>>>>>>>>>>>>> END");
+    
+    [self requestDebugInfo:request parameters:parameter];
     
     //NSMutableURLRequest
     NSMutableURLRequest *mutableRequest = [[AFHTTPRequestSerializer serializer] requestWithMethod:method URLString:request.URL.absoluteString parameters:parameter error:nil];
-    
     mutableRequest.allHTTPHeaderFields = request.allHTTPHeaderFields;
     
     AFURLSessionManager* sessionManager = [self sessionManager];
@@ -120,7 +166,6 @@
     
 }
 
-
 /**
  Invoke the target selector
 
@@ -140,6 +185,16 @@
 	[invo retainArguments];
 	
 	[invo performSelectorOnMainThread:@selector(invoke) withObject:nil waitUntilDone:YES];
+}
+
+#pragma mark - Log
+
+- (void)requestDebugInfo:(NSURLRequest*)request parameters:(NSDictionary*)parameters{
+    NSLog(@"Send request >>>>>>>>>>>>>>>>>> START");
+    NSLog(@"Request url:%@",[request.URL absoluteString]);
+    NSLog(@"Request parameter:%@",parameters);
+    NSLog(@"Request http head field:%@",request.allHTTPHeaderFields);
+    NSLog(@"Send request >>>>>>>>>>>>>>>>>> END");
 }
 
 @end

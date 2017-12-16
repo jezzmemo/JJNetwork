@@ -24,11 +24,13 @@ typedef NS_ENUM(NSUInteger,HTTPMethod){
  - ReloadFromNetwork: Default mode,request from network
  - ReloadFromCacheElseLoadNetwork: If have cache,will return the cache,do not request network,if not exist cache,will load origin source
  - ReloadFromCacheTimeLimit: First time load request origin source,save the cache for the limit time,if expire，will load origin source and replace the old cache
+ - ReloadFromCacheAndLoadNetworkToChangeCache: First time load request origin source,save the cache,next request will return cache first,and check network reponse equals local cache,if it is different,save new response to replace old cache, and then invoke response from network
  */
 typedef NS_ENUM(NSUInteger,HTTPCachePolicy){
     ReloadFromNetwork,
     ReloadFromCacheElseLoadNetwork,
     ReloadFromCacheTimeLimit,
+    ReloadFromCacheAndLoadNetworkToChangeCache //unimplement
 };
 
 @protocol JJRequestInput <NSObject>
