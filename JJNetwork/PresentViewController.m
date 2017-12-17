@@ -39,6 +39,9 @@
 //    [JJAPIRequest registerDomainIP:self.domainModule];
     [JJAPIRequest registerHttpHeadField:self.allHttpHeadField];
     
+    id cacheData = [self.demoRequest cacheFromCurrentRequest];
+    NSLog(@"Local cache:%@",cacheData);
+    
     [JJAPIRequest addRequestInterseptor:self forRequestClass:[DemoRequest class]];
     
     [self.demoRequest startRequest];

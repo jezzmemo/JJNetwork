@@ -21,5 +21,14 @@
 
 - (void)startRequest:(JJAPIRequest<JJRequestInput>*)request;
 
+/**
+ If override requestCachePolicy method,you choose policy and exist cache data,will
+ return the cache data
+
+ @param request JJAPIRequest<JJRequestInput>*
+ @return Cache data
+ */
+- (id)cacheFromCurrentRequest:(JJAPIRequest<JJRequestInput>*)request;
+
 
 @end

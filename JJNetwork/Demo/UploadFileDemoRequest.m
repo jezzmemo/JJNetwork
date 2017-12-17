@@ -18,5 +18,12 @@
     return JJRequestPOST;
 }
 
+- (JJUploadFileBlock)requestFileBody{
+    return ^(id<JJUploadFileBody> fileBody){
+        NSString* filePath = [[NSBundle mainBundle] pathForResource:@"Info" ofType:@"plist"];
+        [fileBody addFileURL:[NSURL fileURLWithPath:filePath] name:@"file" fileName:@"backup" mimeType:@"json"];
+    };
+}
+
 
 @end

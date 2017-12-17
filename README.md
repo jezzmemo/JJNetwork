@@ -147,7 +147,7 @@ If implement `signParameterKey`,request will add two parameters,`sign` and `time
 ### Select cache policy for GET and POST
 ```objc
 - (HTTPCachePolicy)requestCachePolicy{
-    return ReloadFromCacheTimeLimit;
+    return JJReloadFromCacheTimeLimit;
 }
 
 //UNIT Second
@@ -156,11 +156,20 @@ If implement `signParameterKey`,request will add two parameters,`sign` and `time
 }
 ```
 
-- ReloadFromNetwork: Default mode,request from network
-- ReloadFromCacheElseLoadNetwork: If have cache,will return the cache,do not request network,if not exist cache,will load origin source
-- ReloadFromCacheTimeLimit: First time load request origin source,save the cache for the limit time,if expire，will load origin source and replace the old cache
+- JJReloadFromNone: Default mode,request from network
+- JJReloadFromLocalCache: If have cache,will return the cache,if origin source update,will replace new data to old cache
+- JJReloadFromCacheTimeLimit: First time load request origin source,save the cache for the limit time,if expire，will return nil,if origin source update,will replace new data to old cache
 
-If choose ReloadFromCacheTimeLimit policy,you must implement `cacheLimitTime`
+If choose JJReloadFromCacheTimeLimit policy,you must implement `cacheLimitTime`
+ 
+Final,Extends from `JJAPIRequest` any class,invoke `cacheFromCurrentRequest` method,for example:
+```objc
+id cacheData = [self.demoRequest cacheFromCurrentRequest];
+NSLog(@"Local cache:%@",cacheData);
+//show cache data
+[self.demoRequest startRequest];
+//request network and refresh UI
+```
 
 ### Replace the domain to IP address improve performance and change customer http head field
 
@@ -265,6 +274,12 @@ Support upload one or more files，UploadFileDemoRequest's demo:
     return JJRequestPOST;
 }
 
+- (JJUploadFileBlock)requestFileBody{
+    return ^(id<JJUploadFileBody> fileBody){
+        NSString* filePath = [[NSBundle mainBundle] pathForResource:@"Info" ofType:@"plist"];
+        [fileBody addFileURL:[NSURL fileURLWithPath:filePath] name:@"file" fileName:@"backup" mimeType:@"json"];
+    };
+}
 
 @end
 ```
@@ -281,13 +296,6 @@ ViewController's Demo:
 
 - (NSDictionary*)requestParameters:(JJAPIRequest *)request{
     return @{@"mod":@"upload"};
-}
-
-- (JJUploadFileBlock)requestFileBody:(JJAPIRequest*)request{
-    return ^(id<JJUploadFileBody> fileBody){
-        NSString* filePath = [[NSBundle mainBundle] pathForResource:@"Info" ofType:@"plist"];
-        [fileBody addFileURL:[NSURL fileURLWithPath:filePath] name:@"name" fileName:@"filename" mimeType:@"txt"];
-    };
 }
 
 #pragma mark - Get property

@@ -145,7 +145,7 @@ github "jezzmemo/JJNetwork"
 ### GET和POST都支持缓存,示例如下:
 ```objc
 - (HTTPCachePolicy)requestCachePolicy{
-    return ReloadFromCacheTimeLimit;
+    return JJReloadFromCacheTimeLimit;
 }
 
 - (NSUInteger)cacheLimitTime{
@@ -153,11 +153,20 @@ github "jezzmemo/JJNetwork"
 }
 ```
 
-如果选择了ReloadFromCacheTimeLimit缓存策略，就必须实现`cacheLimitTime`方法,作用是你的缓存持续的时间，过期后将从网络上重新请求，选择其他两种则不需要实现`cacheLimitTime`
+如果选择了ReloadFromCacheTimeLimit缓存策略，就必须实现`cacheLimitTime`方法,作用是你的缓存持续的时间，过期后获取缓存的数据将为空
 
-- ReloadFromNetwork: 只从网络获取
-- ReloadFromCacheElseLoadNetwork: 有缓存就从缓存获取，没有就从网路获取
-- ReloadFromCacheTimeLimit: 缓存限定的时间范围内
+- JJReloadFromNone: 只从网络获取
+- JJReloadFromLocalCache: 有缓存就从缓存获取，当网络返回时，更新老的缓存
+- JJReloadFromCacheTimeLimit: 缓存限定的时间范围内，当网络返回时，更新老的缓存
+
+在前面选择了缓存的策略后，最后一步就是怎么获取到缓存,直接调用继承JJAPIRequest任意类的`cacheFromCurrentRequest`方法:
+```objc
+id cacheData = [self.demoRequest cacheFromCurrentRequest];
+NSLog(@"Local cache:%@",cacheData);
+//先显示缓存
+[self.demoRequest startRequest];
+//在请求网络，更新UI
+```
 
 ### 支持用IP替换域名(服务器要支持IP访问)，达到提高网络性能，支持HTTP HEAD设置
 
@@ -265,6 +274,13 @@ HttpHeadModule是设置全局的Head Field,根据自己的项目需要来决定�
     return JJRequestPOST;
 }
 
+- (JJUploadFileBlock)requestFileBody{
+    return ^(id<JJUploadFileBody> fileBody){
+        NSString* filePath = [[NSBundle mainBundle] pathForResource:@"Info" ofType:@"plist"];
+        [fileBody addFileURL:[NSURL fileURLWithPath:filePath] name:@"file" fileName:@"backup" mimeType:@"json"];
+    };
+}
+
 
 @end
 ```
@@ -281,14 +297,6 @@ ViewController的代码片段示例:
 
 - (NSDictionary*)requestParameters:(JJAPIRequest *)request{
     return @{@"mod":@"upload"};
-}
-
-//主要实现这个方法，添加要上传的文件即可
-- (JJUploadFileBlock)requestFileBody:(JJAPIRequest*)request{
-    return ^(id<JJUploadFileBody> fileBody){
-        NSString* filePath = [[NSBundle mainBundle] pathForResource:@"Info" ofType:@"plist"];
-        [fileBody addFileURL:[NSURL fileURLWithPath:filePath] name:@"name" fileName:@"filename" mimeType:@"txt"];
-    };
 }
 
 #pragma mark - Get property

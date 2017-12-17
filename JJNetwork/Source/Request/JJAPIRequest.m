@@ -29,20 +29,51 @@
     return request;
 }
 
+#pragma mark - Override Set Property
+
+- (void)setDelegate:(id<JJRequestDelegate>)delegate{
+    if (_delegate != delegate) {
+        _delegate = delegate;
+    }
+    
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
+    if (_delegate) {
+        [self.apiService performSelector:@selector(setServiceDelegate:) withObject:_delegate];
+    }
+#pragma clang diagnostic pop
+}
+
+- (void)setRequestInterseptor:(id<JJRequestInterseptor>)requestInterseptor{
+    if (_requestInterseptor != requestInterseptor) {
+        _requestInterseptor = requestInterseptor;
+    }
+    
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
+    if(_requestInterseptor){
+        [self.apiService performSelector:@selector(setServiceInterseptor:) withObject:_requestInterseptor];
+    }
+#pragma clang diagnostic pop
+}
+
 #pragma mark - Public
 
 - (void)startRequest{
-    #pragma clang diagnostic push
-    #pragma clang diagnostic ignored "-Wundeclared-selector"
-    if (self.requestInterseptor) {
-        [self.apiService performSelector:@selector(setServiceInterseptor:) withObject:self.requestInterseptor];
-    }
-    if (self.delegate) {
-        [self.apiService performSelector:@selector(setServiceDelegate:) withObject:self.delegate];
-        
-    }
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
     [self.apiService performSelector:@selector(startRequest:) withObject:self];
-    #pragma clang diagnostic pop
+#pragma clang diagnostic pop
+}
+
+- (id)cacheFromCurrentRequest{
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
+    if (self.apiService) {
+        return [self.apiService performSelector:@selector(cacheFromCurrentRequest:) withObject:self];
+    }
+    return nil;
+#pragma clang diagnostic pop
 }
 
 #pragma mark - API Service
@@ -50,6 +81,9 @@
 - (id)apiService{
     if (_apiService != nil) {
         return _apiService;
+    }
+    if (!NSClassFromString(@"JJAPIService")) {
+        return nil;
     }
     _apiService = [[NSClassFromString(@"JJAPIService") alloc] init];
     return _apiService;

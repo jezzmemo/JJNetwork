@@ -22,8 +22,8 @@
     return @"key";
 }
 
-- (HTTPCachePolicy)requestCachePolicy{
-    return ReloadFromCacheTimeLimit;
+- (JJHTTPCachePolicy)requestCachePolicy{
+    return JJReloadFromLocalCache;
 }
 
 - (NSUInteger)cacheLimitTime{

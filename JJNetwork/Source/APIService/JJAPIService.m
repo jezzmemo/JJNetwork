@@ -134,12 +134,6 @@
     
     self.requestKey = [self joinURL:url withParameter:parameters];
     
-    //Handle local cache
-    
-    if (![self handleLocalCache]) {
-        return;
-    }
-    
     //Sign the parameter to safety
     
     if ([signParametersKey length] > 0 && parameters) {
@@ -156,9 +150,9 @@
     if (httpMethod == JJRequestGET){
         //GET
         self.taskRequest = [[JJAPIManager shareAPIManaer] httpGetRequest:sendRequest parameters:parameters target:self selector:@selector(networkResponse:)];
-    }else if ([self.serviceDelegate respondsToSelector:@selector(requestFileBody:)]) {
+    }else if ([self.currentRequest respondsToSelector:@selector(requestFileBody)]) {
         //Upload
-        JJUploadFileBlock fileBodyBlock  = [self.serviceDelegate requestFileBody:_currentRequest];
+        JJUploadFileBlock fileBodyBlock  = [self.currentRequest requestFileBody];
         JJFileBodyImpl* fileImpl = [JJFileBodyImpl new];
         if (fileBodyBlock) {
             fileBodyBlock(fileImpl);
@@ -171,49 +165,6 @@
     
     //Interseptor
     [self afterStartRequest:request];
-}
-
-
-/**
- Request return the HttpCachePolicy,process the cache logic
- ReloadFromNetwork:return YES;
- ReloadFromCacheElseLoadNetwork:if cache exist return NO,otherwise return YES;
- ReloadFromCacheTimeLimit:return NO;
-
- @return If YES will continue request network, NO will return cache,but do not request network
- */
-- (BOOL)handleLocalCache{
-    HTTPCachePolicy cachePolicy =  ReloadFromNetwork;
-    if ([self.currentRequest respondsToSelector:@selector(requestCachePolicy)]) {
-        cachePolicy = [self.currentRequest requestCachePolicy];
-    }
-    
-    if(cachePolicy == ReloadFromNetwork){
-        return YES;
-    }
-    
-    id cacheData = nil;
-    if (cachePolicy == ReloadFromCacheElseLoadNetwork) {
-        cacheData = [self.apiCache cacheWithKey:self.requestKey];
-    }else if(cachePolicy == ReloadFromCacheTimeLimit){
-        cacheData = [self.apiCache cacheWithKey:self.requestKey withTimeLimit:[self.currentRequest cacheLimitTime]];
-    }
-    
-    if(!cacheData){
-        return YES;
-    }
-    
-    [self afterStartRequest:self.currentRequest];
-    
-    [self beforeResponse:cacheData];
-    
-    if([self.serviceDelegate respondsToSelector:@selector(responseSuccess:responseData:)]){
-        [self.serviceDelegate responseSuccess:self.currentRequest responseData:cacheData];
-    }
-    
-    [self afterResponse:cacheData];
-    
-    return NO;
 }
 
 - (BOOL)checkRequestValidity:(JJAPIRequest<JJRequestInput>*)request{
@@ -312,6 +263,49 @@
     [[JJAPIServiceManager share] request:self.currentRequest afterResponse:response];
 }
 
+#pragma mark - Cache
+
+- (void)handleResponseCache:(id)responseData{
+    JJHTTPCachePolicy cachePolicy =  JJReloadFromNone;
+    if ([self.currentRequest respondsToSelector:@selector(requestCachePolicy)]) {
+        cachePolicy = [self.currentRequest requestCachePolicy];
+    }
+    if (cachePolicy == JJReloadFromLocalCache || cachePolicy == JJReloadFromCacheTimeLimit) {
+        [self.apiCache saveCacheWithData:responseData withKey:self.requestKey];
+    }
+}
+
+- (id)cacheFromCurrentRequest:(JJAPIRequest<JJRequestInput>*)request{
+    
+    BOOL valid = [self checkRequestValidity:request];
+    
+    if (!valid) {
+        return nil;
+    }
+    
+    NSString* url = [self replaceDomainIPFromURL:[request requestURL]];
+    
+    NSDictionary* parameters = nil;
+    
+    if ([self.serviceDelegate respondsToSelector:@selector(requestParameters:)]) {
+        parameters = [self.serviceDelegate requestParameters:request];
+    }
+    
+    self.requestKey = [self joinURL:url withParameter:parameters];
+    
+    JJHTTPCachePolicy cachePolicy = JJReloadFromNone;
+    if ([request respondsToSelector:@selector(requestCachePolicy)]) {
+        cachePolicy = [request requestCachePolicy];
+    }
+    id cacheData = nil;
+    if (cachePolicy == JJReloadFromLocalCache) {
+        cacheData = [self.apiCache cacheWithKey:self.requestKey];
+    }else if(cachePolicy == JJReloadFromCacheTimeLimit && [request respondsToSelector:@selector(cacheLimitTime)]){
+        cacheData = [self.apiCache cacheWithKey:self.requestKey withTimeLimit:[request cacheLimitTime]];
+    }
+    return cacheData;
+}
+
 #pragma mark - Response
 
 - (void)networkResponse:(id)response{
@@ -323,8 +317,8 @@
 			[self.serviceDelegate responseFail:self.currentRequest errorMessage:response];
 		}
 	}else{
-        //Save override the cache data
-        [self.apiCache saveCacheWithData:response withKey:self.requestKey];
+        //Handle cache data
+        [self handleResponseCache:response];
         
 		//Handle Content
 		if([self.serviceDelegate respondsToSelector:@selector(responseSuccess:responseData:)]){

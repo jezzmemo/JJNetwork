@@ -52,13 +52,6 @@
     return @{@"mod":@"upload"};
 }
 
-- (JJUploadFileBlock)requestFileBody:(JJAPIRequest*)request{
-    return ^(id<JJUploadFileBody> fileBody){
-        NSString* filePath = [[NSBundle mainBundle] pathForResource:@"Info" ofType:@"plist"];
-        [fileBody addFileURL:[NSURL fileURLWithPath:filePath] name:@"file" fileName:@"backup" mimeType:@"json"];
-    };
-}
-
 #pragma mark - Get property
 
 - (UploadFileDemoRequest*)demoRequest{
