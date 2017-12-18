@@ -99,9 +99,9 @@
                                               NSLog(@"Response http head field:%@",[(NSHTTPURLResponse*)response allHeaderFields]);
                                               if (error) {
                                                   NSLog(@"Upload Error: %@", error);
-                                                  [strongSelf performSelectorOnMainThread:selector withTarget:strongTarget withObject:error];
+                                                  [strongSelf performSelectorOnMainThread:selector withTarget:strongTarget withObject1:response withObject2:error];
                                               } else {
-                                                  [strongSelf performSelectorOnMainThread:selector withTarget:strongTarget withObject:responseObject];
+                                                  [strongSelf performSelectorOnMainThread:selector withTarget:strongTarget withObject1:response withObject2:responseObject];
                                                   NSString* string = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
                                                   if (string) {
                                                       NSLog(@"Response content:%@",string);
@@ -148,9 +148,9 @@
         NSLog(@"Response http head field:%@",[(NSHTTPURLResponse*)response allHeaderFields]);
         if (error) {
             NSLog(@"Get Error: %@", error);
-            [strongSelf performSelectorOnMainThread:selector withTarget:strongTarget withObject:error];
+            [strongSelf performSelectorOnMainThread:selector withTarget:strongTarget withObject1:response withObject2:error];
         } else {
-            [strongSelf performSelectorOnMainThread:selector withTarget:strongTarget withObject:responseObject];
+            [strongSelf performSelectorOnMainThread:selector withTarget:strongTarget withObject1:response withObject2:responseObject];
             NSString* string = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
             if (string) {
                 NSLog(@"Response content:%@",string);
@@ -171,9 +171,10 @@
 
  @param selector target selector
  @param target input target
- @param arg1 selector argv only for the one argv
+ @param arg1 selector argv only for the first argv
+ @param arg2 selector argv only for the second argv
  */
-- (void) performSelectorOnMainThread:(SEL)selector withTarget:(id)target withObject:(id)arg1{
+- (void) performSelectorOnMainThread:(SEL)selector withTarget:(id)target withObject1:(id)arg1 withObject2:(id)arg2{
 	NSMethodSignature* sign = [target methodSignatureForSelector:selector];
 	if (!sign) {
 		return;
@@ -182,6 +183,7 @@
 	[invo setTarget:target];
 	[invo setSelector:selector];
 	[invo setArgument:&arg1 atIndex:2];//0:target 1:_cmd
+    [invo setArgument:&arg2 atIndex:3];//0:target 1:_cmd
 	[invo retainArguments];
 	
 	[invo performSelectorOnMainThread:@selector(invoke) withObject:nil waitUntilDone:YES];

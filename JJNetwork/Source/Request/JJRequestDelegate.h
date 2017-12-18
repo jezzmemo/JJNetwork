@@ -36,7 +36,7 @@
  @param request Which JJAPIRequest instance
  @param data JSON/Html/XML/Binary response is origin data
  */
-- (void)responseSuccess:(JJAPIRequest*)request responseData:(id)data;
+- (void)responseSuccess:(JJAPIResponse*)request responseData:(id)data;
 
 
 /**
@@ -45,7 +45,7 @@
  @param request Which JJAPIRequest instance
  @param error NSError object
  */
-- (void)responseFail:(JJAPIRequest*)request errorMessage:(NSError*)error;
+- (void)responseFail:(JJAPIResponse*)request errorMessage:(NSError*)error;
 
 @end
 

@@ -10,6 +10,7 @@
 #define JJNetwork_h
 
 #import "JJAPIRequest.h"
+#import "JJAPIResponse.h"
 #import "JJAPIRequest+Extension.h"
 #import "JJAPIModule.h"
 #import "JJRequestDelegate.h"

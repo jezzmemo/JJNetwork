@@ -10,6 +10,7 @@
 #define JJRequestInterseptor_h
 
 @class JJAPIRequest;
+@class JJAPIResponse;
 
 /**
  Interseptor for the JJAPIRequest
@@ -39,14 +40,14 @@
  
  @param data Response data object
  */
-- (void)request:(JJAPIRequest*)request beforeResponse:(id)data;
+- (void)response:(JJAPIResponse*)response beforeResponseData:(id)data;
 
 /**
  Invoke afterResponse before Response
  
  @param data Response data object
  */
-- (void)request:(JJAPIRequest*)request afterResponse:(id)data;
+- (void)response:(JJAPIResponse*)response afterResponseData:(id)data;
 
 @end
 

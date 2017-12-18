@@ -9,6 +9,7 @@
 #import "JJAPIService.h"
 #import "JJAPIManager.h"
 #import "JJAPIRequest.h"
+#import "JJAPIResponse.h"
 #import "NSString+MD5.h"
 #import "JJAPIServiceManager.h"
 #import "JJAPIFileCache.h"
@@ -149,7 +150,7 @@
 
     if (httpMethod == JJRequestGET){
         //GET
-        self.taskRequest = [[JJAPIManager shareAPIManaer] httpGetRequest:sendRequest parameters:parameters target:self selector:@selector(networkResponse:)];
+        self.taskRequest = [[JJAPIManager shareAPIManaer] httpGetRequest:sendRequest parameters:parameters target:self selector:@selector(networkResponse:withData:)];
     }else if ([self.currentRequest respondsToSelector:@selector(requestFileBody)]) {
         //Upload
         JJUploadFileBlock fileBodyBlock  = [self.currentRequest requestFileBody];
@@ -157,10 +158,10 @@
         if (fileBodyBlock) {
             fileBodyBlock(fileImpl);
         }
-        self.taskRequest = [[JJAPIManager shareAPIManaer] httpUploadFileRequest:sendRequest parameters:parameters target:self selector:@selector(networkResponse:) files:fileImpl.uploadFiles];
+        self.taskRequest = [[JJAPIManager shareAPIManaer] httpUploadFileRequest:sendRequest parameters:parameters target:self selector:@selector(networkResponse:withData:) files:fileImpl.uploadFiles];
     }else if(httpMethod == JJRequestPOST){
         //POST
-        self.taskRequest = [[JJAPIManager shareAPIManaer] httpPostRequest:sendRequest parameters:parameters target:self selector:@selector(networkResponse:)];
+        self.taskRequest = [[JJAPIManager shareAPIManaer] httpPostRequest:sendRequest parameters:parameters target:self selector:@selector(networkResponse:withData:)];
     }
     
     //Interseptor
@@ -249,23 +250,23 @@
     [[JJAPIServiceManager share] afterRequest:request];
 }
 
-- (void)beforeResponse:(id)response{
-    if ([self.serviceInterseptor respondsToSelector:@selector(request:beforeResponse:)]) {
-        [self.serviceInterseptor request:self.currentRequest beforeResponse:response];
+- (void)beforeResponse:(JJAPIResponse*)response withResponseData:(id)data{
+    if ([self.serviceInterseptor respondsToSelector:@selector(response:beforeResponseData:)]) {
+        [self.serviceInterseptor response:response beforeResponseData:data];
     }
-    [[JJAPIServiceManager share] request:self.currentRequest beforeResponse:response];
+    [[JJAPIServiceManager share] response:response beforeResponseData:data];
 }
 
-- (void)afterResponse:(id)response{
-    if ([self.serviceInterseptor respondsToSelector:@selector(request:afterResponse:)]) {
-        [self.serviceInterseptor request:self.currentRequest afterResponse:response];
+- (void)afterResponse:(JJAPIResponse*)response withResponseData:(id)data{
+    if ([self.serviceInterseptor respondsToSelector:@selector(response:afterResponseData:)]) {
+        [self.serviceInterseptor response:response afterResponseData:data];
     }
-    [[JJAPIServiceManager share] request:self.currentRequest afterResponse:response];
+    [[JJAPIServiceManager share] response:response afterResponseData:data];
 }
 
 #pragma mark - Cache
 
-- (void)handleResponseCache:(id)responseData{
+- (void)handleResponseCacheData:(id)responseData{
     JJHTTPCachePolicy cachePolicy =  JJReloadFromNone;
     if ([self.currentRequest respondsToSelector:@selector(requestCachePolicy)]) {
         cachePolicy = [self.currentRequest requestCachePolicy];
@@ -308,25 +309,33 @@
 
 #pragma mark - Response
 
-- (void)networkResponse:(id)response{
-    [self beforeResponse:response];
+- (void)networkResponse:(NSHTTPURLResponse*)response withData:(id)data{
+    JJAPIResponse* apiResponse = [JJAPIResponse new];
     
-	if ([response isKindOfClass:[NSError class]]) {
-		//Handle Error
-		if([self.serviceDelegate respondsToSelector:@selector(responseFail:errorMessage:)]){
-			[self.serviceDelegate responseFail:self.currentRequest errorMessage:response];
-		}
-	}else{
-        //Handle cache data
-        [self handleResponseCache:response];
+    apiResponse.url = response.URL;
+    apiResponse.headerFields = response.allHeaderFields;
+    apiResponse.requestName = NSStringFromClass(_currentRequest.class);
+    
+    [self beforeResponse:apiResponse withResponseData:data];
+    
+    do{
+        //Handle Error
+        if ([data isKindOfClass:[NSError class]] && [self.serviceDelegate respondsToSelector:@selector(responseFail:errorMessage:)]) {
+            [self.serviceDelegate responseFail:apiResponse errorMessage:data];
+            break;
+        }
         
-		//Handle Content
-		if([self.serviceDelegate respondsToSelector:@selector(responseSuccess:responseData:)]){
-			[self.serviceDelegate responseSuccess:self.currentRequest responseData:response];
-		}
-	}
+        //Handle Cache Data
+        [self handleResponseCacheData:data];
+        
+        //Handle Success Content
+        if([self.serviceDelegate respondsToSelector:@selector(responseSuccess:responseData:)]){
+            [self.serviceDelegate responseSuccess:apiResponse responseData:data];
+        }
+        
+    }while (0);
     
-    [self afterResponse:response];
+    [self afterResponse:apiResponse withResponseData:data];
 }
 
 #pragma mark - Sign parameter with key

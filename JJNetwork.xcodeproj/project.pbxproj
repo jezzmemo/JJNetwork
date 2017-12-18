@@ -42,6 +42,7 @@
 		61E271061F52A5BA00834D0E /* PresentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 61E271051F52A5BA00834D0E /* PresentViewController.m */; };
 		61E90E601FE3DBAF0074778C /* UploadFileDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 61E90E5F1FE3DBAF0074778C /* UploadFileDemoViewController.m */; };
 		61E90E631FE3DC3D0074778C /* UploadFileDemoRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 61E90E621FE3DC3D0074778C /* UploadFileDemoRequest.m */; };
+		61E90E681FE7C9860074778C /* JJAPIResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 61F3E7961FE1F81B003AEF60 /* JJAPIResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		61F3E7981FE1F81B003AEF60 /* JJAPIResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 61F3E7971FE1F81B003AEF60 /* JJAPIResponse.m */; };
 /* End PBXBuildFile section */
 
@@ -303,6 +304,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				61E90E681FE7C9860074778C /* JJAPIResponse.h in Headers */,
 				618384D11FD7E4FE00450D56 /* JJAPIModule.h in Headers */,
 				618384D21FD7E4FE00450D56 /* JJRequestDelegate.h in Headers */,
 				618384D31FD7E4FE00450D56 /* JJRequestInterseptor.h in Headers */,

@@ -119,11 +119,11 @@ github "jezzmemo/JJNetwork"
 
 #pragma mark - Network response
 
-- (void)responseSuccess:(JJAPIRequest *)request responseData:(id)data{
+- (void)responseSuccess:(JJAPIResponse *)response responseData:(id)data{
     NSLog(@"responseSuccess");
 }
 
-- (void)responseFail:(JJAPIRequest *)request errorMessage:(NSError *)error{
+- (void)responseFail:(JJAPIResponse *)response errorMessage:(NSError *)error{
     NSLog(@"responseFail");
 }
 @end
@@ -242,11 +242,11 @@ HttpHeadModule是设置全局的Head Field,根据自己的项目需要来决定�
     NSLog(@"网络发送Request执行后");
 }
 
-- (void)request:(JJAPIRequest*)request beforeResponse:(id)data{
+- (void)response:(JJAPIResponse*)response beforeResponseData:(id)data{
     NSLog(@"返回结果前");
 }
 
-- (void)request:(JJAPIRequest*)request afterResponse:(id)data{
+- (void)response:(JJAPIResponse*)response afterResponseData:(id)data{
     NSLog(@"返回结果后");
 }
 ```

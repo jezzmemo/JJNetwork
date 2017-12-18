@@ -122,11 +122,11 @@ return enum，POST,GET,PUT,DELETE,default is GET,if you did not implement
 
 #pragma mark - Network response
 
-- (void)responseSuccess:(JJAPIRequest *)request responseData:(id)data{
+- (void)responseSuccess:(JJAPIResponse *)response responseData:(id)data{
     NSLog(@"responseSuccess");
 }
 
-- (void)responseFail:(JJAPIRequest *)request errorMessage:(NSError *)error{
+- (void)responseFail:(JJAPIResponse *)response errorMessage:(NSError *)error{
     NSLog(@"responseFail");
 }
 @end
@@ -241,11 +241,11 @@ For example:
     NSLog(@"afterRequest");
 }
 
-- (void)request:(JJAPIRequest*)request beforeResponse:(id)data{
+- (void)response:(JJAPIResponse*)response beforeResponseData:(id)data{
     NSLog(@"beforeResponse");
 }
 
-- (void)request:(JJAPIRequest*)request afterResponse:(id)data{
+- (void)response:(JJAPIResponse*)response afterResponseData:(id)data{
     NSLog(@"afterResponse");
 }
 ```

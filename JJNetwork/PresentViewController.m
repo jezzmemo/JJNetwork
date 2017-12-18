@@ -91,11 +91,11 @@
 
 #pragma mark - Network response
 
-- (void)responseSuccess:(JJAPIRequest *)request responseData:(id)data{
+- (void)responseSuccess:(JJAPIResponse *)response responseData:(id)data{
     NSLog(@"responseSuccess");
 }
 
-- (void)responseFail:(JJAPIRequest *)request errorMessage:(NSError *)error{
+- (void)responseFail:(JJAPIResponse *)response errorMessage:(NSError *)error{
     NSLog(@"responseFail");
 }
 
@@ -109,11 +109,11 @@
     NSLog(@"afterStartRequest");
 }
 
-- (void)request:(JJAPIRequest*)request beforeResponse:(id)data{
+- (void)response:(JJAPIResponse*)response beforeResponseData:(id)data{
     NSLog(@"beforeResponse");
 }
 
-- (void)request:(JJAPIRequest*)request afterResponse:(id)data{
+- (void)response:(JJAPIResponse*)response afterResponseData:(id)data{
     NSLog(@"afterResponse");
 }
 

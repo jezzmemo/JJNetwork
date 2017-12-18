@@ -7,6 +7,7 @@
 //
 
 #import "JJAPIServiceManager.h"
+#import "JJAPIResponse.h"
 
 @interface JJAPIServiceManager()
 
@@ -79,21 +80,19 @@
     }
 }
 
-- (void)request:(JJAPIRequest*)request beforeResponse:(id)data{
-    NSString* className = NSStringFromClass([request class]);
-    NSArray* interseptorArray = self.classNameToInterseptorDic[className];
+- (void)response:(JJAPIResponse*)response beforeResponseData:(id)data{
+    NSArray* interseptorArray = self.classNameToInterseptorDic[response.requestName];
     for (NSValue* value in interseptorArray) {
         id<JJRequestInterseptor> interseptor = value.nonretainedObjectValue;
-        [interseptor request:request beforeResponse:data];
+        [interseptor response:response beforeResponseData:data];
     }
 }
 
-- (void)request:(JJAPIRequest*)request afterResponse:(id)data{
-    NSString* className = NSStringFromClass([request class]);
-    NSArray* interseptorArray = self.classNameToInterseptorDic[className];
+- (void)response:(JJAPIResponse*)response afterResponseData:(id)data{
+    NSArray* interseptorArray = self.classNameToInterseptorDic[response.requestName];
     for (NSValue* value in interseptorArray) {
         id<JJRequestInterseptor> interseptor = value.nonretainedObjectValue;
-        [interseptor request:request afterResponse:data];
+        [interseptor response:response afterResponseData:data];
     }
 }
 

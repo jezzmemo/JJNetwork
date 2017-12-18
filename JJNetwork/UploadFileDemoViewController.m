@@ -38,11 +38,11 @@
 
 #pragma mark - Network response
 
-- (void)responseSuccess:(JJAPIRequest *)request responseData:(id)data{
+- (void)responseSuccess:(JJAPIResponse *)response responseData:(id)data{
     NSLog(@"responseSuccess");
 }
 
-- (void)responseFail:(JJAPIRequest *)request errorMessage:(NSError *)error{
+- (void)responseFail:(JJAPIResponse *)response errorMessage:(NSError *)error{
     NSLog(@"responseFail");
 }
 

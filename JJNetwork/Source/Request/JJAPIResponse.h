@@ -8,10 +8,24 @@
 
 #import <Foundation/Foundation.h>
 
+/**
+ HTTP Response Object
+ */
 @interface JJAPIResponse : NSObject
 
-@property(nonatomic,readonly,copy)NSURL* url;
+/**
+ HTTP Request URL Address
+ */
+@property(nonatomic,readwrite,copy)NSURL* url;
 
-@property(nonatomic,readonly,copy)NSDictionary* headerFields;
+/**
+ Response Head info
+ */
+@property(nonatomic,readwrite,copy)NSDictionary* headerFields;
+
+/**
+ Record request class name
+ */
+@property(nonatomic,readwrite,copy)NSString* requestName;
 
 @end
