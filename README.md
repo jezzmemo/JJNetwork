@@ -13,6 +13,7 @@ AFNetworking-based network library, with delegate to process network response, i
 - [x] Replace the domain to IP address improve performance and change customer http head field
 - [x] Interseptor request and response
 - [x] Support upload files
+- [x] Mock request
 
 ## Requirements
 
@@ -311,6 +312,32 @@ ViewController's Demo:
 ```
 
 Implement `requestFileBody` method，add file information，__This is upload file by HTTP, it is recommended to upload a smaller file__
+
+### Mock request
+
+Setup mock request and add mock request:
+
+```objc
+-(instancetype)init{
+    self = [super init];
+    if (self) {
+        [self setupMockConfing];
+        [self setupMockRequest];
+    }
+    return self;
+}
+
+- (void)setupMockConfing{
+    //Global settings
+    JJAPIMock.mockSwitch = NO;
+}
+
+- (void)setupMockRequest{
+    //Add mock request 
+    [JJAPIMock testRequest:[DemoRequest class] responseString:@"<HTML></HTML>" isOn:YES];
+}
+```
+
 
 ## License
 JJNetwork is released under the MIT license. See LICENSE for details.

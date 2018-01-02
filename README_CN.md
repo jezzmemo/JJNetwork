@@ -13,6 +13,7 @@
 - [x] 支持用IP替换域名，达到提高网络性能，支持HTTP HEAD设置
 - [x] 拦截网络请求，方便拦截任意请求，复用请求，加入Loading
 - [x] 支持文件上传
+- [x] 支持Mock
 
 ## 安装环境
 
@@ -312,6 +313,32 @@ ViewController的代码片段示例:
 ```
 
 实现`requestFileBody`方法，添加要上传的文件即可，__这是HTTP上传文件，建议上传较小的文件__
+
+### Mock请求
+
+新建一个单例文件来管理所有的Mock,代码片段如下:
+```objc
+-(instancetype)init{
+    self = [super init];
+    if (self) {
+        [self setupMockConfing];
+        [self setupMockRequest];
+    }
+    return self;
+}
+
+- (void)setupMockConfing{
+    //全局开关
+    JJAPIMock.mockSwitch = NO;
+}
+
+- (void)setupMockRequest{
+    //添加需要模拟请求的request,返回值，是否打开
+    [JJAPIMock testRequest:[DemoRequest class] responseString:@"<HTML></HTML>" isOn:YES];
+}
+```
+
+全局开关如果关掉，所有的Mock都不会执行，如果全局打开，每个Mock的开关由`isOn:YES/NO`
 
 ## License
 JJNetwork is released under the MIT license. See LICENSE for details.

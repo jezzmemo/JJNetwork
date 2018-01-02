@@ -11,12 +11,16 @@
 		611E5A981F66D42800FAF5BD /* DomainModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 611E5A971F66D42800FAF5BD /* DomainModule.m */; };
 		61237DB71F2F315700889CD1 /* DemoRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 61237DB61F2F315700889CD1 /* DemoRequest.m */; };
 		61237DC01F30798400889CD1 /* JJAPIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 61237DBF1F30798400889CD1 /* JJAPIManager.m */; };
+		615B3DE91FF0F9AA00C9BB06 /* JJAPIMock.m in Sources */ = {isa = PBXBuildFile; fileRef = 615B3DE81FF0F9AA00C9BB06 /* JJAPIMock.m */; };
+		615B3DEF1FF21D4500C9BB06 /* MockDemoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 615B3DEE1FF21D4500C9BB06 /* MockDemoManager.m */; };
 		6164057A1F2E159300CA819D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 616405791F2E159300CA819D /* main.m */; };
 		6164057D1F2E159300CA819D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6164057C1F2E159300CA819D /* AppDelegate.m */; };
 		616405801F2E159300CA819D /* DemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6164057F1F2E159300CA819D /* DemoViewController.m */; };
 		616405831F2E159300CA819D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 616405811F2E159300CA819D /* Main.storyboard */; };
 		616405851F2E159300CA819D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 616405841F2E159300CA819D /* Assets.xcassets */; };
 		616405881F2E159300CA819D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 616405861F2E159300CA819D /* LaunchScreen.storyboard */; };
+		617CAB391FFB62DE00E13039 /* DemoDataConvert.m in Sources */ = {isa = PBXBuildFile; fileRef = 617CAB381FFB62DE00E13039 /* DemoDataConvert.m */; };
+		617CAB3A1FFB7C5D00E13039 /* JJAPIMock.h in Headers */ = {isa = PBXBuildFile; fileRef = 615B3DE71FF0F9AA00C9BB06 /* JJAPIMock.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		618384D01FD6826E00450D56 /* JJAPIRequest+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 618384CF1FD6826E00450D56 /* JJAPIRequest+Extension.m */; };
 		618384D11FD7E4FE00450D56 /* JJAPIModule.h in Headers */ = {isa = PBXBuildFile; fileRef = 618384CD1FD6822C00450D56 /* JJAPIModule.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		618384D21FD7E4FE00450D56 /* JJRequestDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 61F366C21FCDA714001CC01A /* JJRequestDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -53,6 +57,10 @@
 		61237DB61F2F315700889CD1 /* DemoRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoRequest.m; sourceTree = "<group>"; };
 		61237DBE1F30798400889CD1 /* JJAPIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JJAPIManager.h; sourceTree = "<group>"; };
 		61237DBF1F30798400889CD1 /* JJAPIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JJAPIManager.m; sourceTree = "<group>"; };
+		615B3DE71FF0F9AA00C9BB06 /* JJAPIMock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JJAPIMock.h; sourceTree = "<group>"; };
+		615B3DE81FF0F9AA00C9BB06 /* JJAPIMock.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JJAPIMock.m; sourceTree = "<group>"; };
+		615B3DED1FF21D4500C9BB06 /* MockDemoManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MockDemoManager.h; sourceTree = "<group>"; };
+		615B3DEE1FF21D4500C9BB06 /* MockDemoManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MockDemoManager.m; sourceTree = "<group>"; };
 		616405751F2E159300CA819D /* JJNetwork.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JJNetwork.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		616405791F2E159300CA819D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		6164057B1F2E159300CA819D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -64,6 +72,8 @@
 		616405871F2E159300CA819D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		616405891F2E159400CA819D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		617B37C01FD054FB00FDABF0 /* JJRequestInterseptor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JJRequestInterseptor.h; sourceTree = "<group>"; };
+		617CAB371FFB62DE00E13039 /* DemoDataConvert.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DemoDataConvert.h; sourceTree = "<group>"; };
+		617CAB381FFB62DE00E13039 /* DemoDataConvert.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DemoDataConvert.m; sourceTree = "<group>"; };
 		618384CD1FD6822C00450D56 /* JJAPIModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JJAPIModule.h; sourceTree = "<group>"; };
 		618384CE1FD6826E00450D56 /* JJAPIRequest+Extension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "JJAPIRequest+Extension.h"; sourceTree = "<group>"; };
 		618384CF1FD6826E00450D56 /* JJAPIRequest+Extension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "JJAPIRequest+Extension.m"; sourceTree = "<group>"; };
@@ -154,8 +164,19 @@
 				61CEE54E1F6B68EB00726441 /* HttpHeadModule.m */,
 				61E90E611FE3DC3D0074778C /* UploadFileDemoRequest.h */,
 				61E90E621FE3DC3D0074778C /* UploadFileDemoRequest.m */,
+				617CAB371FFB62DE00E13039 /* DemoDataConvert.h */,
+				617CAB381FFB62DE00E13039 /* DemoDataConvert.m */,
 			);
 			path = Demo;
+			sourceTree = "<group>";
+		};
+		615B3DEC1FF21B1800C9BB06 /* MockDemo */ = {
+			isa = PBXGroup;
+			children = (
+				615B3DED1FF21D4500C9BB06 /* MockDemoManager.h */,
+				615B3DEE1FF21D4500C9BB06 /* MockDemoManager.m */,
+			);
+			path = MockDemo;
 			sourceTree = "<group>";
 		};
 		6164056C1F2E159300CA819D = {
@@ -181,6 +202,7 @@
 		616405771F2E159300CA819D /* JJNetwork */ = {
 			isa = PBXGroup;
 			children = (
+				615B3DEC1FF21B1800C9BB06 /* MockDemo */,
 				61237DB41F2F313C00889CD1 /* Demo */,
 				6199ADC21F2E188E004573E3 /* Source */,
 				6164057B1F2E159300CA819D /* AppDelegate.h */,
@@ -255,6 +277,8 @@
 				618384CF1FD6826E00450D56 /* JJAPIRequest+Extension.m */,
 				61F3E7961FE1F81B003AEF60 /* JJAPIResponse.h */,
 				61F3E7971FE1F81B003AEF60 /* JJAPIResponse.m */,
+				615B3DE71FF0F9AA00C9BB06 /* JJAPIMock.h */,
+				615B3DE81FF0F9AA00C9BB06 /* JJAPIMock.m */,
 			);
 			path = Request;
 			sourceTree = "<group>";
@@ -304,6 +328,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				617CAB3A1FFB7C5D00E13039 /* JJAPIMock.h in Headers */,
 				61E90E681FE7C9860074778C /* JJAPIResponse.h in Headers */,
 				618384D11FD7E4FE00450D56 /* JJAPIModule.h in Headers */,
 				618384D21FD7E4FE00450D56 /* JJRequestDelegate.h in Headers */,
@@ -476,17 +501,20 @@
 			files = (
 				61E271061F52A5BA00834D0E /* PresentViewController.m in Sources */,
 				6199ADD71F2E2874004573E3 /* JJAPIService.m in Sources */,
+				615B3DEF1FF21D4500C9BB06 /* MockDemoManager.m in Sources */,
 				618384D01FD6826E00450D56 /* JJAPIRequest+Extension.m in Sources */,
 				616405801F2E159300CA819D /* DemoViewController.m in Sources */,
 				61B734B41F62A27D001549C1 /* JJAPIServiceManager.m in Sources */,
 				61E270F71F4DCEAB00834D0E /* NSString+MD5.m in Sources */,
 				61237DC01F30798400889CD1 /* JJAPIManager.m in Sources */,
+				617CAB391FFB62DE00E13039 /* DemoDataConvert.m in Sources */,
 				61E90E631FE3DC3D0074778C /* UploadFileDemoRequest.m in Sources */,
 				61F3E7981FE1F81B003AEF60 /* JJAPIResponse.m in Sources */,
 				6199ADCA1F2E2618004573E3 /* JJAFNetworkImpl.m in Sources */,
 				61CEE54F1F6B68EB00726441 /* HttpHeadModule.m in Sources */,
 				6199911B1F5C570A003AAED6 /* JJAPIFileCache.m in Sources */,
 				611E5A981F66D42800FAF5BD /* DomainModule.m in Sources */,
+				615B3DE91FF0F9AA00C9BB06 /* JJAPIMock.m in Sources */,
 				61237DB71F2F315700889CD1 /* DemoRequest.m in Sources */,
 				61E90E601FE3DBAF0074778C /* UploadFileDemoViewController.m in Sources */,
 				6164057D1F2E159300CA819D /* AppDelegate.m in Sources */,

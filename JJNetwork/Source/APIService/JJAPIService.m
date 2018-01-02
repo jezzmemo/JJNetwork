@@ -14,6 +14,7 @@
 #import "JJAPIServiceManager.h"
 #import "JJAPIFileCache.h"
 #import "JJAPIRequest+Extension.h"
+#import "JJAPIMock.h"
 
 
 /**
@@ -103,6 +104,10 @@
     BOOL valid = [self checkRequestValidity:request];
     
     if (!valid) {
+        return;
+    }
+    
+    if([self mockRequest:request]){
         return;
     }
     
@@ -264,6 +269,42 @@
     [[JJAPIServiceManager share] response:response afterResponseData:data];
 }
 
+#pragma mark - Mock
+
+- (BOOL)checkRequestMockStatus:(JJAPIRequest*)request{
+    if(!JJAPIMock.mockSwitch){
+        return NO;
+    }
+    if (![[JJAPIServiceManager share] checkMockRequest:[request class]]) {
+        return NO;
+    }
+    return YES;
+}
+
+- (BOOL)mockRequest:(JJAPIRequest*)request{
+    if (![self checkRequestMockStatus:request]) {
+        return NO;
+    }
+    //----------------------------Mock Start-------------------------------
+    [self beforeStartRequest:request];
+    [self afterStartRequest:request];
+    
+    //Mock response
+    JJAPIResponse* apiResponse = [[JJAPIResponse alloc]initWithURL:[NSURL URLWithString:_currentRequest.requestURL] headField:@{} apiRequest:request];
+    
+    id responseData = [[JJAPIServiceManager share] mockRequestData:request.class];
+    
+    [self beforeResponse:apiResponse withResponseData:responseData];
+    
+    if ([self.serviceDelegate respondsToSelector:@selector(responseSuccess:responseData:)]) {
+        [self.serviceDelegate responseSuccess:apiResponse responseData:responseData];
+    }
+    
+    [self afterResponse:apiResponse withResponseData:responseData];
+    //----------------------------Mock End---------------------------------
+    return YES;
+}
+
 #pragma mark - Cache
 
 - (void)handleResponseCacheData:(id)responseData{
@@ -282,6 +323,11 @@
     
     if (!valid) {
         return nil;
+    }
+    
+    if([self checkRequestMockStatus:request]){
+        id responseData = [[JJAPIServiceManager share] mockRequestData:request.class];
+        return responseData;
     }
     
     NSString* url = [self replaceDomainIPFromURL:[request requestURL]];
@@ -310,11 +356,7 @@
 #pragma mark - Response
 
 - (void)networkResponse:(NSHTTPURLResponse*)response withData:(id)data{
-    JJAPIResponse* apiResponse = [JJAPIResponse new];
-    
-    apiResponse.url = response.URL;
-    apiResponse.headerFields = response.allHeaderFields;
-    apiResponse.requestName = NSStringFromClass(_currentRequest.class);
+    JJAPIResponse* apiResponse = [[JJAPIResponse alloc]initWithURL:response.URL headField:response.allHeaderFields apiRequest:_currentRequest];
     
     [self beforeResponse:apiResponse withResponseData:data];
     

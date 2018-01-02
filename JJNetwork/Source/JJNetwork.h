@@ -15,5 +15,6 @@
 #import "JJAPIModule.h"
 #import "JJRequestDelegate.h"
 #import "JJRequestInterseptor.h"
+#import "JJAPIMock.h"
 
 #endif /* JJNetwork_h */

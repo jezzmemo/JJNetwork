@@ -10,4 +10,25 @@
 
 @implementation JJAPIResponse
 
+- (instancetype)initWithURL:(NSURL*)url headField:(NSDictionary*)headField apiRequest:(JJAPIRequest*)apiRequest{
+    self = [super init];
+    if (self) {
+        _url = url;
+        _headerFields = headField;
+        _apiRequest = apiRequest;
+    }
+    return self;
+}
+
+- (id)resultDataFromConvert:(id<JJAPIResponseDataConvert>)convert withData:(id)data{
+    if (!convert) {
+        return nil;
+    }
+    if (!data) {
+        return nil;
+    }
+    id processedData = [convert objectFromResponseData:data];
+    return processedData;
+}
+
 @end

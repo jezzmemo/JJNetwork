@@ -11,6 +11,8 @@
 #import "HttpHeadModule.h"
 #import "DemoRequest.h"
 #import "JJAPIRequest+Extension.h"
+#import "MockDemoManager.h"
+#import "DemoDataConvert.h"
 
 @interface PresentViewController ()<JJRequestDelegate,JJRequestInterseptor>
 
@@ -20,6 +22,8 @@
 
 @property(nonatomic,readwrite,strong)HttpHeadModule* allHttpHeadField;
 
+@property(nonatomic,readwrite,strong)DemoDataConvert* dataConvert;
+
 @end
 
 @implementation PresentViewController
@@ -28,6 +32,8 @@
     [super viewDidLoad];
     
     self.view.backgroundColor = [UIColor whiteColor];
+    
+    [MockDemoManager shareMockManager];
     
     UIButton* button = [UIButton buttonWithType:UIButtonTypeSystem];
     [button setTitle:@"Dismiss Controller" forState:UIControlStateNormal];
@@ -53,6 +59,41 @@
 
 - (void)dismissViewController{
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - Request parameter
+
+- (NSDictionary*)requestParameters:(JJAPIRequest *)request{
+    return @{@"mod":@"getHotDiary"};
+}
+
+#pragma mark - Network response
+
+- (void)responseSuccess:(JJAPIResponse *)response responseData:(id)data{
+    id processedObject = [response resultDataFromConvert:self.dataConvert withData:data];
+    NSLog(@"responseSuccess");
+}
+
+- (void)responseFail:(JJAPIResponse *)response errorMessage:(NSError *)error{
+    NSLog(@"responseFail");
+}
+
+#pragma mark - JJAPIRequest Interseptor
+
+- (void)beforeRequest:(JJAPIRequest*)request{
+    NSLog(@"beforeStartRequest");
+}
+
+- (void)afterRequest:(JJAPIRequest*)request{
+    NSLog(@"afterStartRequest");
+}
+
+- (void)response:(JJAPIResponse*)response beforeResponseData:(id)data{
+    NSLog(@"beforeResponse");
+}
+
+- (void)response:(JJAPIResponse*)response afterResponseData:(id)data{
+    NSLog(@"afterResponse");
 }
 
 #pragma mark - Get property
@@ -83,38 +124,12 @@
     return _demoRequest;
 }
 
-#pragma mark - Request parameter
-
-- (NSDictionary*)requestParameters:(JJAPIRequest *)request{
-    return @{@"mod":@"getHotDiary"};
-}
-
-#pragma mark - Network response
-
-- (void)responseSuccess:(JJAPIResponse *)response responseData:(id)data{
-    NSLog(@"responseSuccess");
-}
-
-- (void)responseFail:(JJAPIResponse *)response errorMessage:(NSError *)error{
-    NSLog(@"responseFail");
-}
-
-#pragma mark - JJAPIRequest Interseptor
-
-- (void)beforeRequest:(JJAPIRequest*)request{
-    NSLog(@"beforeStartRequest");
-}
-
-- (void)afterRequest:(JJAPIRequest*)request{
-    NSLog(@"afterStartRequest");
-}
-
-- (void)response:(JJAPIResponse*)response beforeResponseData:(id)data{
-    NSLog(@"beforeResponse");
-}
-
-- (void)response:(JJAPIResponse*)response afterResponseData:(id)data{
-    NSLog(@"afterResponse");
+- (DemoDataConvert*)dataConvert{
+    if (_dataConvert != nil) {
+        return _dataConvert;
+    }
+    _dataConvert = [DemoDataConvert new];
+    return _dataConvert;
 }
 
 @end

@@ -8,24 +8,51 @@
 
 #import <Foundation/Foundation.h>
 
+@protocol JJAPIResponseDataConvert<NSObject>
+
+- (id)objectFromResponseData:(id)data;
+
+@end
+
+@class JJAPIRequest;
+
 /**
  HTTP Response Object
  */
 @interface JJAPIResponse : NSObject
 
 /**
+ instancetype JJAPIResponse
+
+ @param url request url
+ @param headField http head field
+ @param apiRequest which request send
+ @return JJAPIResponse
+ */
+- (instancetype)initWithURL:(NSURL*)url headField:(NSDictionary*)headField apiRequest:(JJAPIRequest*)apiRequest;
+
+/**
  HTTP Request URL Address
  */
-@property(nonatomic,readwrite,copy)NSURL* url;
+@property(nonatomic,readonly,copy)NSURL* url;
 
 /**
  Response Head info
  */
-@property(nonatomic,readwrite,copy)NSDictionary* headerFields;
+@property(nonatomic,readonly,copy)NSDictionary* headerFields;
 
 /**
- Record request class name
+ Which JJAPIRequest send
  */
-@property(nonatomic,readwrite,copy)NSString* requestName;
+@property(nonatomic,readonly,weak)JJAPIRequest* apiRequest;
+
+/**
+ Convert response data to your data
+
+ @param convert Implement JJAPIResponseDataConvert protocol object
+ @param data Http Response data
+ @return Converted data
+ */
+- (id)resultDataFromConvert:(id<JJAPIResponseDataConvert>)convert withData:(id)data;
 
 @end
