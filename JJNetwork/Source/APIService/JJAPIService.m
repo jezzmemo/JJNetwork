@@ -225,7 +225,7 @@
 
 
 /**
- Add head field to the request
+ Add global head field and instance reuqest head to the request
 
  @param request NSMutableURLRequest
  */
@@ -233,9 +233,21 @@
     if (![[JJAPIServiceManager share].httpHeadField respondsToSelector:@selector(customerHttpHead)]) {
         return;
     }
-    NSDictionary* heads = [[JJAPIServiceManager share].httpHeadField customerHttpHead];
-    for (NSString* key in heads) {
-        [*request setValue:heads[key] forHTTPHeaderField:key];
+    NSDictionary* globalHeads = [[JJAPIServiceManager share].httpHeadField customerHttpHead];
+    
+    NSDictionary* requestHeads = [self.currentRequest httpHeadField];
+    
+    NSMutableDictionary* allHeads = [NSMutableDictionary dictionary];
+    
+    if (globalHeads) {
+        [allHeads addEntriesFromDictionary:globalHeads];
+    }
+    if (requestHeads) {
+        [allHeads addEntriesFromDictionary:requestHeads];
+    }
+    
+    for (NSString* key in allHeads) {
+        [*request setValue:allHeads[key] forHTTPHeaderField:key];
     }
 }
 
