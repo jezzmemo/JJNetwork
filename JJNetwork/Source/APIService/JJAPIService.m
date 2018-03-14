@@ -226,22 +226,23 @@
 
 /**
  Add global head field and instance reuqest head to the request
+ If key exist,the instance request head will replace the global head field key
 
  @param request NSMutableURLRequest
  */
 - (void)addHttpHeadFieldFromRequest:(NSMutableURLRequest**)request{
-    if (![[JJAPIServiceManager share].httpHeadField respondsToSelector:@selector(customerHttpHead)]) {
-        return;
-    }
-    NSDictionary* globalHeads = [[JJAPIServiceManager share].httpHeadField customerHttpHead];
-    
-    NSDictionary* requestHeads = [self.currentRequest httpHeadField];
     
     NSMutableDictionary* allHeads = [NSMutableDictionary dictionary];
     
-    if (globalHeads) {
-        [allHeads addEntriesFromDictionary:globalHeads];
+    if ([[JJAPIServiceManager share].httpHeadField respondsToSelector:@selector(customerHttpHead)]) {
+        NSDictionary* globalHeads = [[JJAPIServiceManager share].httpHeadField customerHttpHead];
+        if (globalHeads) {
+            [allHeads addEntriesFromDictionary:globalHeads];
+        }
     }
+    
+    NSDictionary* requestHeads = [self.currentRequest httpHeadField];
+    
     if (requestHeads) {
         [allHeads addEntriesFromDictionary:requestHeads];
     }

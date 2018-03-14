@@ -101,7 +101,8 @@
                                                   NSLog(@"Upload Error: %@", error);
                                                   [strongSelf performSelectorOnMainThread:selector withTarget:strongTarget withObject1:response withObject2:error];
                                               } else {
-                                                  [strongSelf performSelectorOnMainThread:selector withTarget:strongTarget withObject1:response withObject2:responseObject];
+                                                  id targetResponse = [self convertOriginResultToTarget:responseObject];
+                                                  [strongSelf performSelectorOnMainThread:selector withTarget:strongTarget withObject1:response withObject2:targetResponse];
                                                   NSString* string = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
                                                   if (string) {
                                                       NSLog(@"Response content:%@",string);
@@ -150,7 +151,10 @@
             NSLog(@"Get Error: %@", error);
             [strongSelf performSelectorOnMainThread:selector withTarget:strongTarget withObject1:response withObject2:error];
         } else {
-            [strongSelf performSelectorOnMainThread:selector withTarget:strongTarget withObject1:response withObject2:responseObject];
+            
+            id targetResponse = [self convertOriginResultToTarget:responseObject];
+            
+            [strongSelf performSelectorOnMainThread:selector withTarget:strongTarget withObject1:response withObject2:targetResponse];
             NSString* string = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
             if (string) {
                 NSLog(@"Response content:%@",string);
@@ -197,6 +201,33 @@
     NSLog(@"Request parameter:%@",parameters);
     NSLog(@"Request http head field:%@",request.allHTTPHeaderFields);
     NSLog(@"Send request >>>>>>>>>>>>>>>>>> END");
+}
+
+#pragma mark - Data convert
+
+/**
+ First convert the NSData to JSON.
+ Second convert the NSData to NSString.(NSUTF8StringEncoding)
+ Third return originData NSData
+
+ @param originData NSData
+ @return JSON,NSString or NSData
+ */
+- (id)convertOriginResultToTarget:(NSData*)originData{
+    
+    if (!originData) {
+        return nil;
+    }
+    
+    NSDictionary* targetDicResult = [NSJSONSerialization JSONObjectWithData:originData options:NSJSONReadingAllowFragments error:nil];
+    if (targetDicResult) {
+        return targetDicResult;
+    }
+    NSString* targetStringResult = [[NSString alloc] initWithData:originData encoding:NSUTF8StringEncoding];
+    if (targetStringResult) {
+        return targetStringResult;
+    }
+    return originData;
 }
 
 @end
