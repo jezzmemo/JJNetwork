@@ -29,6 +29,19 @@
  */
 + (void)registerHttpHeadField:(id<JJAPIHttpHeadModule>)module;
 
+/**
+ Add interseptor, interseptor global request
+
+ @param interseptor JJRequestInterseptor
+ */
++ (void)addGlobalRequestInterseptor:(id<JJRequestInterseptor>)interseptor;
+
+/**
+ Remove interseptor from global request
+
+ @param interseptor JJRequestInterseptor
+ */
++ (void)removeGlobalRequestInterseptor:(id<JJRequestInterseptor>)interseptor;
 
 /**
  Add interseptor to the JJAPIRequest class

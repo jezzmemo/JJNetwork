@@ -18,6 +18,8 @@
 
 @property(nonatomic,readwrite,strong)DemoRequest* demoRequest;
 
+@property(nonatomic,readwrite,strong)DemoRequest* demoRequest2;
+
 @property(nonatomic,readwrite,strong)DomainModule* domainModule;
 
 @property(nonatomic,readwrite,strong)HttpHeadModule* allHttpHeadField;
@@ -51,6 +53,7 @@
     [JJAPIRequest addRequestInterseptor:self forRequestClass:[DemoRequest class]];
     
     [self.demoRequest startRequest];
+    [self.demoRequest2 startRequest];
 }
 
 - (void)dealloc{
@@ -70,7 +73,12 @@
 #pragma mark - Network response
 
 - (void)responseSuccess:(JJAPIResponse *)response responseData:(id)data{
-    id processedObject = [response resultDataFromConvert:self.dataConvert withData:data];
+    if (response.apiRequest == self.demoRequest) {
+        id processedObject = [response resultDataFromConvert:self.dataConvert withData:data];
+    }else if(response.apiRequest == self.demoRequest2){
+        id processedObject = [response resultDataFromConvert:self.dataConvert withData:data];
+    }
+    
     NSLog(@"responseSuccess");
 }
 
@@ -122,6 +130,16 @@
     _demoRequest.delegate = self;
     _demoRequest.requestInterseptor = self;
     return _demoRequest;
+}
+
+- (DemoRequest*)demoRequest2{
+    if (_demoRequest2 != nil) {
+        return _demoRequest2;
+    }
+    _demoRequest2 = [DemoRequest new];
+    _demoRequest2.delegate = self;
+    _demoRequest2.requestInterseptor = self;
+    return _demoRequest2;
 }
 
 - (DemoDataConvert*)dataConvert{

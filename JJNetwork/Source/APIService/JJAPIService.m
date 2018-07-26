@@ -401,7 +401,11 @@
     NSMutableString* mString = [NSMutableString string];
     for (NSString* key in para) {
         NSString* value = para[key];
-        [mString appendString:value];
+        if([value isKindOfClass:[NSString class]] ){
+            [mString appendString:value];
+        }else if([value isKindOfClass:[NSNumber class]]){
+            [mString appendFormat:@"%ld",[value integerValue]];
+        }
     }
     
     //MD5 the all value and contact the timeStamp,
@@ -428,7 +432,11 @@
     
     for (NSString* key in parameter) {
         [string appendString:key];
-        [string appendString:parameter[key]];
+        if([parameter[key] isKindOfClass:[NSString class]] ){
+            [string appendString:parameter[key]];
+        }else if([parameter[key] isKindOfClass:[NSNumber class]]){
+            [string appendFormat:@"%ld",[parameter[key] integerValue]];
+        }
     }
     return string;
 }

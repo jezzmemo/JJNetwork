@@ -8,13 +8,29 @@
 
 #import <Foundation/Foundation.h>
 
+@class JJAPIRequest;
+@class JJAPIResponse;
+
+/**
+ Data convert protocol
+ */
 @protocol JJAPIResponseDataConvert<NSObject>
 
-- (id)objectFromResponseData:(id)data;
+@optional
+- (id)objectFromResponseData:(id)data __attribute__((deprecated("Instead by objectFromResponseData: withResponse")));
+
+@required
+
+/**
+ Convert the response data
+
+ @param data remote data
+ @param response JJAPIResponse
+ @return processed data from the origin data
+ */
+- (id)objectFromResponseData:(id)data withResponse:(JJAPIResponse*)response;
 
 @end
-
-@class JJAPIRequest;
 
 /**
  HTTP Response Object

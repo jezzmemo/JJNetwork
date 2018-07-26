@@ -25,6 +25,11 @@ static NSString* const MOCK_FLAG_KEY = @"MOCK_FLAG_KEY";
  */
 @property(nonatomic,readwrite,strong)NSMutableDictionary* mockRequestDic;
 
+/**
+ Save the global request interseptor set
+ */
+@property(nonatomic,readwrite,strong)NSMutableSet* globalInterseptorSet;
+
 @end
 
 @implementation JJAPIServiceManager
@@ -39,6 +44,14 @@ static NSString* const MOCK_FLAG_KEY = @"MOCK_FLAG_KEY";
 }
 
 #pragma mark - Interseptor
+
+- (void)addServiceInterseptor:(id<JJRequestInterseptor>)interseptor{
+    [self.globalInterseptorSet addObject:[NSValue valueWithNonretainedObject:interseptor]];
+}
+
+- (void)removeServiceInterseptor:(id<JJRequestInterseptor>)interseptor{
+    [self.globalInterseptorSet removeObject:[NSValue valueWithNonretainedObject:interseptor]];
+}
 
 - (void)addServiceInterseptor:(id<JJRequestInterseptor>)interseptor forServiceClass:(Class)className{
     NSMutableArray* array = self.classNameToInterseptorDic[NSStringFromClass(className)];
@@ -74,12 +87,22 @@ static NSString* const MOCK_FLAG_KEY = @"MOCK_FLAG_KEY";
         id<JJRequestInterseptor> interseptor = value.nonretainedObjectValue;
         [interseptor beforeRequest:request];
     }
+    
+    for (NSValue* value in self.globalInterseptorSet) {
+        id<JJRequestInterseptor> interseptor = value.nonretainedObjectValue;
+        [interseptor beforeRequest:request];
+    }
 }
 
 - (void)afterRequest:(JJAPIRequest*)request{
     NSString* className = NSStringFromClass([request class]);
     NSArray* interseptorArray = self.classNameToInterseptorDic[className];
     for (NSValue* value in interseptorArray) {
+        id<JJRequestInterseptor> interseptor = value.nonretainedObjectValue;
+        [interseptor afterRequest:request];
+    }
+    
+    for (NSValue* value in self.globalInterseptorSet) {
         id<JJRequestInterseptor> interseptor = value.nonretainedObjectValue;
         [interseptor afterRequest:request];
     }
@@ -91,11 +114,21 @@ static NSString* const MOCK_FLAG_KEY = @"MOCK_FLAG_KEY";
         id<JJRequestInterseptor> interseptor = value.nonretainedObjectValue;
         [interseptor response:response beforeResponseData:data];
     }
+    
+    for (NSValue* value in self.globalInterseptorSet) {
+        id<JJRequestInterseptor> interseptor = value.nonretainedObjectValue;
+        [interseptor response:response beforeResponseData:data];
+    }
 }
 
 - (void)response:(JJAPIResponse*)response afterResponseData:(id)data{
     NSArray* interseptorArray = self.classNameToInterseptorDic[NSStringFromClass(response.apiRequest.class)];
     for (NSValue* value in interseptorArray) {
+        id<JJRequestInterseptor> interseptor = value.nonretainedObjectValue;
+        [interseptor response:response afterResponseData:data];
+    }
+    
+    for (NSValue* value in self.globalInterseptorSet) {
         id<JJRequestInterseptor> interseptor = value.nonretainedObjectValue;
         [interseptor response:response afterResponseData:data];
     }
@@ -157,7 +190,7 @@ static NSString* const MOCK_FLAG_KEY = @"MOCK_FLAG_KEY";
     return binaryData;
 }
 
-#pragma mark - Get Property
+#pragma mark - Get Lazy Property
 
 - (NSMutableDictionary*)mockRequestDic{
     if (_mockRequestDic != nil) {
@@ -173,6 +206,14 @@ static NSString* const MOCK_FLAG_KEY = @"MOCK_FLAG_KEY";
     }
     _classNameToInterseptorDic = [[NSMutableDictionary alloc] init];
     return _classNameToInterseptorDic;
+}
+
+- (NSMutableSet*)globalInterseptorSet{
+    if (_globalInterseptorSet != nil) {
+        return _globalInterseptorSet;
+    }
+    _globalInterseptorSet = [NSMutableSet new];
+    return _globalInterseptorSet;
 }
 
 @end

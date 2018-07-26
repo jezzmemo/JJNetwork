@@ -27,8 +27,11 @@
     if (!data) {
         return nil;
     }
-    id processedData = [convert objectFromResponseData:data];
-    return processedData;
+    if ([convert respondsToSelector:@selector(objectFromResponseData:withResponse:)]) {
+        id processedData = [convert objectFromResponseData:data withResponse:self];
+        return processedData;
+    }
+    return nil;
 }
 
 @end

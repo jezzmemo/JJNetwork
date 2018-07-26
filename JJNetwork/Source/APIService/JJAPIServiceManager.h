@@ -29,6 +29,20 @@
 @property(nonatomic,readwrite,weak)id<JJAPIHttpHeadModule> httpHeadField;
 
 /**
+ Add interseptor, interseptor global request
+
+ @param interseptor JJRequestInterseptor
+ */
+- (void)addServiceInterseptor:(id<JJRequestInterseptor>)interseptor;
+
+/**
+ Remove interseptor from global request
+
+ @param interseptor JJRequestInterseptor
+ */
+- (void)removeServiceInterseptor:(id<JJRequestInterseptor>)interseptor;
+
+/**
  Add request interseptor
 
  @param interseptor JJRequestInterseptor

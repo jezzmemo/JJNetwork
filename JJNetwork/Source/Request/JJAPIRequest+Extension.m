@@ -21,6 +21,16 @@
     [[self apiServiceManager] performSelector:@selector(setHttpHeadField:) withObject:module];
 }
 
++ (void)addGlobalRequestInterseptor:(id<JJRequestInterseptor>)interseptor{
+    NSAssert([interseptor conformsToProtocol:@protocol(JJRequestInterseptor)], @"Interseptor must implement JJRequestInterseptor");
+    [[self apiServiceManager] performSelector:@selector(addServiceInterseptor:) withObject:interseptor withObject:nil];
+}
+
++ (void)removeGlobalRequestInterseptor:(id<JJRequestInterseptor>)interseptor{
+    NSAssert([interseptor conformsToProtocol:@protocol(JJRequestInterseptor)], @"Interseptor must implement JJRequestInterseptor");
+    [[self apiServiceManager] performSelector:@selector(removeServiceInterseptor:) withObject:interseptor withObject:nil];
+}
+
 + (void)addRequestInterseptor:(id<JJRequestInterseptor>)interseptor forRequestClass:(Class)className{
     NSAssert([interseptor conformsToProtocol:@protocol(JJRequestInterseptor)], @"interseptor must implement JJRequestInterseptor");
     NSAssert([className isSubclassOfClass:[JJAPIRequest class]], @"className must extend from JJAPIRequest");
