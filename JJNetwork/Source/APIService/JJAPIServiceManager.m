@@ -85,12 +85,16 @@ static NSString* const MOCK_FLAG_KEY = @"MOCK_FLAG_KEY";
     NSArray* interseptorArray = self.classNameToInterseptorDic[className];
     for (NSValue* value in interseptorArray) {
         id<JJRequestInterseptor> interseptor = value.nonretainedObjectValue;
-        [interseptor beforeRequest:request];
+        if ([interseptor respondsToSelector:@selector(beforeRequest:)]) {
+            [interseptor beforeRequest:request];
+        }
     }
     
     for (NSValue* value in self.globalInterseptorSet) {
         id<JJRequestInterseptor> interseptor = value.nonretainedObjectValue;
-        [interseptor beforeRequest:request];
+        if ([interseptor respondsToSelector:@selector(beforeRequest:)]) {
+            [interseptor beforeRequest:request];
+        }
     }
 }
 
@@ -99,12 +103,16 @@ static NSString* const MOCK_FLAG_KEY = @"MOCK_FLAG_KEY";
     NSArray* interseptorArray = self.classNameToInterseptorDic[className];
     for (NSValue* value in interseptorArray) {
         id<JJRequestInterseptor> interseptor = value.nonretainedObjectValue;
-        [interseptor afterRequest:request];
+        if ([interseptor respondsToSelector:@selector(afterRequest:)]) {
+            [interseptor afterRequest:request];
+        }
     }
     
     for (NSValue* value in self.globalInterseptorSet) {
         id<JJRequestInterseptor> interseptor = value.nonretainedObjectValue;
-        [interseptor afterRequest:request];
+        if ([interseptor respondsToSelector:@selector(afterRequest:)]) {
+            [interseptor afterRequest:request];
+        }
     }
 }
 
@@ -112,12 +120,16 @@ static NSString* const MOCK_FLAG_KEY = @"MOCK_FLAG_KEY";
     NSArray* interseptorArray = self.classNameToInterseptorDic[NSStringFromClass(response.apiRequest.class)];
     for (NSValue* value in interseptorArray) {
         id<JJRequestInterseptor> interseptor = value.nonretainedObjectValue;
-        [interseptor response:response beforeResponseData:data];
+        if ([interseptor respondsToSelector:@selector(response:beforeResponseData:)]) {
+            [interseptor response:response beforeResponseData:data];
+        }
     }
     
     for (NSValue* value in self.globalInterseptorSet) {
         id<JJRequestInterseptor> interseptor = value.nonretainedObjectValue;
-        [interseptor response:response beforeResponseData:data];
+        if ([interseptor respondsToSelector:@selector(response:beforeResponseData:)]) {
+            [interseptor response:response beforeResponseData:data];
+        }
     }
 }
 
@@ -125,12 +137,16 @@ static NSString* const MOCK_FLAG_KEY = @"MOCK_FLAG_KEY";
     NSArray* interseptorArray = self.classNameToInterseptorDic[NSStringFromClass(response.apiRequest.class)];
     for (NSValue* value in interseptorArray) {
         id<JJRequestInterseptor> interseptor = value.nonretainedObjectValue;
-        [interseptor response:response afterResponseData:data];
+        if ([interseptor respondsToSelector:@selector(response:afterResponseData:)]) {
+            [interseptor response:response afterResponseData:data];
+        }
     }
     
     for (NSValue* value in self.globalInterseptorSet) {
         id<JJRequestInterseptor> interseptor = value.nonretainedObjectValue;
-        [interseptor response:response afterResponseData:data];
+        if ([interseptor respondsToSelector:@selector(response:afterResponseData:)]) {
+            [interseptor response:response afterResponseData:data];
+        }
     }
 }
 
