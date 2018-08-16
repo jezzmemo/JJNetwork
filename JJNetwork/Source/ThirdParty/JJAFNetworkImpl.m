@@ -9,6 +9,7 @@
 #import "JJAFNetworkImpl.h"
 #import <AFNetworking/AFNetworking.h>
 #import "JJAPIManager.h"
+#import <objc/runtime.h>
 
 @interface JJAFNetworkImpl ()
 
@@ -92,8 +93,8 @@
                                           uploadTaskWithStreamedRequest:uploadRequest
                                           progress:nil
                                           completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
-                                              __strong typeof(self) strongSelf = weakSelf;
-                                              __strong typeof(target) strongTarget = weakTarget;
+                                              __strong typeof(weakSelf) strongSelf = weakSelf;
+                                              __strong typeof(weakTarget) strongTarget = weakTarget;
                                               NSLog(@"Response <<<<<<<<<<<<<<<<<<<<<<<<<<<< START");
                                               NSLog(@"Response from url:%@",[[response URL] absoluteString]);
                                               NSLog(@"Response http head field:%@",[(NSHTTPURLResponse*)response allHeaderFields]);
@@ -142,27 +143,15 @@
     __weak typeof(self) weakSelf = self;
     __weak typeof(target) weakTarget = target;
     NSURLSessionDataTask *dataTask = [sessionManager dataTaskWithRequest:mutableRequest completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
-        __strong typeof(self) strongSelf = weakSelf;
-        __strong typeof(target) strongTarget = weakTarget;
-        NSLog(@"Response <<<<<<<<<<<<<<<<<<<<<<<<<<<< START");
-        NSLog(@"Response from url:%@",[[response URL] absoluteString]);
-        NSLog(@"Response http head field:%@",[(NSHTTPURLResponse*)response allHeaderFields]);
+        __strong typeof(weakSelf) strongSelf = weakSelf;
+        __strong typeof(weakTarget) strongTarget = weakTarget;
         if (error) {
-            NSLog(@"Get Error: %@", error);
             [strongSelf performSelectorOnMainThread:selector withTarget:strongTarget withObject1:response withObject2:error];
         } else {
-            
             id targetResponse = [self convertOriginResultToTarget:responseObject];
-            
             [strongSelf performSelectorOnMainThread:selector withTarget:strongTarget withObject1:response withObject2:targetResponse];
-            NSString* string = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
-            if (string) {
-                NSLog(@"Response content:%@",string);
-            }else{
-                NSLog(@"Response binary:%@",responseObject);
-            }
         }
-        NSLog(@"Response <<<<<<<<<<<<<<<<<<<<<<<<<<<< END");
+        [strongSelf responseDebugInfo:response responseObject:responseObject error:error];
     }];
     [dataTask resume];
     
@@ -179,28 +168,41 @@
  @param arg2 selector argv only for the second argv
  */
 - (void) performSelectorOnMainThread:(SEL)selector withTarget:(id)target withObject1:(id)arg1 withObject2:(id)arg2{
-	NSMethodSignature* sign = [target methodSignatureForSelector:selector];
-	if (!sign) {
-		return;
-	}
-	NSInvocation* invo = [NSInvocation invocationWithMethodSignature:sign];
-	[invo setTarget:target];
-	[invo setSelector:selector];
-	[invo setArgument:&arg1 atIndex:2];//0:target 1:_cmd
-    [invo setArgument:&arg2 atIndex:3];//0:target 1:_cmd
-	[invo retainArguments];
-	
-	[invo performSelectorOnMainThread:@selector(invoke) withObject:nil waitUntilDone:YES];
+    IMP imp = [target methodForSelector:selector];
+    if (imp != NULL) {
+        ((void(*)(id,SEL,id,id))imp)(target,selector,arg1,arg2);
+    }
 }
 
-#pragma mark - Log
+#pragma mark - Request Response Log
 
 - (void)requestDebugInfo:(NSURLRequest*)request parameters:(NSDictionary*)parameters{
+#ifdef DEBUG
     NSLog(@"Send request >>>>>>>>>>>>>>>>>> START");
     NSLog(@"Request url:%@",[request.URL absoluteString]);
     NSLog(@"Request parameter:%@",parameters);
     NSLog(@"Request http head field:%@",request.allHTTPHeaderFields);
     NSLog(@"Send request >>>>>>>>>>>>>>>>>> END");
+#endif
+}
+
+- (void)responseDebugInfo:(NSURLResponse*)response responseObject:(id)responseObject error:(NSError*)error{
+#ifdef DEBUG
+    NSLog(@"Response <<<<<<<<<<<<<<<<<<<<<<<<<<<< START");
+    NSLog(@"Response from url:%@",[[response URL] absoluteString]);
+    NSLog(@"Response http head field:%@",[(NSHTTPURLResponse*)response allHeaderFields]);
+    if (error) {
+        NSLog(@"Get Error: %@", error);
+    } else {
+        NSString* string = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+        if (string) {
+            NSLog(@"Response content:%@",string);
+        }else{
+            NSLog(@"Response binary:%@",responseObject);
+        }
+    }
+    NSLog(@"Response <<<<<<<<<<<<<<<<<<<<<<<<<<<< END");
+#endif
 }
 
 #pragma mark - Data convert

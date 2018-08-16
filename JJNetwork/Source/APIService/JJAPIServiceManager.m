@@ -12,7 +12,15 @@
 static NSString* const MOCK_DATA_KEY = @"MOCK_DATA_KEY";
 static NSString* const MOCK_FLAG_KEY = @"MOCK_FLAG_KEY";
 
-@interface JJAPIServiceManager()
+static void blockCleanUp(__strong void(^*block)(void)) {
+    (*block)();
+}
+
+#define onExit __strong void(^block)(void) __attribute__((cleanup(blockCleanUp), unused)) = ^
+
+@interface JJAPIServiceManager(){
+    dispatch_semaphore_t _serviceSemaphore;//Mutex none thread safe collection
+}
 
 
 /**
@@ -43,25 +51,42 @@ static NSString* const MOCK_FLAG_KEY = @"MOCK_FLAG_KEY";
     return serviceManager;
 }
 
+- (instancetype)init{
+    self = [super init];
+    if (self) {
+        _serviceSemaphore = dispatch_semaphore_create(1);
+    }
+    return self;
+}
+
 #pragma mark - Interseptor
 
 - (void)addServiceInterseptor:(id<JJRequestInterseptor>)interseptor{
+    dispatch_semaphore_wait(_serviceSemaphore, DISPATCH_TIME_FOREVER);
     [self.globalInterseptorSet addObject:[NSValue valueWithNonretainedObject:interseptor]];
+    dispatch_semaphore_signal(_serviceSemaphore);
+    
 }
 
 - (void)removeServiceInterseptor:(id<JJRequestInterseptor>)interseptor{
+    dispatch_semaphore_wait(_serviceSemaphore, DISPATCH_TIME_FOREVER);
     [self.globalInterseptorSet removeObject:[NSValue valueWithNonretainedObject:interseptor]];
+    dispatch_semaphore_signal(_serviceSemaphore);
 }
 
 - (void)addServiceInterseptor:(id<JJRequestInterseptor>)interseptor forServiceClass:(Class)className{
+    dispatch_semaphore_wait(_serviceSemaphore, DISPATCH_TIME_FOREVER);
+    onExit{
+        dispatch_semaphore_signal(_serviceSemaphore);
+    };
     NSMutableArray* array = self.classNameToInterseptorDic[NSStringFromClass(className)];
     if (array) {
         if ([array indexOfObject:[NSValue valueWithNonretainedObject:interseptor]] != NSNotFound) {
             NSLog(@"Add duplicate interseptor for the :%@",NSStringFromClass(className));
+            dispatch_semaphore_signal(_serviceSemaphore);
             return;
         }
         [array addObject:[NSValue valueWithNonretainedObject:interseptor]];
-        self.classNameToInterseptorDic[NSStringFromClass(className)] = array;
     }else{
         NSMutableArray*  array = [NSMutableArray arrayWithObject:[NSValue valueWithNonretainedObject:interseptor]];
         self.classNameToInterseptorDic[NSStringFromClass(className)] = array;
@@ -69,6 +94,10 @@ static NSString* const MOCK_FLAG_KEY = @"MOCK_FLAG_KEY";
 }
 
 - (void)removeServiceInterseptor:(id<JJRequestInterseptor>)interseptor forServiceClass:(Class)className{
+    dispatch_semaphore_wait(_serviceSemaphore, DISPATCH_TIME_FOREVER);
+    onExit{
+        dispatch_semaphore_signal(_serviceSemaphore);
+    };
     NSMutableArray* array = self.classNameToInterseptorDic[NSStringFromClass(className)];
     for (int i = 0; i < array.count; i++) {
         NSValue* value = array[i];

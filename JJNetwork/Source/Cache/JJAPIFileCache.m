@@ -15,7 +15,9 @@
     NSString* fileName = [key md5];
     NSString* filePath = [self tempFilePath:fileName];
     if (data && filePath) {
-        [data writeToFile:filePath atomically:YES];
+        NSData *resultData = [NSKeyedArchiver archivedDataWithRootObject:data];
+        BOOL result = [resultData writeToFile:filePath atomically:YES];
+        return result;
     }
     return NO;
 }
@@ -25,17 +27,24 @@
     if (![[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
         return nil;
     }
-    //String
-    NSString* stringData = [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
-    if (stringData) {
-        return stringData;
-    }
-    //Binary
+    //BinaryData
     NSData* binaryData = [NSData dataWithContentsOfFile:filePath];
-    if (binaryData) {
-        return binaryData;
+    if (!binaryData) {
+        return nil;
     }
-    return nil;
+    @try{
+        //Decode object
+        id unarchiveObject = [NSKeyedUnarchiver unarchiveObjectWithData:binaryData];
+        
+        if (unarchiveObject) {
+            return unarchiveObject;
+        }
+    }
+    @catch(NSException* ex){
+        
+    }
+    
+    return binaryData;
 }
 
 - (id)cacheWithKey:(NSString *)key withTimeLimit:(NSUInteger)seconds{
